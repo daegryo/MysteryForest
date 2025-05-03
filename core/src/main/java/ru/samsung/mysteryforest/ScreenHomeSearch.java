@@ -32,6 +32,7 @@ public class ScreenHomeSearch implements Screen {
 
 
     Texture imgBackpack;
+    Texture imgPhone;
 
     SpaceButton btnHallway;
     SpaceButton btnBedroom;
@@ -47,7 +48,9 @@ public class ScreenHomeSearch implements Screen {
     int kitchen;
     int home;
 
-    Insert insertObject = new Insert();
+    Insert insertObject1 = new Insert(1f, 1f);
+    Insert insertObject2 = new Insert(500, 500);
+
     Clues cluesObject1 = new Clues(921, 526, 20, 20, "text/paper1.png");
     Clues cluesObject2 = new Clues(1329, 623, 20, 20, "text/paper2.png");
     Clues cluesObject3 = new Clues(867, 453, 20, 20, "text/paper3.png");
@@ -79,6 +82,7 @@ public class ScreenHomeSearch implements Screen {
         imgPaper3 = new Texture("text/paper3.png");
 
         imgBackpack = new Texture("icons/backpack.png");
+        imgPhone = new Texture("icons/phone.png");
 
         btnHallway = new SpaceButton(fontPodarok, 100, 810, "Прихожая");
         btnBedroom = new SpaceButton(fontPodarok, 100, 780, "Спальня");
@@ -152,7 +156,9 @@ public class ScreenHomeSearch implements Screen {
 
         }
         // events
-        insertObject.moveUp();
+        insertObject1.moveUp();
+
+
 
 
         //paint
@@ -200,17 +206,27 @@ public class ScreenHomeSearch implements Screen {
         if (IMAGE == 0) {
             batch.draw(imgHallway, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             batch.draw(imgEmily, 1200, 0, 289, 512);
-            batch.draw(imgInsert, insertObject.x, insertObject.y, insertObject.width, insertObject.height);
-            if (insertObject.width >= 400) {
-                fontScroll.draw(batch, "Возможно что-то изменилось", 1000, 540);
+            batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
+            if (insertObject1.width >= 400) {
+                fontScroll.draw(batch, "Возможно что-то  \n изменилось", 1000, 540);
             }
         }
         btnHallway.font.draw(batch,  btnHallway.text,  btnHallway.x,  btnHallway.y);
         btnBedroom.font.draw(batch,  btnBedroom.text,  btnBedroom.x,  btnBedroom.y);
         btnKitchen.font.draw(batch,  btnKitchen.text,  btnKitchen.x,  btnKitchen.y);
         btnHome.font.draw(batch,  btnHome.text,  btnHome.x,  btnHome.y);
-        fontPodarok.draw(batch, "Цель: найти 4 улики,\n которые могут помочь", 1200, 800);
+        if (backPack.content.size() == 3){
+            fontPodarok.draw(batch, "Выполнено", 1200, 800);
+            batch.draw(imgEmily, 1200, 0, 289, 512);
+            batch.draw(imgInsert, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
+            fontScroll.draw(batch, "Что это за странные \n     записки.. \n Лара написала", 1029, 628);
+            batch.draw(imgPhone,1400, 898, 150, 150);
 
+
+        }
+        else {
+            fontPodarok.draw(batch, "Цель: найти 3 улики,\n которые могут помочь", 1200, 800);
+        }
         batch.draw(imgBackpack,  234, 15, 85, 85);
 
 

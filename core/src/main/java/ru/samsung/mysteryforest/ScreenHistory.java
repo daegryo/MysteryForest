@@ -30,7 +30,7 @@ public class ScreenHistory implements Screen {
 
     Texture[] scroll = new Texture[10];
     Scroll scrollObject = new Scroll();
-    Insert insertObject = new Insert();
+    Insert insertObject = new Insert(1f, 1f);
     SpaceButton btnRollUp, btnCheckHome;
     public ReadFile readFile;
 

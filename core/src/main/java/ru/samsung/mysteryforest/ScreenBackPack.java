@@ -31,8 +31,9 @@ public class ScreenBackPack implements Screen {
     Texture imgPaper3;
 
     List<Texture> clues = new ArrayList<>();
+    List<String> paths = new ArrayList<>();
 
-    
+
 
 
 
@@ -57,8 +58,13 @@ public class ScreenBackPack implements Screen {
     @Override
     public void show() {
         for (int i = 0; i < backPack.content.size(); i++) {
-            Texture a = new Texture(backPack.content.get(i).path);
-            clues.add(a);
+
+            if (!paths.contains(backPack.content.get(i).path)){
+                Texture a = new Texture(backPack.content.get(i).path);
+                clues.add(a);
+                paths.add(backPack.content.get(i).path);
+            }
+
         }
 
     }
@@ -85,7 +91,7 @@ public class ScreenBackPack implements Screen {
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         fontPodarok.draw(batch, "Улики", 454, 593);
         for (int i = 0; i < clues.size(); i++) {
-            batch.draw(clues.get(i), 550 + (i * 150) , 526, 200,200);
+            batch.draw(clues.get(i), 550 + (i * 300) , 526, 200,200);
         }
         batch.end();
 
