@@ -1,13 +1,15 @@
 package ru.samsung.mysteryforest;
 
 public class Insert {
-    public float x = 970f;
-    public float y = 300f;
+    public float x;
+    public float y;
     public float width;
     public float height;
     public boolean down = false;
 
-    public Insert(float width, float height) {
+    public Insert(float x, float y,float width, float height) {
+        this.x  = x;
+        this.y = y;
         this.width = width;
         this.height = height;
     }

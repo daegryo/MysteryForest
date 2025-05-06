@@ -12,7 +12,7 @@ public class Main extends Game {
     public SpriteBatch batch;
     public OrthographicCamera camera;
     public Vector3 touch;
-    public BitmapFont font, fontGrey, fontText;
+    public BitmapFont font, fontGrey, fontMessage;
 
 
     public ScreenStart screenStart;
@@ -20,6 +20,9 @@ public class Main extends Game {
     public ScreenHistory screenHistory;
     public ScreenHomeSearch screenHomeSearch;
     public ScreenBackPack screenBackPack;
+    public ScreenPhone screenPhone;
+    public ScreenChapter1 screenChapter1;
+    public ScreenCar screenCar;
 
 
 
@@ -36,6 +39,9 @@ public class Main extends Game {
 
     public static final float SCR_WIDTH = 1600;
     public static final float SCR_HEIGHT= 900;
+
+    public int AttentionLara = 50;
+    public int AttentionAgata = 30;
 
 
 
@@ -60,6 +66,10 @@ public class Main extends Game {
         screenHistory = new ScreenHistory(this);
         screenHomeSearch = new ScreenHomeSearch(this);
         screenBackPack = new ScreenBackPack(this);
+        screenPhone = new ScreenPhone(this);
+        screenChapter1 = new ScreenChapter1(this);
+        screenCar = new ScreenCar(this);
+
 
 
 
@@ -73,7 +83,7 @@ public class Main extends Game {
 
 
 
-           setScreen(screenHomeSearch);
+           setScreen(screenChapter1);
 
     }
 

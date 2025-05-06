@@ -18,6 +18,8 @@ public class ScreenHomeSearch implements Screen {
     public BitmapFont font;
     public BitmapFont fontScroll;
     public BitmapFont fontPodarok;
+    public BitmapFont fontMessageBig;
+
 
     Texture imgHallway;
     Texture imgBedroom;
@@ -41,6 +43,10 @@ public class ScreenHomeSearch implements Screen {
     SpaceButton btnTakeIt1;
     SpaceButton btnTakeIt2;
     SpaceButton btnTakeIt3;
+    SpaceButton btnPhone;
+    SpaceButton btnNextChapter;
+
+
 
     int IMAGE;
     int hallway;
@@ -48,8 +54,8 @@ public class ScreenHomeSearch implements Screen {
     int kitchen;
     int home;
 
-    Insert insertObject1 = new Insert(1f, 1f);
-    Insert insertObject2 = new Insert(500, 500);
+    Insert insertObject1 = new Insert(970, 300, 1f, 1f);
+    Insert insertObject2 = new Insert(970, 300, 500, 500);
 
     Clues cluesObject1 = new Clues(921, 526, 20, 20, "text/paper1.png");
     Clues cluesObject2 = new Clues(1329, 623, 20, 20, "text/paper2.png");
@@ -69,6 +75,7 @@ public class ScreenHomeSearch implements Screen {
         font = main.font;
         fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
 
         imgHallway = new Texture("bg/home/hallway.png");
         imgBedroom = new Texture("bg/home/bedroom.png");
@@ -91,6 +98,8 @@ public class ScreenHomeSearch implements Screen {
         btnTakeIt1 = new SpaceButton(fontPodarok, 802, 358, "Взять");
         btnTakeIt2 = new SpaceButton(fontPodarok, 802,280, "Взять");
         btnTakeIt3 = new SpaceButton(fontPodarok, 802,280, "Взять");
+        btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
+        btnNextChapter = new SpaceButton(font, 740, Main.SCR_HEIGHT/2, "Далее");
 
 
         IMAGE = 0;
@@ -152,6 +161,14 @@ public class ScreenHomeSearch implements Screen {
 
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100){
                 main.setScreen(main.screenBackPack);
+                main.screenBackPack.clas = "ScreenHomeSearch";
+            }
+            if (btnPhone.hit(touch.x, touch.y) && backPack.content.size() == 3) {
+                main.setScreen(main.screenPhone);
+                main.screenPhone.clas = "ScreenHomeSearch";
+            }
+            if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
+                main.setScreen(main.screenChapter1);
             }
 
         }
@@ -208,19 +225,27 @@ public class ScreenHomeSearch implements Screen {
             batch.draw(imgEmily, 1200, 0, 289, 512);
             batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
             if (insertObject1.width >= 400) {
-                fontScroll.draw(batch, "Возможно что-то  \n изменилось", 1000, 540);
+                fontMessageBig.draw(batch, "  Возможно что-то  \n   изменилось", 1000, 540);
             }
         }
         btnHallway.font.draw(batch,  btnHallway.text,  btnHallway.x,  btnHallway.y);
         btnBedroom.font.draw(batch,  btnBedroom.text,  btnBedroom.x,  btnBedroom.y);
         btnKitchen.font.draw(batch,  btnKitchen.text,  btnKitchen.x,  btnKitchen.y);
         btnHome.font.draw(batch,  btnHome.text,  btnHome.x,  btnHome.y);
+
         if (backPack.content.size() == 3){
-            fontPodarok.draw(batch, "Выполнено", 1200, 800);
-            batch.draw(imgEmily, 1200, 0, 289, 512);
-            batch.draw(imgInsert, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
-            fontScroll.draw(batch, "Что это за странные \n     записки.. \n Лара написала", 1029, 628);
-            batch.draw(imgPhone,1400, 898, 150, 150);
+            if(!main.screenPhone.nextChapter) {
+                fontPodarok.draw(batch, "Выполнено", 1200, 800);
+                batch.draw(imgEmily, 1200, 0, 289, 512);
+                batch.draw(imgInsert, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
+                fontMessageBig.draw(batch, "Что это за странные \n        записки.. \n Лара написала", 1029, 628);
+            }
+            btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
+            if (main.screenPhone.nextChapter){
+                btnNextChapter.font.draw(batch, btnNextChapter.text, btnNextChapter.x, btnNextChapter.y);
+
+            }
+
 
 
         }

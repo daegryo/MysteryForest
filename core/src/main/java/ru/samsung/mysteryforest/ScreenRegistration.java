@@ -33,7 +33,7 @@ public class ScreenRegistration implements Screen {
         font = main.font;
 
         imgBg1 = new Texture("bg/screenGame1");
-        btnLogin = new SpaceButton(font, 710, 300, "Войти");
+        btnLogin = new SpaceButton(font, 710, 350, "Войти");
 
         shapeRenderer = new ShapeRenderer();
 

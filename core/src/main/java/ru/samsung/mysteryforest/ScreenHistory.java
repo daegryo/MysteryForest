@@ -22,6 +22,7 @@ public class ScreenHistory implements Screen {
     public BitmapFont font;
     public BitmapFont fontScroll;
     public BitmapFont fontPodarok;
+    public BitmapFont fontMessageBig;
 
 
     Texture imgBg;
@@ -30,7 +31,7 @@ public class ScreenHistory implements Screen {
 
     Texture[] scroll = new Texture[10];
     Scroll scrollObject = new Scroll();
-    Insert insertObject = new Insert(1f, 1f);
+    Insert insertObject = new Insert(970, 300, 1f, 1f);
     SpaceButton btnRollUp, btnCheckHome;
     public ReadFile readFile;
 
@@ -51,11 +52,13 @@ public class ScreenHistory implements Screen {
         font = main.font;
         fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
+
         btnRollUp = new SpaceButton(fontPodarok, 793, 450, "свернуть");
         btnCheckHome = new SpaceButton(fontPodarok, 870, 482, "Проверить дом");
 
 
-        readFile = new ReadFile("assets/story/example.txt");
+        readFile = new ReadFile("assets/story/example.txt", 7);
         array = readFile.reader();
 
         imgBg = new Texture("bg/houses/houseEmily.png");
@@ -140,14 +143,14 @@ public class ScreenHistory implements Screen {
         }
 
         if (cursor != array.size() && !(phase < 9 && !scrollDown)) {
-            fontScroll.draw(batch, array.get(cursor), 623, 750);
+            fontMessageBig.draw(batch, array.get(cursor), 623, 750);
         }
 
         if (rollUp &&  scrollObject.y <= 10){
             batch.draw(imgEmily, 1200, 0, 289, 512);
             batch.draw(imgInsert, insertObject.x, insertObject.y, insertObject.width, insertObject.height);
             if (insertObject.width >= 400) {
-                fontScroll.draw(batch, "Надо проверить дом", 1000, 540);
+                fontMessageBig.draw(batch, "Надо проверить дом", 1020, 540);
             }
         }
         if (checkHouse){

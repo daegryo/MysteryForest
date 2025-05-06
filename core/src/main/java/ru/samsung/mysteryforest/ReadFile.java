@@ -8,24 +8,26 @@ import java.util.List;
 
 public class ReadFile {
     public String filePath;
+    public int num;
     List<String> array = new ArrayList<>();
     int n = 0;
     String str = "";
 //    public String[] array = {"111"};
 
-    public ReadFile(String filePath) {
+    public ReadFile(String filePath, int num) {
         this.filePath = filePath;
+        this.num = num;
     }
 
     public List<String> reader() {
         try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (n <= 7){
+                if (n <= num){
                     str = str + "\n " + line;
                     n++;
                 }
-                if (n == 7) {
+                if (n == num) {
                     array.add(str);
                     System.out.println(str);
                     n = 0;

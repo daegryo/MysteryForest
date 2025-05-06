@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ScreenBackPack implements Screen {
     Main main;
@@ -26,12 +27,11 @@ public class ScreenBackPack implements Screen {
 
     SpaceButton btnBack;
 
-    Texture imgPaper1;
-    Texture imgPaper2;
-    Texture imgPaper3;
 
     List<Texture> clues = new ArrayList<>();
     List<String> paths = new ArrayList<>();
+
+    public String clas = "";
 
 
 
@@ -71,14 +71,18 @@ public class ScreenBackPack implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(backPack.content.size());
         // touches
         if (Gdx.input.justTouched()) {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
             if (btnBack.hit(touch.x, touch.y)){
-                main.setScreen(main.screenHomeSearch );
+                if (Objects.equals(clas, "ScreenHomeSearch")) {
+                    main.setScreen(main.screenHomeSearch);
+                }
+                if (Objects.equals(clas, "ScreenChapter1")) {
+                    main.setScreen(main.screenChapter1);
+                }
             }
         }
 

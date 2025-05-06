@@ -15,7 +15,7 @@ public class ScreenStart implements Screen {
     public SpriteBatch batch;
     public OrthographicCamera camera;
     public Vector3 touch;
-    public BitmapFont font;
+    public BitmapFont font, fontChapter1;
 
     Texture imgBG;
 
@@ -37,11 +37,12 @@ public class ScreenStart implements Screen {
         camera = main.camera;
         touch = main.touch;
         font = main.font;
+        fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/chapter1.fnt"));
 
         imgBG = new Texture("bg/start.png");
 
 
-        btnGame = new SpaceButton(font, 650, 300, "play");
+        btnGame = new SpaceButton(font, 750, 360, "play");
 
         shapeRenderer = new ShapeRenderer();
         alpha = 0f;
@@ -98,7 +99,7 @@ public class ScreenStart implements Screen {
         batch.begin();
         batch.draw(imgBG, 0, 0, Main.SCR_WIDTH,Main.SCR_HEIGHT);
 
-        font.draw(batch, "Mystery Forest", 620, 465);
+        font.draw(batch, "Mystery Forest", 530, 465);
         btnGame.font.draw(batch,btnGame.text, btnGame.x, btnGame.y);
 
         if (next){
