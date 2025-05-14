@@ -30,8 +30,11 @@ public class ScreenBackPack implements Screen {
 
     List<Texture> clues = new ArrayList<>();
     List<String> paths = new ArrayList<>();
+    List<Clues> cluesObjects = new ArrayList<>();
 
     public String clas = "";
+
+    boolean move = false;
 
 
 
@@ -47,9 +50,17 @@ public class ScreenBackPack implements Screen {
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
 
         imgBackpack = new Texture("bg/backpack.png");
-        btnBack = new SpaceButton(fontPodarok, 150, 15, "X");
+        btnBack = new SpaceButton(fontPodarok, 150, 30, "X");
 
         backPack = main.screenHomeSearch.backPack;
+
+        for (int i = 0; i < cluesObjects.size(); i++) {
+            cluesObjects.get(i).x = 550 + (i * 300);
+            cluesObjects.get(i).y = 526;
+            cluesObjects.get(i).width = 200;
+            cluesObjects.get(i).height = 200;
+        }
+
 
 
 
@@ -63,6 +74,7 @@ public class ScreenBackPack implements Screen {
                 Texture a = new Texture(backPack.content.get(i).path);
                 clues.add(a);
                 paths.add(backPack.content.get(i).path);
+                cluesObjects.add(backPack.content.get(i));
             }
 
         }
@@ -83,20 +95,41 @@ public class ScreenBackPack implements Screen {
                 if (Objects.equals(clas, "ScreenChapter1")) {
                     main.setScreen(main.screenChapter1);
                 }
+                if (Objects.equals(clas, "ScreenCar")) {
+                    main.setScreen(main.screenCar);
+                }
+
+            }
+            for (int i = 0; i < clues.size(); i++) {
+                if (touch.x >= 550 + (i * 300) && touch.x <= 550 + (i * 300) + 200 && touch.y >= 526 && touch.y <= 726){
+                    System.out.println("HHHHHHHHHHHHHHH");
+                    cluesObjects.get(i).move = true;
+                }
+
             }
         }
 
         // events
 
+
+        for (int i = 0; i < cluesObjects.size(); i++) {
+            cluesObjects.get(i).x = 550 + (i * 300);
+            cluesObjects.get(i).y = 526;
+            cluesObjects.get(i).width = 200;
+            cluesObjects.get(i).height = 200;
+
+        }
+
         //paint
-        System.out.println(clues.size());
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBackpack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         fontPodarok.draw(batch, "Улики", 454, 593);
         for (int i = 0; i < clues.size(); i++) {
-            batch.draw(clues.get(i), 550 + (i * 300) , 526, 200,200);
+            batch.draw(clues.get(i), cluesObjects.get(i).x , cluesObjects.get(i).y, cluesObjects.get(i).width, cluesObjects.get(i).height);
         }
+
         batch.end();
 
     }

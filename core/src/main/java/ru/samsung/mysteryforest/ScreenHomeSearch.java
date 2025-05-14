@@ -24,6 +24,7 @@ public class ScreenHomeSearch implements Screen {
     Texture imgHallway;
     Texture imgBedroom;
     Texture imgKitchen;
+    Texture imgBathroom;
     Texture imgHome;
     Texture imgEmily;
 
@@ -45,6 +46,7 @@ public class ScreenHomeSearch implements Screen {
     SpaceButton btnTakeIt3;
     SpaceButton btnPhone;
     SpaceButton btnNextChapter;
+    SpaceButton btnBathroom;
 
 
 
@@ -53,6 +55,7 @@ public class ScreenHomeSearch implements Screen {
     int bedroom;
     int kitchen;
     int home;
+    int bathroom;
 
     Insert insertObject1 = new Insert(970, 300, 1f, 1f);
     Insert insertObject2 = new Insert(970, 300, 500, 500);
@@ -82,6 +85,7 @@ public class ScreenHomeSearch implements Screen {
         imgKitchen = new Texture("bg/home/kitchen.png");
         imgHome = new Texture("bg/home/home.png");
         imgEmily = new Texture("heros/Emily/EmilyFullLength.png");
+        imgBathroom = new Texture("bg/home/bathroom.png");
 
         imgInsert = new Texture("text/insert.png");
         imgPaper1 = new Texture("text/paper1.png");
@@ -95,6 +99,7 @@ public class ScreenHomeSearch implements Screen {
         btnBedroom = new SpaceButton(fontPodarok, 100, 780, "Спальня");
         btnKitchen = new SpaceButton(fontPodarok, 100, 750, "Кухня");
         btnHome = new SpaceButton(fontPodarok, 100, 720, "Дом снаружи");
+        btnBathroom = new SpaceButton(fontPodarok, 100, 690, "Ванная");
         btnTakeIt1 = new SpaceButton(fontPodarok, 802, 358, "Взять");
         btnTakeIt2 = new SpaceButton(fontPodarok, 802,280, "Взять");
         btnTakeIt3 = new SpaceButton(fontPodarok, 802,280, "Взять");
@@ -107,6 +112,7 @@ public class ScreenHomeSearch implements Screen {
         bedroom = 2;
         kitchen = 3;
         home = 4;
+        bathroom = 5;
 
     }
 
@@ -134,6 +140,9 @@ public class ScreenHomeSearch implements Screen {
             }
             if (btnHome.hit(touch.x, touch.y)) {
                 IMAGE = home;
+            }
+            if (btnBathroom.hit(touch.x, touch.y)){
+                IMAGE = bathroom;
             }
 
             if ( touch.x >= 921 && touch.x <= 941 && touch.y >= 526 && touch.y <= 546){
@@ -216,13 +225,17 @@ public class ScreenHomeSearch implements Screen {
             }
             batch.draw(imgPaper3, cluesObject3.x, cluesObject3.y, cluesObject3.width, cluesObject3.height);
         }
+        if (IMAGE == bathroom){
+            batch.draw(imgBathroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+
+        }
 
 
 
 
         if (IMAGE == 0) {
             batch.draw(imgHallway, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            batch.draw(imgEmily, 1200, 0, 289, 512);
+            batch.draw(imgEmily, 1200, 0, 250, 550);
             batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
             if (insertObject1.width >= 400) {
                 fontMessageBig.draw(batch, "  Возможно что-то  \n   изменилось", 1000, 540);
@@ -232,6 +245,7 @@ public class ScreenHomeSearch implements Screen {
         btnBedroom.font.draw(batch,  btnBedroom.text,  btnBedroom.x,  btnBedroom.y);
         btnKitchen.font.draw(batch,  btnKitchen.text,  btnKitchen.x,  btnKitchen.y);
         btnHome.font.draw(batch,  btnHome.text,  btnHome.x,  btnHome.y);
+        btnBathroom.font.draw(batch, btnBathroom.text, btnBathroom.x, btnBathroom.y);
 
         if (backPack.content.size() == 3){
             if(!main.screenPhone.nextChapter) {
@@ -245,8 +259,6 @@ public class ScreenHomeSearch implements Screen {
                 btnNextChapter.font.draw(batch, btnNextChapter.text, btnNextChapter.x, btnNextChapter.y);
 
             }
-
-
 
         }
         else {

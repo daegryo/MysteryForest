@@ -53,7 +53,7 @@ public class ScreenChapter1 implements Screen {
 
     List<String> messageLara;
     List<String> messageEmilyChoice;
-    List<String> messageAgata;
+
 
     String[] partsEmily;
     String[] partsLara;
@@ -78,7 +78,7 @@ public class ScreenChapter1 implements Screen {
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
         fontMessage = new BitmapFont(Gdx.files.internal("fonts/message.fnt"));
         fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
-        fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/chapter1.fnt"));
+        fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/blood.fnt"));
         stopFont = false;
 
         imgBg = new Texture("bg/houses/houseEmily.png");
@@ -125,7 +125,7 @@ public class ScreenChapter1 implements Screen {
                 main.setScreen(main.screenBackPack);
                 main.screenBackPack.clas = "ScreenChapter1";
             }
-            if (touch.x >= 1247 && touch.x <= 1443 && touch.y >= 0 && touch.y <= 493) {
+            if (touch.x >= 1247 && touch.x <= 1443 && touch.y >= 0 && touch.y <= 493 && (choice1 || choice2)) {
                 talkEmily = false;
             }
             if (touch.x >= 464 && touch.x <= 653 && touch.y >= 0 && touch.y <= 438) {
@@ -147,7 +147,7 @@ public class ScreenChapter1 implements Screen {
                 choice2 = true;
             }
             if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
-                main.setScreen(main.screenChapter1);
+                main.setScreen(main.screenCar);
             }
 
 
@@ -167,14 +167,14 @@ public class ScreenChapter1 implements Screen {
             Color color = font.getColor();
             updateFont(1);
             fontChapter1.setColor(color.r, color.g, color.b, alpha); // меняем только alpha
-            fontChapter1.draw(batch, "Первая глава", 250, 500);
+            fontChapter1.draw(batch, "Первая глава", 450, 600);
             fontChapter1.setColor(color); // возвращаем исходный цвет
         }
         if (stopFont) {
             batch.draw(imgBackpack, 234, 15, 85, 85);
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
-            batch.draw(imgEmily, 1200, 0, 289, 512);
-            batch.draw(imgLara, 429, 0, 289, 512);
+            batch.draw(imgEmily, 1200, 0, 250, 512);
+            batch.draw(imgLara, 429, 0, 200, 512);
             if (!stopDialog) {
                 if (talkEmily) {
 

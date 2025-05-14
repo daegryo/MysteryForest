@@ -23,25 +23,18 @@ public class Main extends Game {
     public ScreenPhone screenPhone;
     public ScreenChapter1 screenChapter1;
     public ScreenCar screenCar;
-
-
-
-//    public ScreenSettings screenSettings;
- //
-   // public ScreenAbout screenAbout;
-   // public ScreenLeaderBoard screenLeaderBoard;
-
-  //  public ScreenGameStart screenGameStart;
-
-
-
-
+    public ScreenCarGame screenCarGame;
+    public ScreenRiver screenRiver;
+    public ScreenCard screenCard;
 
     public static final float SCR_WIDTH = 1600;
     public static final float SCR_HEIGHT= 900;
 
     public int AttentionLara = 50;
     public int AttentionAgata = 30;
+    public int AttentionFamily = 70;
+
+    public int Bank = 0;
 
 
 
@@ -69,6 +62,9 @@ public class Main extends Game {
         screenPhone = new ScreenPhone(this);
         screenChapter1 = new ScreenChapter1(this);
         screenCar = new ScreenCar(this);
+        screenCarGame = new ScreenCarGame(this);
+        screenRiver = new ScreenRiver(this);
+        screenCard = new ScreenCard(this);
 
 
 
@@ -83,7 +79,7 @@ public class Main extends Game {
 
 
 
-           setScreen(screenChapter1);
+           setScreen(screenRiver);
 
     }
 

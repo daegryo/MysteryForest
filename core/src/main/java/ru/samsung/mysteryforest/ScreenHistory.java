@@ -33,6 +33,7 @@ public class ScreenHistory implements Screen {
     Scroll scrollObject = new Scroll();
     Insert insertObject = new Insert(970, 300, 1f, 1f);
     SpaceButton btnRollUp, btnCheckHome;
+    SpaceButton btnBack;
     public ReadFile readFile;
 
     List<String> array;
@@ -40,6 +41,7 @@ public class ScreenHistory implements Screen {
     boolean rollUp = false;
     boolean moveDown = false;
     boolean checkHouse = false;
+    boolean drawButtonBack = true;
     int phase = 0;
     int cursor = 0;
     private long timeLastPhase, timePhaseInterval = 70;
@@ -56,6 +58,7 @@ public class ScreenHistory implements Screen {
 
         btnRollUp = new SpaceButton(fontPodarok, 793, 450, "свернуть");
         btnCheckHome = new SpaceButton(fontPodarok, 870, 482, "Проверить дом");
+        btnBack = new SpaceButton(fontPodarok, 100, 70, "Back");
 
 
         readFile = new ReadFile("assets/story/example.txt", 7);
@@ -84,12 +87,18 @@ public class ScreenHistory implements Screen {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
-            if (cursor < array.size()){
+            if (cursor < array.size() && touch.x >= 611 && touch.x <= 1079 && touch.y >= 219 && touch.y <= 831){
                 cursor++;
+            }
+            if(btnBack.hit(touch.x, touch.y)) {
+                if (cursor != 0) {
+                    cursor -= 1;
+                }
             }
             if (cursor == array.size()) {
                 if (phase == 9) {
                     scrollDown = true;
+                    drawButtonBack = false;
                 }
             }
             if (btnRollUp.hit(touch.x, touch.y) && scrollDown) {
@@ -125,6 +134,9 @@ public class ScreenHistory implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH,Main.SCR_HEIGHT);
+        if (drawButtonBack){
+            btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
+        }
 
        // System.out.println(phase);
         if (phase < 9 && !scrollDown) {

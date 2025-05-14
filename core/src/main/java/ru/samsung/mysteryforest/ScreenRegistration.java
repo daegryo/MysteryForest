@@ -32,11 +32,9 @@ public class ScreenRegistration implements Screen {
         touch = main.touch;
         font = main.font;
 
-        imgBg1 = new Texture("bg/screenGame1");
+        imgBg1 = new Texture("bg/screenGame1.png");
         btnLogin = new SpaceButton(font, 710, 350, "Войти");
-
         shapeRenderer = new ShapeRenderer();
-
     }
 
     @Override

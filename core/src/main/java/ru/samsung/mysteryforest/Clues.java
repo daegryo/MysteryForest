@@ -1,9 +1,13 @@
 package ru.samsung.mysteryforest;
 
+import java.util.Objects;
+
 public class Clues {
     public float x, y, width, height;
     boolean takeIt = false;
     String path;
+    boolean stopShow = false;
+    boolean move = false;
 
     public Clues(float x, float y, float width, float height, String path) {
         this.x = x;
@@ -33,9 +37,14 @@ public class Clues {
                 width /= 1.5f;
                 height /= 1.5f;
             }
-            else{
+            else {
                 x = 234;
                 y = 15;
+
+                if (Objects.equals(path, "bg/card.png")) {
+                    stopShow = true;
+
+                }
             }
 
         }
