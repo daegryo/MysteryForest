@@ -181,33 +181,63 @@ public class ScreenPhone implements Screen {
             System.out.println(touch.x + " " + touch.y);
             if (touch.x >= 659 && touch.x <= 1008 && touch.y >= 622 && touch.y <= 684 && IMAGE == def) {
                 IMAGE = Lara;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 656 && touch.x <= 1004 && touch.y >= 548 && touch.y <= 615 && IMAGE == def) {
                 IMAGE = Agata;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 661 && touch.x <= 1007 && touch.y >= 467 && touch.y <= 537 && IMAGE == def) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = Family;
             }
             if (touch.x >= 655 && touch.x <= 1006 && touch.y >= 201 && touch.y <= 242 && !choice2 && STATION == dialog1) {
                 choice1 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 656 && touch.x <= 1005 && touch.y >= 146 && touch.y <= 193 && !choice1 && STATION == dialog1) {
                 choice2 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 655 && touch.x <= 1006 && touch.y >= 201 && touch.y <= 242 && !choiceAgata2 && STATION == dialog2) {
                 choiceAgata1 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 656 && touch.x <= 1005 && touch.y >= 146 && touch.y <= 193 && !choiceAgata1 && STATION == dialog2) {
                 choiceAgata2 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 655 && touch.x <= 1006 && touch.y >= 201 && touch.y <= 242 && !choiceFamily2 && STATION == dialog3) {
                 choiceFamily1 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 656 && touch.x <= 1005 && touch.y >= 146 && touch.y <= 193 && !choiceFamily1 && STATION == dialog3) {
                 choiceFamily2 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (btnBack.hit(touch.x, touch.y) && IMAGE != def) {
                 IMAGE = def;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (btnBackToScreen.hit(touch.x, touch.y)) {
                 if (Objects.equals(clas, "ScreenHomeSearch")) {
@@ -218,6 +248,9 @@ public class ScreenPhone implements Screen {
                 }
                 if (Objects.equals(clas, "ScreenCar")) {
                     main.setScreen(main.screenCar);
+                }
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
                 }
 
             }
@@ -231,11 +264,18 @@ public class ScreenPhone implements Screen {
             batch.draw(imgPhone, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             fontMessage.draw(batch, messageLara.get(0) + "...", 735, 660);
             try {
-                fontMessage.draw(batch, orderAgata1.get("choiceAgata" + (cursorAgata-1)), 735, 590);
+                String[] parts = orderAgata1.get("choiceAgata" + (cursorAgata-1)).split(":");
+                System.out.println(parts[0] + parts[1]);
+                fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
             }
             catch (Exception e){
-                System.out.println("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
-
+            }
+            try {
+                String[] parts = orderFamily1.get("choiceFamily" + (cursorFamily-1)).split(":");
+                System.out.println(parts[0] + parts[1]);
+                fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
+            }
+            catch (Exception e){
             }
 
         }
@@ -276,6 +316,10 @@ public class ScreenPhone implements Screen {
         if (IMAGE == Agata) {
             batch.draw(imgPhoneAgata, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
+            if (STATION  == dialog1){
+                fontMessage.draw(batch, "Доступ не открыт", 761, 243);
+            }
+
 
             if (Objects.equals(clas, "ScreenChapter1") && STATION == dialog2) {
                 nextChapter = false;
@@ -377,14 +421,17 @@ public class ScreenPhone implements Screen {
                     }
                 }
             }
+
         }
         if (IMAGE == Family) {
             batch.draw(imgPhoneFamily, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
+            if (STATION  == dialog1 || STATION == dialog2){
+                fontMessage.draw(batch, "Доступ не открыт", 761, 243);
+            }
             if (Objects.equals(clas, "ScreenCar") && STATION == dialog3) {
                 nextChapter = false;
                 if (cursorFamily < MessageFamily.length) {
-
                     batch.draw(imgChoice, 655, 190, 355, 50);
                     batch.draw(imgChoice, 655, 139, 355, 50);
                     String delStr = " ";

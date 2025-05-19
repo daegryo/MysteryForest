@@ -17,9 +17,11 @@ public class ScreenRegistration implements Screen {
     public OrthographicCamera camera;
     public Vector3 touch;
     public BitmapFont font;
+    public BitmapFont fontPodarok;
 
     Texture imgBg1;
     SpaceButton btnLogin;
+    SpaceButton btnSettings;
 
     ShapeRenderer shapeRenderer;
     float alpha = 0f;
@@ -31,9 +33,11 @@ public class ScreenRegistration implements Screen {
         camera = main.camera;
         touch = main.touch;
         font = main.font;
+        fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
 
         imgBg1 = new Texture("bg/screenGame1.png");
         btnLogin = new SpaceButton(font, 710, 350, "Войти");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
         shapeRenderer = new ShapeRenderer();
     }
 
@@ -51,7 +55,17 @@ public class ScreenRegistration implements Screen {
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
             if (btnLogin.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 next = true;
+            }
+            if (btnSettings.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenRegistration";
+                main.setScreen(main.screenSettings);
             }
         }
             //events
@@ -63,6 +77,7 @@ public class ScreenRegistration implements Screen {
             batch.draw(imgBg1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             font.draw(batch, "Войти в аккаунт", 531, 465);
             btnLogin.font.draw(batch, btnLogin.text, btnLogin.x, btnLogin.y);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
             if (next){
 

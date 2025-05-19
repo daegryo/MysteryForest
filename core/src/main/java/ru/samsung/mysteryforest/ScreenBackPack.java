@@ -89,6 +89,9 @@ public class ScreenBackPack implements Screen {
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
             if (btnBack.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 if (Objects.equals(clas, "ScreenHomeSearch")) {
                     main.setScreen(main.screenHomeSearch);
                 }
@@ -124,6 +127,7 @@ public class ScreenBackPack implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBackpack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         fontPodarok.draw(batch, "Улики", 454, 593);
         for (int i = 0; i < clues.size(); i++) {

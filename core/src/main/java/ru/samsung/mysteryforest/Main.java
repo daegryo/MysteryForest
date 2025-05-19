@@ -26,6 +26,8 @@ public class Main extends Game {
     public ScreenCarGame screenCarGame;
     public ScreenRiver screenRiver;
     public ScreenCard screenCard;
+    public ScreenSettings screenSettings;
+    public ScreenEnd screenEnd;
 
     public static final float SCR_WIDTH = 1600;
     public static final float SCR_HEIGHT= 900;
@@ -35,7 +37,6 @@ public class Main extends Game {
     public int AttentionFamily = 70;
 
     public int Bank = 0;
-
 
 
     @Override
@@ -54,6 +55,8 @@ public class Main extends Game {
 
 
 
+
+
         screenStart = new ScreenStart(this);
         screenLogin = new ScreenRegistration(this);
         screenHistory = new ScreenHistory(this);
@@ -65,7 +68,8 @@ public class Main extends Game {
         screenCarGame = new ScreenCarGame(this);
         screenRiver = new ScreenRiver(this);
         screenCard = new ScreenCard(this);
-
+        screenSettings = new ScreenSettings(this);
+        screenEnd = new ScreenEnd(this);
 
 
 
@@ -79,7 +83,7 @@ public class Main extends Game {
 
 
 
-           setScreen(screenRiver);
+           setScreen(screenStart);
 
     }
 

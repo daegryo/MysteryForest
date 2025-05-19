@@ -43,9 +43,10 @@ public class ScreenChapter1 implements Screen {
 
     SpaceButton btnPhone;
     SpaceButton btnNextChapter;
+    SpaceButton btnSettings;
 
-    Insert insertObject1 = new Insert(970, 300, 450, 450);
-    Insert insertObject2 = new Insert(500, 300, 450, 450);
+    Insert insertObject1 = new Insert(920, 300, 450, 450);
+    Insert insertObject2 = new Insert(530, 300, 450, 450);
 
     ReadFile readFileLara;
     ReadFile readFileEmilyChoice;
@@ -92,6 +93,7 @@ public class ScreenChapter1 implements Screen {
 
         btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
         btnNextChapter = new SpaceButton(font, 740, Main.SCR_HEIGHT/2, "Далее");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
         readFileLara = new ReadFile("assets/story/chapter1/messageLara.txt", 1);
         readFileEmilyChoice = new ReadFile("assets/story/chapter1/messageEmilyToLara.txt", 1);
@@ -114,22 +116,50 @@ public class ScreenChapter1 implements Screen {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
+
             if (touch.x >= 0 && touch.x <= Main.SCR_WIDTH && touch.y >= 0 && touch.y <= Main.SCR_HEIGHT) {
+                if (!stopFont) {
+                    if (main.screenSettings.On) {
+                        main.screenStart.soundClick.play();
+                    }
+                }
                 stopFont = true;
+
+
+            }
+            if (btnSettings.hit(touch.x, touch.y) && stopFont){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenChapter1";
+                main.setScreen(main.screenSettings);
             }
             if (btnPhone.hit(touch.x, touch.y)) {
                 main.setScreen(main.screenPhone);
                 main.screenPhone.clas = "ScreenChapter1";
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100) {
                 main.setScreen(main.screenBackPack);
                 main.screenBackPack.clas = "ScreenChapter1";
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 1247 && touch.x <= 1443 && touch.y >= 0 && touch.y <= 493 && (choice1 || choice2)) {
                 talkEmily = false;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+
             }
             if (touch.x >= 464 && touch.x <= 653 && touch.y >= 0 && touch.y <= 438) {
                 talkEmily = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 if (messageEmilyChoice.size() - 1 > cursor) {
                     cursor++;
                     choice1 = false;
@@ -142,12 +172,22 @@ public class ScreenChapter1 implements Screen {
             }
             if (touch.x >= 850 && touch.x <= 1200 && touch.y >= 63 && touch.y <= 103 && talkEmily){
                 choice1 = true;
+
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 850 && touch.x <= 1200 && touch.y >= 8 && touch.y <= 50 && talkEmily){
                 choice2 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
                 main.setScreen(main.screenCar);
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
 
 
@@ -159,6 +199,7 @@ public class ScreenChapter1 implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         String strEmily = messageEmilyChoice.get(cursor);
         partsEmily = strEmily.split("/");
         String strLara = messageLara.get(cursor);
@@ -171,6 +212,9 @@ public class ScreenChapter1 implements Screen {
             fontChapter1.setColor(color); // возвращаем исходный цвет
         }
         if (stopFont) {
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+
             batch.draw(imgBackpack, 234, 15, 85, 85);
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
             batch.draw(imgEmily, 1200, 0, 250, 512);
@@ -191,7 +235,7 @@ public class ScreenChapter1 implements Screen {
                     }
                     if (choice1) {
                         batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
-                        fontMessageBig.draw(batch, partsEmily[0], 1030, 590);
+                        fontMessageBig.draw(batch, partsEmily[0], 980, 590);
                         if (count < 1) {
                             main.AttentionLara += Integer.parseInt(partsEmily[2]);
                             count++;
@@ -201,7 +245,7 @@ public class ScreenChapter1 implements Screen {
                     if (choice2) {
                         batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
                         String[] par = partsEmily[1].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 1030, 550);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 980, 550);
 
 
                         if (count < 1) {
@@ -218,13 +262,13 @@ public class ScreenChapter1 implements Screen {
                     batch.draw(imgInsert1, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
                     if (choice1) {
                         String[] par = partsLara[0].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 588, 610);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 600, 610);
 
 
                     }
                     if (choice2) {
                         String[] par = partsLara[1].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 588, 590);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 600, 590);
                     }
 
                 }

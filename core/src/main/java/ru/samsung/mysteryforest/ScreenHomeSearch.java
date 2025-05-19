@@ -47,6 +47,7 @@ public class ScreenHomeSearch implements Screen {
     SpaceButton btnPhone;
     SpaceButton btnNextChapter;
     SpaceButton btnBathroom;
+    SpaceButton btnSettings;
 
 
 
@@ -57,8 +58,8 @@ public class ScreenHomeSearch implements Screen {
     int home;
     int bathroom;
 
-    Insert insertObject1 = new Insert(970, 300, 1f, 1f);
-    Insert insertObject2 = new Insert(970, 300, 500, 500);
+    Insert insertObject1 = new Insert(920, 300, 1f, 1f);
+    Insert insertObject2 = new Insert(920, 300, 500, 500);
 
     Clues cluesObject1 = new Clues(921, 526, 20, 20, "text/paper1.png");
     Clues cluesObject2 = new Clues(1329, 623, 20, 20, "text/paper2.png");
@@ -105,6 +106,7 @@ public class ScreenHomeSearch implements Screen {
         btnTakeIt3 = new SpaceButton(fontPodarok, 802,280, "Взять");
         btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
         btnNextChapter = new SpaceButton(font, 740, Main.SCR_HEIGHT/2, "Далее");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
 
         IMAGE = 0;
@@ -128,55 +130,104 @@ public class ScreenHomeSearch implements Screen {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
+            if (btnSettings.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenHomeSearch";
+                main.setScreen(main.screenSettings);
+            }
             if (btnHallway.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = hallway;
             }
             if (btnKitchen.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = kitchen;
 
             }
             if (btnBedroom.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = bedroom;
             }
             if (btnHome.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = home;
             }
             if (btnBathroom.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 IMAGE = bathroom;
             }
 
             if ( touch.x >= 921 && touch.x <= 941 && touch.y >= 526 && touch.y <= 546){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesMove1 = true;
             }
             if ( touch.x >= 1329 && touch.x <= 1349 && touch.y >= 623 && touch.y <= 643){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesMove2 = true;
             }
             if ( touch.x >= 867 && touch.x <= 887 && touch.y >= 453 && touch.y <= 473){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesMove3 = true;
             }
             if (btnTakeIt1.hit(touch.x, touch.y)&& IMAGE == kitchen) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesObject1.takeIt = true;
                 backPack.add( cluesObject1);
 
             }
             if (btnTakeIt2.hit(touch.x, touch.y) && IMAGE == bedroom) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesObject2.takeIt = true;
                 backPack.add(cluesObject2);
             }
             if (btnTakeIt3.hit(touch.x, touch.y) && IMAGE == home  ) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cluesObject3.takeIt = true;
                 backPack.add(cluesObject3);
             }
 
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 main.setScreen(main.screenBackPack);
                 main.screenBackPack.clas = "ScreenHomeSearch";
             }
             if (btnPhone.hit(touch.x, touch.y) && backPack.content.size() == 3) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 main.setScreen(main.screenPhone);
                 main.screenPhone.clas = "ScreenHomeSearch";
             }
             if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 main.setScreen(main.screenChapter1);
             }
 
@@ -190,12 +241,17 @@ public class ScreenHomeSearch implements Screen {
         //paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+
         if (IMAGE == hallway) {
             batch.draw(imgHallway, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
         }
         if (IMAGE == bedroom) {
             batch.draw(imgBedroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             if (cluesMove2){
                 cluesObject2.move();
                 if (cluesObject2.width >= 400){
@@ -206,6 +262,8 @@ public class ScreenHomeSearch implements Screen {
         }
         if (IMAGE == kitchen) {
             batch.draw(imgKitchen, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             if (cluesMove1){
                 cluesObject1.move();
                 if (cluesObject1.width >= 400){
@@ -217,6 +275,8 @@ public class ScreenHomeSearch implements Screen {
         }
         if (IMAGE == home) {
             batch.draw(imgHome, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             if (cluesMove3){
                 cluesObject3.move();
                 if (cluesObject3.width >= 400){
@@ -227,6 +287,8 @@ public class ScreenHomeSearch implements Screen {
         }
         if (IMAGE == bathroom){
             batch.draw(imgBathroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
         }
 
@@ -235,7 +297,9 @@ public class ScreenHomeSearch implements Screen {
 
         if (IMAGE == 0) {
             batch.draw(imgHallway, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            batch.draw(imgEmily, 1200, 0, 250, 550);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            batch.draw(imgEmily, 1200, 0, 250, 512);
             batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
             if (insertObject1.width >= 400) {
                 fontMessageBig.draw(batch, "  Возможно что-то  \n   изменилось", 1000, 540);
@@ -250,7 +314,7 @@ public class ScreenHomeSearch implements Screen {
         if (backPack.content.size() == 3){
             if(!main.screenPhone.nextChapter) {
                 fontPodarok.draw(batch, "Выполнено", 1200, 800);
-                batch.draw(imgEmily, 1200, 0, 289, 512);
+                batch.draw(imgEmily, 1200, 0, 250, 512);
                 batch.draw(imgInsert, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
                 fontMessageBig.draw(batch, "Что это за странные \n        записки.. \n Лара написала", 1029, 628);
             }
@@ -265,6 +329,8 @@ public class ScreenHomeSearch implements Screen {
             fontPodarok.draw(batch, "Цель: найти 3 улики,\n которые могут помочь", 1200, 800);
         }
         batch.draw(imgBackpack,  234, 15, 85, 85);
+        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+
 
 
         batch.end();

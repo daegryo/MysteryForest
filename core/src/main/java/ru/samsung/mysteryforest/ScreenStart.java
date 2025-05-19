@@ -2,6 +2,8 @@ package ru.samsung.mysteryforest;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,14 +18,14 @@ public class ScreenStart implements Screen {
     public OrthographicCamera camera;
     public Vector3 touch;
     public BitmapFont font, fontChapter1;
-
     Texture imgBG;
 
    SpaceButton btnGame;
    ShapeRenderer shapeRenderer;
-
    float alpha;
    boolean next = false;
+   Music backgroundMusic;
+   Sound soundClick;
    // SpaceButton btnSettings;
    // SpaceButton btnLeaderBoard;
     //SpaceButton btnAbout;
@@ -46,6 +48,9 @@ public class ScreenStart implements Screen {
 
         shapeRenderer = new ShapeRenderer();
         alpha = 0f;
+
+        backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+        soundClick = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
 /*
 
         btnSettings = new SpaceButton(font, 900, 250, "Settings");
@@ -70,6 +75,9 @@ public class ScreenStart implements Screen {
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
             if(btnGame.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    soundClick.play();
+                }
                 next = true;
 
 
@@ -92,7 +100,16 @@ public class ScreenStart implements Screen {
 
 
 
+
         }
+        // events
+        if (main.screenSettings.On) {
+            backgroundMusic.play();
+            backgroundMusic.setLooping(true); // зацикливание
+            backgroundMusic.setVolume(0.5f);
+        }// громкость 50%
+        //  backgroundMusic.pause(); // пауза
+        //   backgroundMusic.stop(); // остановка
 
         // отрисовка
         batch.setProjectionMatrix(camera.combined);
@@ -158,6 +175,8 @@ public class ScreenStart implements Screen {
         batch.dispose();
         font.dispose();
         shapeRenderer.dispose();
+        backgroundMusic.dispose();
+        soundClick.dispose();
 
     }
 }

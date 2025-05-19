@@ -7,7 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+
+import java.util.List;
 
 public class ScreenRiver implements Screen {
     Main main;
@@ -27,14 +30,29 @@ public class ScreenRiver implements Screen {
     Texture imgLara;
     Texture imgAgata;
 
+    Texture imgInsert;
+
+    Insert insertObject = new Insert(800, 400, 450, 450);
+
     SpaceButton btnPhone;
     SpaceButton btnCard;
+    SpaceButton btnSettings;
+    SpaceButton btnBack;
 
 
     private float alpha = 0.1f; // начальная прозрачность (1 = непрозрачный)
     private float speed = 0.7f; // скорость изменения прозрачности
 
     boolean stopFont = false;
+    boolean drawButtonBack = true;
+    boolean next = false;
+
+    public ReadFile readFile;
+    List<String> array;
+
+    int cursor = 0;
+
+    ShapeRenderer shapeRenderer;
 
     public ScreenRiver(Main main) {
         this.main = main;
@@ -53,11 +71,17 @@ public class ScreenRiver implements Screen {
         imgLara = new Texture("heros/Lara/LaraFullLength.png");
         imgAgata = new Texture("heros/Agata/FullLength1.png");
 
+        imgInsert = new Texture("text/insert1.png");
+
         btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
         btnCard = new SpaceButton(fontPodarok, 1400, 670, "card");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
+        btnBack = new SpaceButton(fontPodarok, 100, 70, "Back");
 
+        readFile = new ReadFile("assets/story/screenRiver/Mia.txt", 2);
+        array = readFile.reader();
 
-
+        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -75,6 +99,36 @@ public class ScreenRiver implements Screen {
             if (touch.x >= 0 && touch.x <= Main.SCR_WIDTH && touch.y >= 0 && touch.y <= Main.SCR_HEIGHT) {
                 stopFont = true;
             }
+            if (btnSettings.hit(touch.x, touch.y) && stopFont){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenRiver";
+                main.setScreen(main.screenSettings);
+            }
+            if (cursor < array.size() && touch.x >= 870 && touch.x <= 1210 && touch.y >= 531 && touch.y <= 756 && stopFont){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                cursor++;
+            }
+            if(btnBack.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+
+                if (cursor != 0) {
+                    cursor -= 1;
+                }
+            }
+            if (cursor == array.size()) {
+                    drawButtonBack = false;
+                    if (main.screenSettings.On) {
+                        main.screenStart.soundClick.play();
+                    }
+
+                }
+
         }
         // events
 
@@ -91,13 +145,33 @@ public class ScreenRiver implements Screen {
             fontChapter1.setColor(color); // возвращаем исходный цвет
         }
         else {
-            batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (cursor != array.size()) {
+                batch.draw(imgInsert, insertObject.x, insertObject.y, insertObject.width, insertObject.height);
+                fontMessageBig.draw(batch, array.get(cursor), 880, 700);
 
-            batch.draw(imgEmily, 1300, 0, 250, 512);
-            batch.draw(imgLara, 429, 0, 200, 512);
-            batch.draw(imgAgata, 870, 0, 150, 512);
+            }
+            else{
+                next = true;
+            }
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
             btnCard.font.draw(batch, btnCard.text, btnCard.x, btnCard.y);
+
+            if (next){
+
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(0, 0, 0, alpha);
+                shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                shapeRenderer.end();
+
+                alpha += delta * 0.4f; // Скорость перехода
+
+                if (alpha >= 1) {
+                    System.out.println("SCREENSTART");
+                    main.setScreen(main.screenEnd);
+                }
+            }
 
         }
         batch.end();
@@ -125,15 +199,11 @@ public class ScreenRiver implements Screen {
 
     @Override
     public void dispose() {
-        imgBg.dispose();
+        imgBg.dispose()
+        ;
     }
 
     public void updateFont(float deltaTime) {
-        // Плавное изменение alpha (0 → 1 → 0)
         alpha = (float) (Math.sin(System.currentTimeMillis() * 0.003 * speed) * 0.5f + 0.5f);
-
-        // Или линейное затухание/появление
-        // alpha += deltaTime * speed;
-        // if (alpha > 1.0f || alpha < 0.0f) speed *= -1; // меняем направление
     }
 }

@@ -34,6 +34,7 @@ public class ScreenHistory implements Screen {
     Insert insertObject = new Insert(970, 300, 1f, 1f);
     SpaceButton btnRollUp, btnCheckHome;
     SpaceButton btnBack;
+    SpaceButton btnSettings;
     public ReadFile readFile;
 
     List<String> array;
@@ -59,6 +60,7 @@ public class ScreenHistory implements Screen {
         btnRollUp = new SpaceButton(fontPodarok, 793, 450, "свернуть");
         btnCheckHome = new SpaceButton(fontPodarok, 870, 482, "Проверить дом");
         btnBack = new SpaceButton(fontPodarok, 100, 70, "Back");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
 
         readFile = new ReadFile("assets/story/example.txt", 7);
@@ -87,10 +89,26 @@ public class ScreenHistory implements Screen {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
+            if (btnSettings.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenHistory";
+                main.setScreen(main.screenSettings);
+            }
             if (cursor < array.size() && touch.x >= 611 && touch.x <= 1079 && touch.y >= 219 && touch.y <= 831){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 cursor++;
+
+
             }
             if(btnBack.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+
                 if (cursor != 0) {
                     cursor -= 1;
                 }
@@ -99,16 +117,31 @@ public class ScreenHistory implements Screen {
                 if (phase == 9) {
                     scrollDown = true;
                     drawButtonBack = false;
+                    if (main.screenSettings.On) {
+                        main.screenStart.soundClick.play();
+                    }
+
                 }
             }
             if (btnRollUp.hit(touch.x, touch.y) && scrollDown) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+
                 rollUp = true;
             }
             if (rollUp &&  scrollObject.y <= 10){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+
                 insertObject.down = true;
                 checkHouse = true;
             }
             if (checkHouse && btnCheckHome.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 main.setScreen(main.screenHomeSearch);
             }
 
@@ -134,6 +167,8 @@ public class ScreenHistory implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH,Main.SCR_HEIGHT);
+        btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         if (drawButtonBack){
             btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         }
@@ -159,7 +194,7 @@ public class ScreenHistory implements Screen {
         }
 
         if (rollUp &&  scrollObject.y <= 10){
-            batch.draw(imgEmily, 1200, 0, 289, 512);
+            batch.draw(imgEmily, 1200, 0, 250, 512);
             batch.draw(imgInsert, insertObject.x, insertObject.y, insertObject.width, insertObject.height);
             if (insertObject.width >= 400) {
                 fontMessageBig.draw(batch, "Надо проверить дом", 1020, 540);

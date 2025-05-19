@@ -26,6 +26,7 @@ public class ScreenCard implements Screen {
     Texture imgPlace;
 
     SpaceButton btnBack;
+    SpaceButton btnSettings;
 
     MapIcon mapIconObject;
     MapIcon placeObject;
@@ -57,6 +58,7 @@ public class ScreenCard implements Screen {
         imgPlace = new Texture("text/map.png");
 
         btnBack = new SpaceButton(fontPodarok, 100, 50, "X");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
         mapIconObject = new MapIcon(500, 400, 70, 86);
         placeObject = new MapIcon(470, 500, 100, 60);
@@ -80,9 +82,15 @@ public class ScreenCard implements Screen {
             placeObject.y = touch.y + 85;
             if (btnBack.hit(touch.x, touch.y)){
                 main.setScreen(main.screenCar);
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (lastTouchX >= touch.x - 10 && lastTouchX <= touch.x + 10 && lastTouchY >= touch.y - 10 && lastTouchY <= touch.y + 10) {
                 drawPlace = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 if (touch.x >= 1208 && touch.x <= 1598 && touch.y >= 388 && touch.y <= 900){
                     place = "крепость";
                     noPlace = false;
@@ -117,6 +125,7 @@ public class ScreenCard implements Screen {
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         batch.draw(imgIconMap, mapIconObject.x, mapIconObject.y, mapIconObject.width, mapIconObject.height);
         if (drawPlace) {

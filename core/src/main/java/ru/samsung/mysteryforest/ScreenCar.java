@@ -42,11 +42,12 @@ public class ScreenCar implements Screen {
     SpaceButton btnNextChapter;
     SpaceButton btnTakeIt1;
     SpaceButton btnTakeIt2;
+    SpaceButton btnSettings;
 
 
-    Insert insertObjectEmily = new Insert(1100, 300, 450, 450);
-    Insert insertObjectLara = new Insert(500, 300, 450, 450);
-    Insert insertObjectAgata = new Insert(600, 300, 450, 450);
+    Insert insertObjectEmily = new Insert(1050, 300, 450, 450);
+    Insert insertObjectLara = new Insert(520, 300, 450, 450);
+    Insert insertObjectAgata = new Insert(580, 300, 450, 450);
 
     ReadFile readFileLara;
     ReadFile readFileEmily;
@@ -109,6 +110,7 @@ public class ScreenCar implements Screen {
         btnNextChapter = new SpaceButton(font, 740, Main.SCR_HEIGHT/2, "Далее");
         btnTakeIt1 = new SpaceButton(fontPodarok, 802, 358, "Свернуть");
         btnTakeIt2 = new SpaceButton(fontPodarok, 802, 300, "Взять");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
 
 
@@ -136,23 +138,49 @@ public class ScreenCar implements Screen {
             if (btnPhone.hit(touch.x, touch.y)) {
                 main.setScreen(main.screenPhone);
                 main.screenPhone.clas = "ScreenCar";
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100) {
                 main.setScreen(main.screenBackPack);
                 main.screenBackPack.clas = "ScreenCar";
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+            }
+            if (btnSettings.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenSettings.back = "ScreenCar";
+                main.setScreen(main.screenSettings);
             }
             if (btnNextChapter.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                main.screenStart.soundClick.play();
+            }
+
                 main.setScreen(main.screenCarGame);
             }
             if (touch.x >= 1347 && touch.x <= 1508 && touch.y >= 0 && touch.y <= 478 && talkEmily && (choice1 || choice2)) {
                 talkEmily = false;
                 talkAgata = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 896 && touch.x <= 1089 && touch.y >= 0 && touch.y <= 473 && talkAgata) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 talkAgata = false;
                 talkLara = true;
             }
             if (touch.x >= 492 && touch.x <= 639 && touch.y >= 0 && touch.y <= 445 && talkLara) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
                 talkLara = false;
                 talkEmily = true;
                 if (cursor == 0) {
@@ -179,19 +207,34 @@ public class ScreenCar implements Screen {
             }
             if (touch.x >= 854 && touch.x <= 1244 && touch.y >= 63 && touch.y <= 104) {
                 choice1 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (touch.x >= 854 && touch.x <= 1244 && touch.y >= 0 && touch.y <= 51) {
                 choice2 = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (btnTakeIt1.hit(touch.x, touch.y)){
                 show = false;
                 showPaper = false;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if (btnTakeIt2.hit(touch.x, touch.y)){
                 cluesObject2.takeIt = true;
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
             if(btnCard.hit(touch.x, touch.y)){
                 main.setScreen(main.screenCard);
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
             }
 
         }
@@ -206,7 +249,10 @@ public class ScreenCar implements Screen {
         //paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
+        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         batch.draw(imgBackpack, 234, 15, 85, 85);
         batch.draw(imgEmily, 1300, 0, 250, 512);
         batch.draw(imgLara, 429, 0, 200, 512);
@@ -245,7 +291,7 @@ public class ScreenCar implements Screen {
                     if (choice1) {
                         batch.draw(imgInsertEmily, insertObjectEmily.x, insertObjectEmily.y, insertObjectEmily.width, insertObjectEmily.height);
                         String[] par = partsEmily[0].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 1150, 600);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 1100, 600);
                         if (count < 1) {
                             main.AttentionLara += Integer.parseInt(partsEmily[2]);
                             main.AttentionAgata += Integer.parseInt(partsEmily[2]);
@@ -256,7 +302,7 @@ public class ScreenCar implements Screen {
                     if (choice2) {
                         batch.draw(imgInsertEmily, insertObjectEmily.x, insertObjectEmily.y, insertObjectEmily.width, insertObjectEmily.height);
                         String[] par = partsEmily[1].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 1150, 580);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 1100, 580);
 
                         if (count < 1) {
                             main.AttentionLara += Integer.parseInt(partsEmily[3]);
@@ -273,11 +319,11 @@ public class ScreenCar implements Screen {
                     batch.draw(imgInsertAgata, insertObjectAgata.x, insertObjectAgata.y, insertObjectAgata.width, insertObjectAgata.height);
                     if (choice1) {
                         String[] par = partsAgata[0].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 654, 600);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 630, 600);
                     }
                     if (choice2) {
                         String[] par = partsAgata[1].split(":");
-                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 654, 600);
+                        fontMessageBig.draw(batch, par[0] + "\n" + par[1], 630, 600);
                     }
                 }
                 if (talkLara && !show) {
