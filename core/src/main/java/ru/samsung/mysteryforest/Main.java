@@ -36,7 +36,7 @@ public class Main extends Game {
     public int AttentionAgata = 30;
     public int AttentionFamily = 70;
 
-    public int Bank = 0;
+    public int Bank = 50;
 
 
     @Override
