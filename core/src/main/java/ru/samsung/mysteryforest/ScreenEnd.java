@@ -68,10 +68,9 @@ public class ScreenEnd implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Color color = font.getColor();
         updateFont(1);
-        fontChapter1.setColor(color.r, color.g, color.b, alpha); // меняем только alpha
+        fontChapter1.setColor(color.r, color.g, color.b, alpha);
         fontChapter1.draw(batch, "Продолжение следует",50, 600);
-        fontChapter1.setColor(color); // возвращаем исходный цвет
-
+        fontChapter1.setColor(color);
         batch.end();
 
 

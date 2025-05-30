@@ -146,9 +146,7 @@ public class ScreenCarGame implements Screen {
                     gazMusic.play();
                     gazMusic.setLooping(true); // зацикливание
                     gazMusic.setVolume(0.5f);
-                }// громкость 50%
-                //  backgroundMusic.pause(); // пауза
-                //   backgroundMusic.stop(); // остановка
+                }
                 promotion = true;
 
             }

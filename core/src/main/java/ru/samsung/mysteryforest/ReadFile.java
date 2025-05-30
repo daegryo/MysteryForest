@@ -12,7 +12,6 @@ public class ReadFile {
     List<String> array = new ArrayList<>();
     int n = 0;
     String str = "";
-//    public String[] array = {"111"};
 
     public ReadFile(String filePath, int num) {
         this.filePath = filePath;

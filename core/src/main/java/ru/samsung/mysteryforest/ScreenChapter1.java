@@ -25,8 +25,8 @@ public class ScreenChapter1 implements Screen {
     public BitmapFont fontChapter1;
 
 
-    private float alpha = 0.1f; // начальная прозрачность (1 = непрозрачный)
-    private float speed = 0.7f; // скорость изменения прозрачности
+    private float alpha = 0.1f;
+    private float speed = 0.7f;
 
     boolean stopFont;
     boolean talkEmily = true;
@@ -313,11 +313,7 @@ public class ScreenChapter1 implements Screen {
     }
 
     public void updateFont(float deltaTime) {
-        // Плавное изменение alpha (0 → 1 → 0)
         alpha = (float) (Math.sin(System.currentTimeMillis() * 0.001 * speed) * 0.5f + 0.5f);
 
-        // Или линейное затухание/появление
-        // alpha += deltaTime * speed;
-        // if (alpha > 1.0f || alpha < 0.0f) speed *= -1; // меняем направление
     }
 }

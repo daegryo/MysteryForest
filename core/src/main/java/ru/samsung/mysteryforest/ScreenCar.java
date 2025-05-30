@@ -360,7 +360,7 @@ public class ScreenCar implements Screen {
             }
         }
 
-
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
 
             batch.end();

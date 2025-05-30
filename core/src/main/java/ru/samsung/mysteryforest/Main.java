@@ -19,6 +19,7 @@ public class Main extends Game {
     public ScreenRegistration screenLogin;
     public ScreenHistory screenHistory;
     public ScreenHomeSearch screenHomeSearch;
+    public ScreenClues screenClues;
     public ScreenBackPack screenBackPack;
     public ScreenPhone screenPhone;
     public ScreenChapter1 screenChapter1;
@@ -49,8 +50,6 @@ public class Main extends Game {
 
         touch = new Vector3();
         font = new BitmapFont(Gdx.files.internal("fonts/Main1.fnt"));
-        //  fontGrey = new BitmapFont(Gdx.files.internal("fonts/main1.fnt"));
-        //   fontText = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
 
 
 
@@ -61,6 +60,7 @@ public class Main extends Game {
         screenLogin = new ScreenRegistration(this);
         screenHistory = new ScreenHistory(this);
         screenHomeSearch = new ScreenHomeSearch(this);
+        screenClues = new ScreenClues(this);
         screenBackPack = new ScreenBackPack(this);
         screenPhone = new ScreenPhone(this);
         screenChapter1 = new ScreenChapter1(this);
@@ -71,19 +71,7 @@ public class Main extends Game {
         screenSettings = new ScreenSettings(this);
         screenEnd = new ScreenEnd(this);
 
-
-
-
-        //  screenSettings = new ScreenSettings(this);
-        //
-        //  screenAbout = new ScreenAbout(this);
-        //    screenLeaderBoard = new ScreenLeaderBoard(this);
-//
-        //   screenGameStart = new ScreenGameStart(this);
-
-
-
-           setScreen(screenStart);
+        setScreen(screenHomeSearch);
 
     }
 

@@ -130,8 +130,7 @@ public class ScreenPhone implements Screen {
         messageAgata = readFileAgata.reader();
 
         messageEmilyToFamily = readFileEmilyToFamily.reader();
-        messageFamily = readFileFamily.reader();
-        // to do елефон агата вложенный список чтоб сохранялись всеп сообения
+        messageFamily = readFileFamily.reader();// to do елефон агата вложенный список чтоб сохранялись всеп сообения
         MessageAgata = new String[messageAgata.size()][2];
         MessageEmilyToAgata = new String[messageEmilyToAgata.size()][4];
 
@@ -146,7 +145,6 @@ public class ScreenPhone implements Screen {
         for (int i = 0; i < MessageEmilyToAgata.length; i++) {
             for (int j = 0; j < MessageEmilyToAgata[i].length; j++) {
                 MessageEmilyToAgata[i][j] = messageEmilyToAgata.get(i).split("/")[j];
-                System.out.println(MessageEmilyToAgata[i][j] + "LLLLLLLLLLLLLLLLLLLL");
             }
         }
 
@@ -158,7 +156,6 @@ public class ScreenPhone implements Screen {
         for (int i = 0; i < MessageEmilyToFamily.length; i++) {
             for (int j = 0; j < MessageEmilyToFamily[i].length; j++) {
                 MessageEmilyToFamily[i][j] = messageEmilyToFamily.get(i).split("/")[j];
-                System.out.println(MessageEmilyToFamily[i][j] + "LLLLLLLLLLLLLLLLLLLL");
             }
         }
 
@@ -264,18 +261,20 @@ public class ScreenPhone implements Screen {
             batch.draw(imgPhone, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             fontMessage.draw(batch, messageLara.get(0) + "...", 735, 660);
             try {
-                String[] parts = orderAgata1.get("choiceAgata" + (cursorAgata-1)).split(":");
+
+                String[] parts = orderAgata1.get("choiceAgata" + (cursorAgata-2)).split(":");
                 System.out.println(parts[0] + parts[1]);
-                fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
+                fontMessage.draw(batch, parts[0] + parts[1], 735, 540);
             }
-            catch (Exception e){
+            catch (Exception ignored){
+
             }
             try {
                 String[] parts = orderFamily1.get("choiceFamily" + (cursorFamily-1)).split(":");
                 System.out.println(parts[0] + parts[1]);
                 fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
             }
-            catch (Exception e){
+            catch (Exception ignored){
             }
 
         }
@@ -321,7 +320,7 @@ public class ScreenPhone implements Screen {
             }
 
 
-            if (Objects.equals(clas, "ScreenChapter1") && STATION == dialog2) {
+            if (Objects.equals(clas, "ScreenChapter1") || STATION >= dialog2) {
                 nextChapter = false;
                 if (cursorAgata < MessageAgata.length) {
 
@@ -346,12 +345,10 @@ public class ScreenPhone implements Screen {
                     delStr1 = " ";
 
                     if (choiceAgata1) {
-                        //fontMessage.draw(batch, MessageEmilyToAgata[cursorAgata][0], 922, 670);
                         if (countAgata < 1) {
                             main.AttentionAgata += Integer.parseInt(MessageEmilyToAgata[cursorAgata][2]);
                             countAgata++;
                         }
-                        //    fontMessage.draw(batch, MessageAgata[cursorAgata][0], 670, 650);
                         String str = "choiceEmily" + cursorAgata;
                         String str1 = "choiceAgata" + cursorAgata;
 
@@ -367,17 +364,10 @@ public class ScreenPhone implements Screen {
 
                     }
                     if (choiceAgata2) {
-                        //   fontMessage.draw(batch, MessageEmilyToAgata[cursorAgata][1], 820, 670);
                         if (countAgata < 1) {
                             main.AttentionAgata += Integer.parseInt(MessageEmilyToAgata[cursorAgata][3]);
                             countAgata++;
                         }
-                        // String[] par = MessageAgata[cursorAgata][1].split(":");
-                        //String str = "";
-                        //for (int i = 0; i < par.length; i++) {
-                        //  str += par[i] + "\n";
-                        //}
-                        //fontMessage.draw(batch, str, 665, 645);
                         String str2 = "choiceEmily" + cursorAgata;
                         String str3 = "choiceAgata" + cursorAgata;
                         System.out.println(str2 + "                " + str3);
@@ -386,7 +376,7 @@ public class ScreenPhone implements Screen {
 
                         if (cursorAgata <= MessageAgata.length) {
                             cursorAgata++;
-                            System.out.println("СУКА ТЫ ДОБАВЛЯЕШЬСЯ ИЛИ НЕТ " + cursorAgata);
+
                         }
                         choiceAgata1 = false;
                         choiceAgata2 = false;
@@ -396,7 +386,7 @@ public class ScreenPhone implements Screen {
                 }
 
                 if (orderAgata1 != null && !orderAgata1.isEmpty()) {
-
+                    System.out.println("UUUUUUUUUUUUUUUUUU");
                     String stroka = " ";
                     String stroka1 = " ";
                     for (int i = 0; i < cursorAgata; i++) {
@@ -474,17 +464,11 @@ public class ScreenPhone implements Screen {
 
                     }
                     if (choiceFamily2) {
-                        //   fontMessage.draw(batch, MessageEmilyToAgata[cursorAgata][1], 820, 670);
                         if (countFamily < 1) {
                             main.AttentionFamily += Integer.parseInt(MessageEmilyToFamily[cursorFamily][3]);
                             countFamily++;
                         }
-                        // String[] par = MessageAgata[cursorAgata][1].split(":");
-                        //String str = "";
-                        //for (int i = 0; i < par.length; i++) {
-                        //  str += par[i] + "\n";
-                        //}
-                        //fontMessage.draw(batch, str, 665, 645);
+
                         String str2 = "choiceEmily" + cursorFamily;
                         String str3 = "choiceFamily" + cursorFamily;
                         System.out.println(str2 + "                " + str3);

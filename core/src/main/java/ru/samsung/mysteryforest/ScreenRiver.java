@@ -40,8 +40,8 @@ public class ScreenRiver implements Screen {
     SpaceButton btnBack;
 
 
-    private float alpha = 0.1f; // начальная прозрачность (1 = непрозрачный)
-    private float speed = 0.7f; // скорость изменения прозрачности
+    private float alpha = 0.1f;
+    private float speed = 0.7f;
 
     boolean stopFont = false;
     boolean drawButtonBack = true;
@@ -140,9 +140,9 @@ public class ScreenRiver implements Screen {
         if (!stopFont) {
             Color color = font.getColor();
             updateFont(1);
-            fontChapter1.setColor(color.r, color.g, color.b, alpha); // меняем только alpha
+            fontChapter1.setColor(color.r, color.g, color.b, alpha);
             fontChapter1.draw(batch, "Вторая глава", 450, 600);
-            fontChapter1.setColor(color); // возвращаем исходный цвет
+            fontChapter1.setColor(color);
         }
         else {
             if (cursor != array.size()) {

@@ -105,11 +105,9 @@ public class ScreenStart implements Screen {
         // events
         if (main.screenSettings.On) {
             backgroundMusic.play();
-            backgroundMusic.setLooping(true); // зацикливание
+            backgroundMusic.setLooping(true);
             backgroundMusic.setVolume(0.5f);
-        }// громкость 50%
-        //  backgroundMusic.pause(); // пауза
-        //   backgroundMusic.stop(); // остановка
+        }
 
         // отрисовка
         batch.setProjectionMatrix(camera.combined);
@@ -125,7 +123,7 @@ public class ScreenStart implements Screen {
             shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             shapeRenderer.end();
 
-            alpha += delta * 0.6f; // Скорость перехода
+            alpha += delta * 0.6f;
 
             if (alpha >= 1) {
                 System.out.println("SCREENSTART");
@@ -137,16 +135,6 @@ public class ScreenStart implements Screen {
 
 
         batch.end();
-
-        /*
-
-        btnSettings.font.draw(batch,btnSettings.text, btnSettings.x, btnSettings.y);
-        btnAbout.font.draw(batch,btnAbout.text, btnAbout.x, btnAbout.y);
-        btnLeaderBoard.font.draw(batch,btnLeaderBoard.text, btnLeaderBoard.x, btnLeaderBoard.y);
-        btnExit.font.draw(batch,btnExit.text, btnExit.x, btnExit.y);
-
-         */
-
     }
 
     @Override

@@ -173,7 +173,6 @@ public class ScreenHistory implements Screen {
             btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         }
 
-       // System.out.println(phase);
         if (phase < 9 && !scrollDown) {
             batch.draw(scroll[phase], scrollObject.x, scrollObject.y, scrollObject.width, scrollObject.height);
             changePhase();
