@@ -40,8 +40,10 @@ public class ScreenRiver implements Screen {
     SpaceButton btnBack;
 
 
+
     private float alpha = 0.1f;
     private float speed = 0.7f;
+
 
     boolean stopFont = false;
     boolean drawButtonBack = true;
@@ -56,6 +58,7 @@ public class ScreenRiver implements Screen {
 
     public ScreenRiver(Main main) {
         this.main = main;
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
@@ -106,6 +109,20 @@ public class ScreenRiver implements Screen {
                 main.screenSettings.back = "ScreenRiver";
                 main.setScreen(main.screenSettings);
             }
+            if (btnPhone.hit(touch.x, touch.y) && stopFont){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenPhone.clas = "ScreenRiver";
+                main.setScreen(main.screenPhone);
+            }
+            if (btnCard.hit(touch.x, touch.y) && stopFont){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenCard.back = "ScreenRiver";
+                main.setScreen(main.screenCard);
+            }
             if (cursor < array.size() && touch.x >= 870 && touch.x <= 1210 && touch.y >= 531 && touch.y <= 756 && stopFont){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
@@ -131,7 +148,7 @@ public class ScreenRiver implements Screen {
 
         }
         // events
-
+        main.Station = "screenRiver";
         // paint
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
@@ -168,8 +185,9 @@ public class ScreenRiver implements Screen {
                 alpha += delta * 0.4f; // Скорость перехода
 
                 if (alpha >= 1) {
+                    main.dbHelper.updateInformation(main.Id);
                     System.out.println("SCREENSTART");
-                    main.setScreen(main.screenEnd);
+                    main.setScreen(main.screenMia);
                 }
             }
 

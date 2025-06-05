@@ -2,15 +2,16 @@ package ru.samsung.mysteryforest;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 
-public class ScreenEnd implements Screen {
+import java.util.List;
+
+public class ScreenMia implements Screen {
     Main main;
 
     public SpriteBatch batch;
@@ -19,30 +20,57 @@ public class ScreenEnd implements Screen {
     public BitmapFont font;
     public BitmapFont fontScroll;
     public BitmapFont fontPodarok;
-    public BitmapFont fontMessage;
     public BitmapFont fontMessageBig;
-    public BitmapFont fontChapter1;
 
     Texture imgBg;
 
+    Texture imgEmily;
+    Texture imgLara;
+    Texture imgAgata;
+
+    Texture imgInsert;
+
+
+    SpaceButton btnPhone;
+    SpaceButton btnCard;
+    SpaceButton btnSettings;
+
+    public ReadFile readFile;
+    List<String> array;
+
     private float alpha = 0.1f;
     private float speed = 0.7f;
+    ShapeRenderer shapeRenderer;
 
-    public ScreenEnd(Main main) {
+    boolean next = false;
+
+    public ScreenMia(Main main) {
         this.main = main;
 
-        main.dbHelper.updateInformation(main.Id);
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
         font = main.font;
         fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
-        fontMessage = new BitmapFont(Gdx.files.internal("fonts/message.fnt"));
-        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
-        fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/blood.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
 
-        imgBg = new Texture("bg/start.png");
+        imgBg = new Texture("bg/Mia.png");
+
+        imgEmily = new Texture("heros/Emily/EmilyFullLength.png");
+        imgLara = new Texture("heros/Lara/LaraFullLength.png");
+        imgAgata = new Texture("heros/Agata/FullLength1.png");
+
+        imgInsert = new Texture("text/insert1.png");
+
+        btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
+        btnCard = new SpaceButton(fontPodarok, 1400, 670, "card");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
+
+        readFile = new ReadFile("assets/story/screenRiver/Mia.txt", 2);
+        array = readFile.reader();
+
+        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -52,29 +80,20 @@ public class ScreenEnd implements Screen {
 
     @Override
     public void render(float delta) {
-        //touches
+        // touches
         if (Gdx.input.justTouched()) {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
-            if (touch.x >= 0 && touch.x <= Main.SCR_WIDTH && touch.y >= 0 && touch.y <= Main.SCR_HEIGHT){
-                Gdx.app.exit();
-            }
         }
-        //events
-        main.Station = "screenEnd";
-        //paint
-        batch.begin();
+        // events
+        main.Station = "screenMia";
+        // paint
         batch.setProjectionMatrix(camera.combined);
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Color color = font.getColor();
-        updateFont(1);
-        fontChapter1.setColor(color.r, color.g, color.b, alpha);
-        fontChapter1.draw(batch, "Продолжение следует",50, 600);
-        fontChapter1.setColor(color);
-        batch.end();
+        batch.begin();
+        batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
 
+        batch.end();
 
     }
 
@@ -101,8 +120,5 @@ public class ScreenEnd implements Screen {
     @Override
     public void dispose() {
 
-    }
-    public void updateFont(float deltaTime) {
-        alpha = (float) (Math.sin(System.currentTimeMillis() * 0.003 * speed) * 0.5f + 0.5f);
     }
 }

@@ -14,7 +14,6 @@ public class Main extends Game {
     public Vector3 touch;
     public BitmapFont font, fontGrey, fontMessage;
 
-
     public ScreenStart screenStart;
     public ScreenRegistration screenLogin;
     public ScreenHistory screenHistory;
@@ -28,6 +27,7 @@ public class Main extends Game {
     public ScreenRiver screenRiver;
     public ScreenCard screenCard;
     public ScreenSettings screenSettings;
+    public ScreenMia screenMia;
     public ScreenEnd screenEnd;
 
     public static final float SCR_WIDTH = 1600;
@@ -38,6 +38,14 @@ public class Main extends Game {
     public int AttentionFamily = 70;
 
     public int Bank = 50;
+    public int Id = 0;
+    public String Station = "screenHistory";
+    public String Username = "";
+
+    public DatabaseHelper dbHelper;
+
+    boolean exists;
+    boolean valid;
 
 
     @Override
@@ -51,10 +59,11 @@ public class Main extends Game {
         touch = new Vector3();
         font = new BitmapFont(Gdx.files.internal("fonts/Main1.fnt"));
 
-
-
-
-
+        dbHelper = new DatabaseHelper(this);
+     //   dbHelper.addUser("test", "123");
+    //    exists = dbHelper.userExists("test");
+       // valid = dbHelper.checkUser("test", "123");
+        System.out.println(exists);
 
         screenStart = new ScreenStart(this);
         screenLogin = new ScreenRegistration(this);
@@ -69,10 +78,10 @@ public class Main extends Game {
         screenRiver = new ScreenRiver(this);
         screenCard = new ScreenCard(this);
         screenSettings = new ScreenSettings(this);
+        screenMia = new ScreenMia(this);
         screenEnd = new ScreenEnd(this);
 
         setScreen(screenHomeSearch);
-
     }
 
 
@@ -80,7 +89,6 @@ public class Main extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        fontGrey.dispose();
 
     }
 }

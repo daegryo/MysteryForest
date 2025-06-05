@@ -23,6 +23,7 @@ public class ScreenPhone implements Screen {
     public BitmapFont fontScroll;
     public BitmapFont fontPodarok;
     public BitmapFont fontMessage;
+    public BitmapFont fontMessageChoice;
 
 
     public Texture imgPhone;
@@ -103,6 +104,7 @@ public class ScreenPhone implements Screen {
         fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
         fontMessage = new BitmapFont(Gdx.files.internal("fonts/message.fnt"));
+        fontMessageChoice = new BitmapFont(Gdx.files.internal("fonts/bundleSmall.fnt"));
 
         imgPhone = new Texture("phone/phone2.png");
         imgPhoneLara = new Texture("phone/phoneLara.png");
@@ -246,6 +248,9 @@ public class ScreenPhone implements Screen {
                 if (Objects.equals(clas, "ScreenCar")) {
                     main.setScreen(main.screenCar);
                 }
+                if (Objects.equals(clas, "ScreenRiver")) {
+                    main.setScreen(main.screenRiver);
+                }
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
@@ -288,8 +293,8 @@ public class ScreenPhone implements Screen {
                 batch.draw(imgChoice, 655, 190, 355, 50);
                 batch.draw(imgChoice, 655, 139, 355, 50);
 
-                fontMessage.draw(batch, parts[0], 730, 245);
-                fontMessage.draw(batch, parts[1], 765, 170);
+                fontMessageChoice.draw(batch, parts[0], 730, 245);
+                fontMessageChoice.draw(batch, parts[1], 765, 170);
             }
             String str1 = messageLara.get(messageLara.size() - 1);
             parts1 = str1.split("/");
@@ -339,8 +344,8 @@ public class ScreenPhone implements Screen {
 
 
 
-                    fontMessage.draw(batch, delStr, 660, 245);
-                    fontMessage.draw(batch, delStr1, 660, 170);
+                    fontMessageChoice.draw(batch, delStr, 660, 245);
+                    fontMessageChoice.draw(batch, delStr1, 660, 170);
                     delStr = " ";
                     delStr1 = " ";
 
@@ -437,8 +442,8 @@ public class ScreenPhone implements Screen {
 
 
 
-                    fontMessage.draw(batch, delStr, 660, 245);
-                    fontMessage.draw(batch, delStr1, 660, 170);
+                    fontMessageChoice.draw(batch, delStr, 660, 245);
+                    fontMessageChoice.draw(batch, delStr1, 660, 170);
                     delStr = " ";
                     delStr1 = " ";
 

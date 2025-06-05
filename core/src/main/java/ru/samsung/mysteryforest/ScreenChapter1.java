@@ -22,6 +22,7 @@ public class ScreenChapter1 implements Screen {
     public BitmapFont fontPodarok;
     public BitmapFont fontMessage;
     public BitmapFont fontMessageBig;
+    public BitmapFont fontMessageChoice;
     public BitmapFont fontChapter1;
 
 
@@ -71,6 +72,7 @@ public class ScreenChapter1 implements Screen {
 
     public ScreenChapter1(Main main) {
         this.main = main;
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
@@ -79,6 +81,7 @@ public class ScreenChapter1 implements Screen {
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
         fontMessage = new BitmapFont(Gdx.files.internal("fonts/message.fnt"));
         fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
+        fontMessageChoice = new BitmapFont(Gdx.files.internal("fonts/bundleSmall.fnt"));
         fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/blood.fnt"));
         stopFont = false;
 
@@ -184,6 +187,7 @@ public class ScreenChapter1 implements Screen {
                 }
             }
             if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
+                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenCar);
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
@@ -194,7 +198,7 @@ public class ScreenChapter1 implements Screen {
         }
 
         //events
-
+        main.Station = "screenChapter1";
         //paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -212,8 +216,11 @@ public class ScreenChapter1 implements Screen {
             fontChapter1.setColor(color); // возвращаем исходный цвет
         }
         if (stopFont) {
+
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            fontPodarok.draw(batch, "Эмили", 1370, 498);
+            fontPodarok.draw(batch, "Лара", 405, 498);
 
             batch.draw(imgBackpack, 234, 15, 85, 85);
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
@@ -230,8 +237,8 @@ public class ScreenChapter1 implements Screen {
                         for (int i = 0; i < par.length; i++) {
                             str += par[i] + " ";
                         }
-                        fontMessage.draw(batch, partsEmily[0], 925, 105);
-                        fontMessage.draw(batch, str, 925, 31);
+                        fontMessageChoice.draw(batch, partsEmily[0], 925, 105);
+                        fontMessageChoice.draw(batch, str, 925, 31);
                     }
                     if (choice1) {
                         batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);

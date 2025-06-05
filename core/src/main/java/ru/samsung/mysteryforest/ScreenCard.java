@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.Objects;
+
 public class ScreenCard implements Screen {
     Main main;
 
@@ -27,6 +29,8 @@ public class ScreenCard implements Screen {
 
     SpaceButton btnBack;
     SpaceButton btnSettings;
+    SpaceButton btnHomeEmily;
+    SpaceButton btnShop;
 
     MapIcon mapIconObject;
     MapIcon placeObject;
@@ -37,7 +41,11 @@ public class ScreenCard implements Screen {
     boolean drawPlace = false;
     boolean noPlace = false;
 
+    boolean homeEmily = false;
+    boolean shop = false;
+
     String place = "";
+    String back = "";
 
 
 
@@ -59,6 +67,9 @@ public class ScreenCard implements Screen {
 
         btnBack = new SpaceButton(fontPodarok, 100, 50, "X");
         btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
+        btnHomeEmily = new SpaceButton(fontPodarok, 312, 515, "отправиться");
+        btnShop = new SpaceButton(fontPodarok, 932, 302, "отправиться");
+
 
         mapIconObject = new MapIcon(500, 400, 70, 86);
         placeObject = new MapIcon(470, 500, 100, 60);
@@ -80,8 +91,44 @@ public class ScreenCard implements Screen {
             mapIconObject.y = touch.y;
             placeObject.x = touch.x - 30;
             placeObject.y = touch.y + 85;
-            if (btnBack.hit(touch.x, touch.y)){
-                main.setScreen(main.screenCar);
+            if (btnSettings.hit(touch.x, touch.y)){
+                main.screenSettings.back = "ScreenCard";
+                main.setScreen(main.screenSettings);
+            }
+            if (btnBack.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                if (Objects.equals(back, "ScreenRegistration")) {
+                    main.setScreen(main.screenLogin);
+                }
+                if (Objects.equals(back, "ScreenHistory")) {
+                    main.setScreen(main.screenHistory);
+                }
+                if (Objects.equals(back, "ScreenHomeSearch")) {
+                    main.setScreen(main.screenHomeSearch);
+                }
+                if (Objects.equals(back, "ScreenChapter1")) {
+                    main.setScreen(main.screenChapter1);
+                }
+                if (Objects.equals(back, "ScreenCar")) {
+                    main.setScreen(main.screenCar);
+                }
+                if (Objects.equals(back, "ScreenCarGame")) {
+                    main.setScreen(main.screenCarGame);
+                }
+                if (Objects.equals(back, "ScreenRiver")) {
+                    main.setScreen(main.screenRiver);
+                }
+                if (Objects.equals(back, "ScreenCard")) {
+                    main.setScreen(main.screenCard);
+                }
+
+
+            }
+            if (btnHomeEmily.hit(touch.x, touch.y) && homeEmily){
+                main.screenHomeSearch.next = false;
+                main.setScreen(main.screenHomeSearch);
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
@@ -91,21 +138,17 @@ public class ScreenCard implements Screen {
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
-                if (touch.x >= 1208 && touch.x <= 1598 && touch.y >= 388 && touch.y <= 900){
-                    place = "крепость";
+                if (touch.x >= 210 && touch.x <= 366 && touch.y >= 432 && touch.y <= 688){
+                    place = "дом Эмили";
                     noPlace = false;
+                    homeEmily = true;
+                    shop = false;
                 }
-                else if (touch.x >= 492 && touch.x <= 623 && touch.y >= 716 && touch.y <= 880){
-                    place = "элек\nтричество";
-                    noPlace = false;
-                }
-                else if (touch.x >= 705 && touch.x <= 907 && touch.y >= 497 && touch.y <= 604){
-                    place = "Мия";
-                    noPlace = false;
-                }
-                else if (touch.x >= 930 && touch.x <= 1044 && touch.y >= 630 && touch.y <= 758){
+                else if (touch.x >= 932 && touch.x <= 1065 && touch.y >= 302 && touch.y <= 365){
                     place = "магазин\n у Джона";
                     noPlace = false;
+                    homeEmily = false;
+                    shop = true;
                 }
                 else {
                     noPlace = true;
@@ -132,6 +175,12 @@ public class ScreenCard implements Screen {
             if (!noPlace) {
                 batch.draw(imgPlace, placeObject.x, placeObject.y, placeObject.width, placeObject.height);
                 fontMessage.draw(batch, place, placeObject.x + 5, placeObject.y + 50);
+                if (homeEmily){
+                    btnHomeEmily.font.draw(batch, btnHomeEmily.text, btnHomeEmily.x, btnHomeEmily.y);
+                }
+                if (shop){
+                    btnShop.font.draw(batch, btnShop.text, btnShop.x, btnShop.y);
+                }
             }
 
         }

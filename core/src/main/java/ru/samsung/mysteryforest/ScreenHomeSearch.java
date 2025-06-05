@@ -24,7 +24,6 @@ public class ScreenHomeSearch implements Screen {
     public BitmapFont fontPodarok;
     public BitmapFont fontMessageBig;
 
-
     Texture imgHallway;
     Texture imgBedroom;
     Texture imgKitchen;
@@ -38,7 +37,17 @@ public class ScreenHomeSearch implements Screen {
     Texture imgBedroomEmptyCabinet;
     Texture imgBedroomBed;
     Texture imgKitchenCLoset2;
-
+    Texture imgKitchenCase1;
+    Texture imgKitchenCase2;
+    Texture imgKitchenCase3;
+    Texture imgKitchenCase4;
+    Texture imgKitchenBox1;
+    Texture imgKitchenBox2;
+    Texture imgKitchenBox3;
+    Texture imgKitchenBox4;
+    Texture imgKitchenOven;
+    Texture imgBathroomBath;
+    Texture imgHomeMail;
 
     Texture imgBedroomBlack;
     Texture imgHallwayBlack;
@@ -46,13 +55,7 @@ public class ScreenHomeSearch implements Screen {
     Texture imgBathroomBlack;
     Texture imgHomeBlack;
 
-
-
     Texture imgInsert;
-
-
-    Texture imgPaper3;
-
 
     Texture imgBackpack;
     Texture imgPhone;
@@ -62,7 +65,6 @@ public class ScreenHomeSearch implements Screen {
     SpaceButton btnKitchen;
     SpaceButton btnHome;
 
-
     SpaceButton btnTakeIt3;
     SpaceButton btnPhone;
     SpaceButton btnNextChapter;
@@ -70,8 +72,7 @@ public class ScreenHomeSearch implements Screen {
     SpaceButton btnSettings;
     SpaceButton btnTurnLight;
     SpaceButton btnHide;
-
-
+    SpaceButton btnHideInBath;
 
     int IMAGE;
     int hallway;
@@ -87,21 +88,24 @@ public class ScreenHomeSearch implements Screen {
     int bedroomBed;
     int kitchenCloset2;
 
+    int kitchenCase1;
+    int kitchenCase2;
+    int kitchenCase3;
+    int kitchenCase4;
+    int kitchenBox1;
+    int kitchenBox2;
+    int kitchenBox3;
+    int kitchenBox4;
+    int kitchenOven;
+    int bathroomBath;
+    int homeMail;
+
     Insert insertObject1 = new Insert(920, 300, 1f, 1f);
     Insert insertObject2 = new Insert(920, 300, 500, 500);
 
-
-
-    Clues cluesObject3 = new Clues(867, 453, 20, 20, "text/paper3.png");
-
     BackPack backPack = new BackPack();
 
-
-
-    boolean cluesMove3 = false;
-
     boolean black = false;
-
     boolean next = false;
 
     Vector3 objectPositionBedroomCabinet = new Vector3(1224, 283, 0);
@@ -122,20 +126,53 @@ public class ScreenHomeSearch implements Screen {
     Vector3 objectPositionKitchenCloset2 = new Vector3(254, 586, 0);
     Vector3 objectSizeKitchenCloset2 = new Vector3(338, 241, 0);
 
+    Vector3 objectPositionKitchenCase1 = new Vector3(350, 0, 0);
+    Vector3 objectSizeKitchenCase1 = new Vector3(216, 194, 0);
+
+    Vector3 objectPositionKitchenCase2 = new Vector3(577, 8, 0);
+    Vector3 objectSizeKitchenCase2 = new Vector3(181, 211, 0);
+
+    Vector3 objectPositionKitchenCase3 = new Vector3(802, 48, 0);
+    Vector3 objectSizeKitchenCase3 = new Vector3(134, 157, 0);
+
+    Vector3 objectPositionKitchenCase4 = new Vector3(1310, 0, 0);
+    Vector3 objectSizeKitchenCase4 = new Vector3(237, 132 , 0);
+
+    Vector3 objectPositionKitchenBox1 = new Vector3(346, 187, 0);
+    Vector3 objectSizeKitchenBox1 = new Vector3(215, 74, 0);
+
+    Vector3 objectPositionKitchenBox2 = new Vector3(576, 222, 0);
+    Vector3 objectSizeKitchenBox2 = new Vector3(186, 54, 0);
+
+    Vector3 objectPositionKitchenBox3 = new Vector3(802, 240, 0);
+    Vector3 objectSizeKitchenBox3 = new Vector3(138, 32, 0);
+
+    Vector3 objectPositionKitchenBox4 = new Vector3(1318, 180, 0);
+    Vector3 objectSizeKitchenBox4 = new Vector3(233, 30, 0);
+
+    Vector3 objectPositionKitchenOven = new Vector3(964, 12, 0);
+    Vector3 objectSizeKitchenOven = new Vector3(304, 266, 0);
+
+    Vector3 objectPositionBathroomBath = new Vector3(119, 48, 0);
+    Vector3 objectSizeBathroomBath = new Vector3(551, 761, 0);
+
+    Vector3 objectPositionHomeMail = new Vector3(1176, 130, 0);
+    Vector3 objectSizeHomeMail = new Vector3(85, 305, 0);
+
     ShapeRenderer shapeRenderer;
     float alpha;
 
-
-
     public ScreenHomeSearch(Main main) {
         this.main = main;
+        main.Station = "screenHomeSearch";
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
         font = main.font;
         fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
-        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
 
         imgHallway = new Texture("bg/home/hallway.png");
         imgBedroom = new Texture("bg/home/bedroom.png");
@@ -150,6 +187,17 @@ public class ScreenHomeSearch implements Screen {
         imgBedroomEmptyCabinet = new Texture("bg/home/bedroom/bedroomEmptyCabinet.png");
         imgBedroomBed = new Texture("bg/home/bedroom/bedroomBed.png");
         imgKitchenCLoset2 = new Texture("bg/home/kitchen/kitchenCloset2.png");
+        imgKitchenCase1 = new Texture("bg/home/kitchen/kitchenCase1.png");
+        imgKitchenCase2 = new Texture("bg/home/kitchen/kitchenCase2.png");
+        imgKitchenCase3 = new Texture("bg/home/kitchen/kitchenCase3.png");
+        imgKitchenCase4 = new Texture("bg/home/kitchen/kitchenCase4.png");
+        imgKitchenBox1 = new Texture("bg/home/kitchen/kitchenBox1.png");
+        imgKitchenBox2 = new Texture("bg/home/kitchen/kitchenBox2.png");
+        imgKitchenBox3 = new Texture("bg/home/kitchen/kitchenBox3.png");
+        imgKitchenBox4 = new Texture("bg/home/kitchen/kitchenBox4.png");
+        imgKitchenOven = new Texture("bg/home/kitchen/kitchenOven.png");
+        imgBathroomBath = new Texture("bg/home/bathroom/bathroomBath.png");
+        imgHomeMail = new Texture("bg/home/home/homeMail.png");
 
         imgBedroomBlack = new Texture("bg/home/bedroom/bedroomTurnOffLight.png");
         imgHallwayBlack = new Texture("bg/home/hallway/hallwayBlack.png");
@@ -158,7 +206,7 @@ public class ScreenHomeSearch implements Screen {
         imgBathroomBlack = new Texture("bg/home/bathroom/bathroomBlack.png");
 
         imgInsert = new Texture("text/insert.png");
-        imgPaper3 = new Texture("text/paper3.png");
+
 
         imgBackpack = new Texture("icons/backpack.png");
         imgPhone = new Texture("icons/phone.png");
@@ -175,7 +223,7 @@ public class ScreenHomeSearch implements Screen {
         btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
         btnTurnLight = new SpaceButton(fontPodarok, 1310, 450, "выключить");
         btnHide = new SpaceButton(fontPodarok, 697, 311, "спрятаться");
-
+        btnHideInBath = new SpaceButton(fontPodarok, 408, 492, "спрятаться");
 
         IMAGE = 0;
         hallway = 1;
@@ -183,19 +231,26 @@ public class ScreenHomeSearch implements Screen {
         kitchen = 3;
         home = 4;
         bathroom = 5;
-
         bedroomCabinet = 6;
         kitchenCloset = 7;
         bedroomLight = 8;
         bedroomEmptyCabinet = 9;
         bedroomBed = 10;
         kitchenCloset2 = 11;
+        kitchenCase1 = 12;
+        kitchenCase2 = 13;
+        kitchenCase3 = 14;
+        kitchenCase4 = 15;
+        kitchenBox1 = 16;
+        kitchenBox2 = 17;
+        kitchenBox3 = 18;
+        kitchenBox4 = 19;
+        kitchenOven = 20;
+        bathroomBath = 21;
+        homeMail = 22;
 
         shapeRenderer = new ShapeRenderer();
         alpha = 0f;
-
-
-
     }
 
     @Override
@@ -286,10 +341,144 @@ public class ScreenHomeSearch implements Screen {
                 IMAGE = kitchen;
             }
         }
+        if (mousePos.x >= objectPositionKitchenCase1.x &&
+            mousePos.x <= objectPositionKitchenCase1.x + objectSizeKitchenCase1.x &&
+            mousePos.y >= objectPositionKitchenCase1.y &&
+            mousePos.y <= objectPositionKitchenCase1.y + objectSizeKitchenCase1.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenCase1;
+        }
+        else {
+            if (IMAGE == kitchenCase1){
+                IMAGE = kitchen;
+            }
+        }
 
+        if (mousePos.x >= objectPositionKitchenCase2.x &&
+            mousePos.x <= objectPositionKitchenCase2.x + objectSizeKitchenCase2.x &&
+            mousePos.y >= objectPositionKitchenCase2.y &&
+            mousePos.y <= objectPositionKitchenCase2.y + objectSizeKitchenCase2.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenCase2;
+        }
+        else {
+            if (IMAGE == kitchenCase2){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenCase3.x &&
+            mousePos.x <= objectPositionKitchenCase3.x + objectSizeKitchenCase3.x &&
+            mousePos.y >= objectPositionKitchenCase3.y &&
+            mousePos.y <= objectPositionKitchenCase3.y + objectSizeKitchenCase3.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenCase3;
+        }
+        else {
+            if (IMAGE == kitchenCase3){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenCase4.x &&
+            mousePos.x <= objectPositionKitchenCase4.x + objectSizeKitchenCase4.x &&
+            mousePos.y >= objectPositionKitchenCase4.y &&
+            mousePos.y <= objectPositionKitchenCase4.y + objectSizeKitchenCase4.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenCase4;
+        }
+        else {
+            if (IMAGE == kitchenCase4){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenBox1.x &&
+            mousePos.x <= objectPositionKitchenBox1.x + objectSizeKitchenBox1.x &&
+            mousePos.y >= objectPositionKitchenBox1.y &&
+            mousePos.y <= objectPositionKitchenBox1.y + objectSizeKitchenBox1.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenBox1;
+        }
+        else {
+            if (IMAGE == kitchenBox1){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenBox2.x &&
+            mousePos.x <= objectPositionKitchenBox2.x + objectSizeKitchenBox2.x &&
+            mousePos.y >= objectPositionKitchenBox2.y &&
+            mousePos.y <= objectPositionKitchenBox2.y + objectSizeKitchenBox2.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenBox2;
+        }
+        else {
+            if (IMAGE == kitchenBox2){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenBox3.x &&
+            mousePos.x <= objectPositionKitchenBox3.x + objectSizeKitchenBox3.x &&
+            mousePos.y >= objectPositionKitchenBox3.y &&
+            mousePos.y <= objectPositionKitchenBox3.y + objectSizeKitchenBox3.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenBox3;
+        }
+        else {
+            if (IMAGE == kitchenBox3){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenBox4.x &&
+            mousePos.x <= objectPositionKitchenBox4.x + objectSizeKitchenBox4.x &&
+            mousePos.y >= objectPositionKitchenBox4.y &&
+            mousePos.y <= objectPositionKitchenBox4.y + objectSizeKitchenBox4.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenBox4;
+        }
+        else {
+            if (IMAGE == kitchenBox4){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionKitchenOven.x &&
+            mousePos.x <= objectPositionKitchenOven.x + objectSizeKitchenOven.x &&
+            mousePos.y >= objectPositionKitchenOven.y &&
+            mousePos.y <= objectPositionKitchenOven.y + objectSizeKitchenOven.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = kitchenOven;
+        }
+        else {
+            if (IMAGE == kitchenOven){
+                IMAGE = kitchen;
+            }
+        }
+        if (mousePos.x >= objectPositionBathroomBath.x &&
+            mousePos.x <= objectPositionBathroomBath.x + objectSizeBathroomBath.x &&
+            mousePos.y >= objectPositionBathroomBath.y &&
+            mousePos.y <= objectPositionBathroomBath.y + objectSizeBathroomBath.y && IMAGE == bathroom && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = bathroomBath;
+        }
+        else {
+            if (IMAGE == bathroomBath){
+                IMAGE = bathroom;
+            }
+        }
+
+        if (mousePos.x >= objectPositionHomeMail.x &&
+            mousePos.x <= objectPositionHomeMail.x + objectSizeHomeMail.x &&
+            mousePos.y >= objectPositionHomeMail.y &&
+            mousePos.y <= objectPositionHomeMail.y + objectSizeHomeMail.y && IMAGE == home && !(backPack.content.size() == 3)) {
+            // Курсор мыши находится над объектом
+            IMAGE = homeMail;
+        }
+        else {
+            if (IMAGE == homeMail){
+                IMAGE = home;
+            }
+        }
 
         //touches
         if (Gdx.input.justTouched()) {
+            main.screenClues.back = "ScreenHomeSearch";
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
@@ -345,12 +534,7 @@ public class ScreenHomeSearch implements Screen {
             }
 
 
-            if ( touch.x >= 867 && touch.x <= 887 && touch.y >= 453 && touch.y <= 473){
-                if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
-                }
-                cluesMove3 = true;
-            }
+
             if (touch.x >= 1224 && touch.x <= 1375 && touch.y >= 283 && touch.y <= 337 && IMAGE == bedroomCabinet){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
@@ -379,17 +563,56 @@ public class ScreenHomeSearch implements Screen {
                 main.screenClues.IMAGE = main.screenClues.bedroomEmpty;
                 main.setScreen(main.screenClues);
             }
-
-
-
-
-            if (btnTakeIt3.hit(touch.x, touch.y) && IMAGE == home  ) {
+            if (touch.x >= 1164 && touch.x <= 1265 && touch.y >= 111 && touch.y <= 432 && IMAGE == homeMail){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
-                cluesObject3.takeIt = true;
-                backPack.add(cluesObject3);
+                main.screenClues.IMAGE = main.screenClues.mail;
+                main.setScreen(main.screenClues);
             }
+            if (touch.x >= 1164 && touch.x <= 1265 && touch.y >= 111 && touch.y <= 432 && IMAGE == homeMail){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.mail;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 344 && touch.x <= 571 && touch.y >= 187 && touch.y <= 267 && IMAGE == kitchenBox1){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenBox1;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 578 && touch.x <= 767 && touch.y >= 225 && touch.y <= 279 && IMAGE == kitchenBox2){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenBox2;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 805 && touch.x <= 940 && touch.y >= 242 && touch.y <= 268 && IMAGE == kitchenBox3){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenBox3;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 350 && touch.x <= 568 && touch.y >= 0 && touch.y <= 195 && IMAGE == kitchenCase1){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenCase1;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 580 && touch.x <= 758 && touch.y >= 11 && touch.y <= 216 && IMAGE == kitchenCase2){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenCase2;
+                main.setScreen(main.screenClues);
+            }
+
 
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100){
                 if (main.screenSettings.On) {
@@ -419,10 +642,19 @@ public class ScreenHomeSearch implements Screen {
                 main.setScreen(main.screenClues);
 
             }
+            if (btnHideInBath.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.inBath;
+                main.setScreen(main.screenClues);
+
+            }
 
         }
         // events
         insertObject1.moveUp();
+        main.Station = "screenHomeSearch";
 
 
 
@@ -490,25 +722,66 @@ public class ScreenHomeSearch implements Screen {
             else{
                 batch.draw(imgKitchenBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             }
-
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-
-
         }
         if (IMAGE == kitchenCloset){
             batch.draw(imgKitchenCloset, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-
-
         }
         if (IMAGE == kitchenCloset2){
             batch.draw(imgKitchenCLoset2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-
         }
+        if (IMAGE == kitchenCase1){
+            batch.draw(imgKitchenCase1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenCase2){
+            batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenCase3){
+            batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenCase4){
+            batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenBox1){
+            batch.draw(imgKitchenBox1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenBox2){
+            batch.draw(imgKitchenBox2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenBox3){
+            batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenBox4){
+            batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+        if (IMAGE == kitchenOven){
+            batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        }
+
+
 
         if (IMAGE == home) {
             if (!black) {
@@ -520,13 +793,12 @@ public class ScreenHomeSearch implements Screen {
 
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            if (cluesMove3){
-                cluesObject3.move();
-                if (cluesObject3.width >= 400){
-                    btnTakeIt3.font.draw(batch,  btnTakeIt3.text,  btnTakeIt3.x,  btnTakeIt3.y);
-                }
-            }
-            batch.draw(imgPaper3, cluesObject3.x, cluesObject3.y, cluesObject3.width, cluesObject3.height);
+
+        }
+        if (IMAGE == homeMail){
+            batch.draw(imgHomeMail, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         }
         if (IMAGE == bathroom){
             if (!black) {
@@ -538,6 +810,12 @@ public class ScreenHomeSearch implements Screen {
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
+        }
+        if (IMAGE == bathroomBath){
+            batch.draw(imgBathroomBath, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+            btnHideInBath.font.draw(batch, btnHideInBath.text, btnHideInBath.x, btnHideInBath.y);
         }
 
 
@@ -551,7 +829,7 @@ public class ScreenHomeSearch implements Screen {
             batch.draw(imgEmily, 1200, 0, 250, 512);
             batch.draw(imgInsert, insertObject1.x, insertObject1.y, insertObject1.width, insertObject1.height);
             if (insertObject1.width >= 400) {
-                fontMessageBig.draw(batch, "  Возможно что-то  \n   изменилось", 1000, 540);
+                fontMessageBig.draw(batch, "    Возможно что-то\n        изменилось\n Нужно осмотреть дом", 950, 580);
             }
         }
         btnHallway.font.draw(batch,  btnHallway.text,  btnHallway.x,  btnHallway.y);
@@ -565,7 +843,7 @@ public class ScreenHomeSearch implements Screen {
                 fontPodarok.draw(batch, "Выполнено", 1200, 800);
                 batch.draw(imgEmily, 1200, 0, 250, 512);
                 batch.draw(imgInsert, insertObject2.x, insertObject2.y, insertObject2.width, insertObject2.height);
-                fontMessageBig.draw(batch, "Что это за странные \n        записки.. \n Лара написала", 1029, 628);
+                fontMessageBig.draw(batch, "Что это за странные \n        записки.. \n Лара написала SMS", 1029, 628);
             }
             btnPhone.font.draw(batch, btnPhone.text, btnPhone.x, btnPhone.y);
             if (main.screenPhone.nextChapter){
@@ -577,7 +855,7 @@ public class ScreenHomeSearch implements Screen {
         else {
             fontPodarok.draw(batch, "Цель: найти 3 улики,\n которые могут помочь", 1200, 800);
         }
-        batch.draw(imgBackpack,  234, 15, 85, 85);
+        batch.draw(imgBackpack,  234, 15, 120, 90);
         fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
 
         if (next){
@@ -589,9 +867,15 @@ public class ScreenHomeSearch implements Screen {
             alpha += delta * 0.6f;
 
             if (alpha >= 1) {
+
                 System.out.println("SCREENSTART");
                 main.setScreen(main.screenChapter1);
+                main.dbHelper.updateInformation(main.Id);
+                System.out.println(main.Station);
+                System.out.println(main.AttentionLara);
+                System.out.println(main.Id);
             }
+
         }
 
 

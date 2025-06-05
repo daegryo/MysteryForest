@@ -2,13 +2,19 @@ package ru.samsung.mysteryforest;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.utils.MeshBuilder;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+import java.util.Objects;
 
 public class ScreenRegistration implements Screen {
     Main main;
@@ -18,10 +24,19 @@ public class ScreenRegistration implements Screen {
     public Vector3 touch;
     public BitmapFont font;
     public BitmapFont fontPodarok;
+    public BitmapFont fontMessageBig;
 
     Texture imgBg1;
+    Texture imgTap;
+
     SpaceButton btnLogin;
+    SpaceButton btnRegister; // Новая кнопка регистрации
     SpaceButton btnSettings;
+
+    // Поля для ввода данных
+    TextField txtUsername;
+    TextField txtPassword;
+    Stage stage;
 
     ShapeRenderer shapeRenderer;
     float alpha = 0f;
@@ -34,32 +49,65 @@ public class ScreenRegistration implements Screen {
         touch = main.touch;
         font = main.font;
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
 
         imgBg1 = new Texture("bg/screenGame1.png");
-        btnLogin = new SpaceButton(font, 710, 350, "Войти");
+        imgTap = new Texture("text/choice.png");
+
+        btnLogin = new SpaceButton(fontPodarok, 600, 350, "Войти");
+        btnRegister = new SpaceButton(fontPodarok, 600, 300, "Зарегистрироваться"); // Инициализация кнопки регистрации
         btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
         shapeRenderer = new ShapeRenderer();
-    }
 
-    @Override
-    public void show() {
+        // Инициализация полей ввода
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
+        TextField.TextFieldStyle style = new TextField.TextFieldStyle();
+        style.font = fontMessageBig;
+        style.fontColor = Color.WHITE;
+
+        txtUsername = new TextField("", style);
+        txtUsername.setMessageText("Логин");
+        txtUsername.setBounds(600, 450, 300, 40);
+
+        txtPassword = new TextField("", style);
+        txtPassword.setMessageText("Пароль");
+        txtPassword.setPasswordMode(true);
+        txtPassword.setPasswordCharacter('*');
+        txtPassword.setBounds(600, 400, 300, 40);
+
+        stage.addActor(txtUsername);
+        stage.addActor(txtPassword);
     }
 
     @Override
     public void render(float delta) {
-
         // touches
         if (Gdx.input.justTouched()) {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
+
             if (btnLogin.hit(touch.x, touch.y)) {
+
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
-                next = true;
+                // Проверка входа
+                if(validateLogin()) {
+                    next = true;
+                }
             }
+
+            if (btnRegister.hit(touch.x, touch.y)) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                // Регистрация пользователя
+                registerUser();
+            }
+
             if (btnSettings.hit(touch.x, touch.y)){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
@@ -68,69 +116,122 @@ public class ScreenRegistration implements Screen {
                 main.setScreen(main.screenSettings);
             }
         }
-            //events
 
-            // paint
-            batch.begin();
-            batch.setProjectionMatrix(camera.combined);
+        // Отрисовка
+        batch.begin();
+        batch.setProjectionMatrix(camera.combined);
 
-            batch.draw(imgBg1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            font.draw(batch, "Войти в аккаунт", 531, 465);
-            btnLogin.font.draw(batch, btnLogin.text, btnLogin.x, btnLogin.y);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+        batch.draw(imgBg1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        batch.draw(imgTap, 590, 445,236, 40);
+        batch.draw(imgTap, 590, 396 ,236, 40);
+      //  font.draw(batch, "Войти в аккаунт", 531, 465);
+        btnLogin.font.draw(batch, btnLogin.text, btnLogin.x, btnLogin.y);
+        btnRegister.font.draw(batch, btnRegister.text, btnRegister.x, btnRegister.y);
+        btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
+        // Отрисовка полей ввода
+        stage.act(delta);
+        stage.draw();
 
-            if (next){
+        if (next){
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(0, 0, 0, alpha);
+            shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            shapeRenderer.end();
 
-                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(0, 0, 0, alpha);
-                shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                shapeRenderer.end();
-
-                alpha += delta * 0.6f; // Скорость перехода
-
-                if (alpha >= 1) {
-                   System.out.println("SCREENSTART");
+            alpha += delta * 0.6f;
+            if (alpha >= 1) {
+                System.out.println("SCREENSTART");
+                main.dbHelper.updateInformation(main.Id);
+                if (Objects.equals(main.Station, "screenHistory")) {
                     main.setScreen(main.screenHistory);
                 }
+                if (Objects.equals(main.Station, "screenHomeSearch")) {
+                    main.setScreen(main.screenHomeSearch);
+                }
+                if (Objects.equals(main.Station, "screenChapter1")) {
+                    main.setScreen(main.screenChapter1);
+                }
+                if (Objects.equals(main.Station, "screenCar")) {
+                    main.setScreen(main.screenCar);
+                }
+                if (Objects.equals(main.Station, "screenCarGame")) {
+                    main.setScreen(main.screenCarGame);
+                }
+                if (Objects.equals(main.Station, "screenRiver")) {
+                    main.setScreen(main.screenRiver);
+                }
+                if (Objects.equals(main.Station, "screenEnd")) {
+                    main.setScreen(main.screenEnd);
+                }
+
+
+                //else {
+            //        main.setScreen(main.screenHistory);
+
+            //    }
+
             }
-
-
-
-
-            batch.end();
-
-
         }
 
+        batch.end();
 
-
-
-    @Override
-    public void resize(int width, int height) {
 
     }
 
-    @Override
-    public void pause() {
+    private boolean validateLogin() {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
 
+        // Проверка в базе данных
+        if(main.dbHelper.checkUser(username, password)) {
+            return true;
+        } else {
+            // Показать сообщение об ошибке
+            return false;
+        }
     }
 
-    @Override
-    public void resume() {
+    private void registerUser() {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
 
+        if(username.isEmpty() || password.isEmpty()) {
+            // Показать сообщение об ошибке
+            return;
+        }
+
+        // Проверка, существует ли пользователь
+        if(main.dbHelper.userExists(username)) {
+            // Показать сообщение, что пользователь существует
+            return;
+        }
+
+        // Регистрация нового пользователя
+        long id = main.dbHelper.addUser(username, password);
+        if(id != -1) {
+            // Показать сообщение об успешной регистрации
+            System.out.println("User registered with ID: " + id);
+        } else {
+            // Показать сообщение об ошибке регистрации
+        }
     }
 
+    // Остальные методы остаются без изменений
     @Override
-    public void hide() {
-
-    }
-
+    public void show() {}
+    @Override
+    public void resize(int width, int height) {}
+    @Override
+    public void pause() {}
+    @Override
+    public void resume() {}
+    @Override
+    public void hide() {}
     @Override
     public void dispose() {
         batch.dispose();
         imgBg1.dispose();
         font.dispose();
-
+        stage.dispose();
     }
 }
-

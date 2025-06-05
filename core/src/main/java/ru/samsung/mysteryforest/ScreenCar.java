@@ -21,10 +21,12 @@ public class ScreenCar implements Screen {
     public BitmapFont fontScroll;
     public BitmapFont fontPodarok;
     public BitmapFont fontMessage;
+    public BitmapFont fontMessageChoice;
     public BitmapFont fontMessageBig;
     public BitmapFont fontChapter1;
 
     Texture imgBg;
+    Texture imgCar;
     Texture imgBackpack;
     Texture imgEmily;
     Texture imgLara;
@@ -78,10 +80,21 @@ public class ScreenCar implements Screen {
 
     int count = 0;
     int cursor = 0;
+    int counter = 0;
+
+    int IMAGE = 0;
+    int bg = 0;
+    int car = 1;
+
+    Vector3 objectPositionCar = new Vector3(431, 135, 0);
+    Vector3 objectSizeCar = new Vector3(723, 291, 0);
+
+    //touch.x >= 431 && touch.x <= 1154 && touch.y >= 135 && touch.y <= 426
 
 
     public ScreenCar(Main main) {
         this.main = main;
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
@@ -90,10 +103,12 @@ public class ScreenCar implements Screen {
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
         fontMessage = new BitmapFont(Gdx.files.internal("fonts/message.fnt"));
         fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
+        fontMessageChoice = new BitmapFont(Gdx.files.internal("fonts/bundleSmall.fnt"));
         fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/chapter1.fnt"));
 
         imgBg = new Texture("bg/car.png");
         imgBackpack = new Texture("icons/backpack.png");
+        imgCar = new Texture("bg/car/carYellow.png");
         imgEmily = new Texture("heros/Emily/EmilyFullLength.png");
         imgLara = new Texture("heros/Lara/LaraFullLength.png");
         imgAgata = new Texture("heros/Agata/FullLength1.png");
@@ -130,6 +145,20 @@ public class ScreenCar implements Screen {
 
     @Override
     public void render(float delta) {
+        // mouse
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos);
+        if (mousePos.x >= objectPositionCar.x &&
+            mousePos.x <= objectPositionCar.x + objectSizeCar.x &&
+            mousePos.y >= objectPositionCar.y &&
+            mousePos.y <= objectPositionCar.y + objectSizeCar.y && IMAGE == bg && counter < 1) {
+            IMAGE = car;
+        }
+        else {
+            if (IMAGE == car){
+                IMAGE = bg;
+            }
+        }
         // touches
         if (Gdx.input.justTouched()) {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -160,7 +189,7 @@ public class ScreenCar implements Screen {
                 if (main.screenSettings.On) {
                 main.screenStart.soundClick.play();
             }
-
+                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenCarGame);
             }
             if (touch.x >= 1347 && touch.x <= 1508 && touch.y >= 0 && touch.y <= 478 && talkEmily && (choice1 || choice2)) {
@@ -236,6 +265,15 @@ public class ScreenCar implements Screen {
                     main.screenStart.soundClick.play();
                 }
             }
+            if (touch.x >= 431 && touch.x <= 1154 && touch.y >= 135 && touch.y <= 426 && counter < 1) {
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.back = "ScreenCar";
+                main.screenClues.IMAGE = main.screenClues.car;
+                main.setScreen(main.screenClues);
+                counter++;
+            }
 
         }
 
@@ -245,18 +283,26 @@ public class ScreenCar implements Screen {
             showCard = false;
 
         }
+        main.Station = "screenCar";
 
         //paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-
-        batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        if (IMAGE == bg) {
+            batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
+        if (IMAGE == car){
+            batch.draw(imgCar, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
         btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         batch.draw(imgBackpack, 234, 15, 85, 85);
         batch.draw(imgEmily, 1300, 0, 250, 512);
         batch.draw(imgLara, 429, 0, 200, 512);
         batch.draw(imgAgata, 870, 0, 150, 512);
+        fontPodarok.draw(batch, "Лара", 405, 498);
+        fontPodarok.draw(batch, "Эмили", 1466, 498);
+        fontPodarok.draw(batch, "Агата", 981, 498);
         if (6 == cursor){
             btnNextChapter.font.draw(batch, btnNextChapter.text, btnNextChapter.x, btnNextChapter.y);
             btnCard.font.draw(batch, btnCard.text, btnCard.x, btnCard.y);
@@ -273,8 +319,7 @@ public class ScreenCar implements Screen {
                     if (!choice1 && !choice2) {
                         batch.draw(imgChoice, 850, 51, 400, 50);
                         batch.draw(imgChoice, 850, 0, 400, 50);
-                        System.out.println();
-                        System.out.println(cursor);
+                      //  System.out.println(cursor);
                         String[] par = partsEmily[1].split(":");
                         String str = "";
                         for (int i = 0; i < par.length; i++) {
@@ -285,8 +330,8 @@ public class ScreenCar implements Screen {
                         for (int i = 0; i < par1.length; i++) {
                             str1 += par1[i] + " ";
                         }
-                        fontMessage.draw(batch, str1, 863, 105);
-                        fontMessage.draw(batch, str, 863, 31);
+                        fontMessageChoice.draw(batch, str1, 863, 105);
+                        fontMessageChoice.draw(batch, str, 863, 31);
                     }
                     if (choice1) {
                         batch.draw(imgInsertEmily, insertObjectEmily.x, insertObjectEmily.y, insertObjectEmily.width, insertObjectEmily.height);

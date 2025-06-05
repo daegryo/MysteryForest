@@ -30,6 +30,7 @@ public class ScreenStart implements Screen {
    // SpaceButton btnLeaderBoard;
     //SpaceButton btnAbout;
     //SpaceButton btnExit;
+   public float volume = 0.5f;
 
 
 
@@ -106,7 +107,7 @@ public class ScreenStart implements Screen {
         if (main.screenSettings.On) {
             backgroundMusic.play();
             backgroundMusic.setLooping(true);
-            backgroundMusic.setVolume(0.5f);
+            backgroundMusic.setVolume(volume);
         }
 
         // отрисовка
@@ -127,7 +128,7 @@ public class ScreenStart implements Screen {
 
             if (alpha >= 1) {
                 System.out.println("SCREENSTART");
-                main.setScreen(main.screenHistory);
+                main.setScreen(main.screenLogin);
             }
         }
 

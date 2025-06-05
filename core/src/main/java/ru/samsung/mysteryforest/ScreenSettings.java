@@ -25,6 +25,9 @@ public class ScreenSettings implements Screen {
 
     public SpaceButton btnOn;
     public SpaceButton btnBack;
+    public SpaceButton btnReStart;
+    public SpaceButton btnChangeVolumeMore;
+    public SpaceButton btnChangeVolumeLess;
 
     boolean On = true;
 
@@ -47,6 +50,10 @@ public class ScreenSettings implements Screen {
 
         btnOn = new SpaceButton(fontPodarok, 600, 629, "On");
         btnBack = new SpaceButton(fontPodarok, 10, 50, "back");
+        btnReStart = new SpaceButton(fontPodarok, 529, 569,"Начать заново?");
+        btnChangeVolumeLess = new SpaceButton(fontPodarok, 880, 629, "-");
+        btnChangeVolumeMore = new SpaceButton(fontPodarok, 1185, 629, "+");
+
     }
 
     @Override
@@ -87,6 +94,19 @@ public class ScreenSettings implements Screen {
                     On = true;
                 }
             }
+            if (btnChangeVolumeMore.hit(touch.x, touch.y)){
+                if (main.screenStart.volume < 1.1f && main.screenStart.volume-0.1f < 1.1f ) {
+                    main.screenStart.volume += 0.1f;
+                }
+                main.screenStart.volume += 0.1f;
+                main.screenStart.backgroundMusic.setVolume(main.screenStart.volume);
+            }
+            if (btnChangeVolumeLess.hit(touch.x, touch.y)){
+                if (main.screenStart.volume > 0 && main.screenStart.volume-0.1f > 0) {
+                    main.screenStart.volume -= 0.1f;
+                }
+                main.screenStart.backgroundMusic.setVolume(main.screenStart.volume);
+            }
             if (btnBack.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
@@ -112,7 +132,20 @@ public class ScreenSettings implements Screen {
                 if (Objects.equals(back, "ScreenRiver")) {
                     main.setScreen(main.screenRiver);
                 }
+                if (Objects.equals(back, "ScreenCard")) {
+                    main.setScreen(main.screenCard);
+                }
 
+
+            }
+            if (btnReStart.hit(touch.x, touch.y)){
+                main.AttentionLara = 50;
+                main.AttentionAgata = 30;
+                main.AttentionFamily = 70;
+                main.Bank = 50;
+                main.Station = "screenHistory";
+                main.dbHelper.updateInformation(main.Id);
+                back = "ScreenRegistration";
             }
         }
         //events
@@ -121,9 +154,18 @@ public class ScreenSettings implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         batch.draw(imgBg, 0, 0, Main.SCR_WIDTH,Main.SCR_HEIGHT);
+
         fontPodarok.draw(batch, "Звук", 529, 629);
+
+        fontPodarok.draw(batch, "Громкость звука: " + (int)(main.screenStart.volume * 10) , 927, 629);
+        fontPodarok.draw(batch, main.Username, 154, 792);
+
         btnOn.font.draw(batch, btnOn.text, btnOn.x, btnOn.y);
+        btnReStart.font.draw(batch, btnReStart.text, btnReStart.x, btnReStart.y);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
+        btnChangeVolumeMore.font.draw(batch, btnChangeVolumeMore.text, btnChangeVolumeMore.x, btnChangeVolumeMore.y);
+        btnChangeVolumeLess.font.draw(batch, btnChangeVolumeLess.text, btnChangeVolumeLess.x, btnChangeVolumeLess.y);
+
         batch.end();
     }
 

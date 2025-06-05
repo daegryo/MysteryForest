@@ -49,13 +49,14 @@ public class ScreenHistory implements Screen {
 
     public ScreenHistory(Main main) {
         this.main = main;
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
         font = main.font;
-        fontScroll = new BitmapFont(Gdx.files.internal("fonts/scroll.fnt"));
+        fontScroll = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
-        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/messageBig.fnt"));
+        fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
 
         btnRollUp = new SpaceButton(fontPodarok, 793, 450, "свернуть");
         btnCheckHome = new SpaceButton(fontPodarok, 870, 482, "Проверить дом");
@@ -142,6 +143,7 @@ public class ScreenHistory implements Screen {
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
+                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenHomeSearch);
             }
 
@@ -162,6 +164,7 @@ public class ScreenHistory implements Screen {
 
             }
         }
+        main.Station = "screenHistory";
 
         // paint
         batch.setProjectionMatrix(camera.combined);

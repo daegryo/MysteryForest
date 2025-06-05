@@ -57,7 +57,7 @@ configure(subprojects - project(':android')) {
 
 subprojects {
   version = "$projectVersion"
-  ext.appName = 'УЬMysteryForest'
+  ext.appName = 'MysteryForest'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
