@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DatabaseHelper {
     Main main;
-    private static final String DB_NAME = "data/users1.db";
+    private static final String DB_NAME = "assets/data/users1.db";
     private static final String CONNECTION_URL = "jdbc:sqlite:" + DB_NAME;
 
     private Connection connection;

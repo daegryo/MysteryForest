@@ -81,7 +81,7 @@ public class Main extends Game {
         screenMia = new ScreenMia(this);
         screenEnd = new ScreenEnd(this);
 
-        setScreen(screenHomeSearch);
+        setScreen(screenLogin);
     }
 
 
