@@ -118,6 +118,12 @@ public class ScreenBackPack implements Screen {
                 if (Objects.equals(clas, "ScreenCar")) {
                     main.setScreen(main.screenCar);
                 }
+                if (Objects.equals(clas, "ScreenMia")) {
+                    main.setScreen(main.screenMia);
+                }
+                if (Objects.equals(clas, "ScreenStore")) {
+                    main.setScreen(main.screenStore);
+                }
 
             }
             for (int i = 0; i < clues.size(); i++) {

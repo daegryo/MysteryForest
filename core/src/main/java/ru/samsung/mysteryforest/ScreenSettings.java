@@ -26,6 +26,7 @@ public class ScreenSettings implements Screen {
     public SpaceButton btnOn;
     public SpaceButton btnBack;
     public SpaceButton btnReStart;
+    public SpaceButton btnExit;
     public SpaceButton btnChangeVolumeMore;
     public SpaceButton btnChangeVolumeLess;
 
@@ -51,8 +52,10 @@ public class ScreenSettings implements Screen {
         btnOn = new SpaceButton(fontPodarok, 600, 629, "On");
         btnBack = new SpaceButton(fontPodarok, 10, 50, "back");
         btnReStart = new SpaceButton(fontPodarok, 529, 569,"Начать заново?");
+        btnExit = new SpaceButton(fontPodarok, 529, 469,"Выйти из игры?");
         btnChangeVolumeLess = new SpaceButton(fontPodarok, 880, 629, "-");
         btnChangeVolumeMore = new SpaceButton(fontPodarok, 1185, 629, "+");
+
 
     }
 
@@ -135,6 +138,12 @@ public class ScreenSettings implements Screen {
                 if (Objects.equals(back, "ScreenCard")) {
                     main.setScreen(main.screenCard);
                 }
+                if (Objects.equals(back, "ScreenMia")) {
+                    main.setScreen(main.screenMia);
+                }
+                if (Objects.equals(back, "ScreenStore")) {
+                    main.setScreen(main.screenStore);
+                }
 
 
             }
@@ -146,6 +155,10 @@ public class ScreenSettings implements Screen {
                 main.Station = "screenHistory";
                 main.dbHelper.updateInformation(main.Id);
                 back = "ScreenRegistration";
+            }
+            if (btnExit.hit(touch.x, touch.y)){
+                main.dbHelper.updateInformation(main.Id);
+                Gdx.app.exit();          
             }
         }
         //events
@@ -162,6 +175,7 @@ public class ScreenSettings implements Screen {
 
         btnOn.font.draw(batch, btnOn.text, btnOn.x, btnOn.y);
         btnReStart.font.draw(batch, btnReStart.text, btnReStart.x, btnReStart.y);
+        btnExit.font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         btnChangeVolumeMore.font.draw(batch, btnChangeVolumeMore.text, btnChangeVolumeMore.x, btnChangeVolumeMore.y);
         btnChangeVolumeLess.font.draw(batch, btnChangeVolumeLess.text, btnChangeVolumeLess.x, btnChangeVolumeLess.y);

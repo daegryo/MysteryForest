@@ -160,6 +160,12 @@ public class ScreenRegistration implements Screen {
                 if (Objects.equals(main.Station, "screenRiver")) {
                     main.setScreen(main.screenRiver);
                 }
+                if (Objects.equals(main.Station, "screenMia")) {
+                    main.setScreen(main.screenMia);
+                }
+                if (Objects.equals(main.Station, "screenStore")) {
+                    main.setScreen(main.screenMia);
+                }
                 if (Objects.equals(main.Station, "screenEnd")) {
                     main.setScreen(main.screenEnd);
                 }

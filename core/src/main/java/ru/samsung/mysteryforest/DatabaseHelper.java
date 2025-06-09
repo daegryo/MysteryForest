@@ -31,18 +31,23 @@ public class DatabaseHelper {
         String sql = "CREATE TABLE IF NOT EXISTS users (" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "username TEXT UNIQUE NOT NULL, " +
-            "password TEXT NOT NULL)";
+            "password TEXT NOT NULL, " +
+            "AttentionLara INTEGER DEFAULT 0, " +
+            "AttentionAgata INTEGER DEFAULT 0, " +
+            "AttentionFamily INTEGER DEFAULT 0, " +
+            "Bank INTEGER DEFAULT 0, " +
+            "station TEXT DEFAULT '')";
 
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
-            System.out.println("Table 'users' created or already exists");
+            System.out.println("Table 'users' created or already exists with all columns");
         } catch (SQLException e) {
             System.err.println("Error creating table: " + e.getMessage());
         }
     }
 
     public long addUser(String username, String password) {
-        String sql = "INSERT INTO users(username, password, AttentionLara, AttentionAgata, AttentionFamily, Bank) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(username, password, AttentionLara, AttentionAgata, AttentionFamily, Bank, station) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, username);
@@ -51,6 +56,7 @@ public class DatabaseHelper {
             pstmt.setString(4, String.valueOf(main.AttentionAgata));
             pstmt.setString(5, String.valueOf(main.AttentionFamily));
             pstmt.setString(6, String.valueOf(main.Bank));
+            pstmt.setString(7, String.valueOf(main.Station));
 
             pstmt.executeUpdate();
 
@@ -71,19 +77,18 @@ public class DatabaseHelper {
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            main.Username = username;
-
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                main.Id = rs.getInt("id");
-                main.Station = rs.getString("station");
-                main.AttentionLara =  rs.getInt("AttentionLara");
-                main.AttentionAgata = rs.getInt("AttentionAgata");
-                main.AttentionFamily = rs.getInt("AttentionFamily");
-                main.Bank = rs.getInt("Bank");
-
-                return rs.next();
-
+                if (rs.next()) {
+                    main.Id = rs.getInt("id");
+                    main.Station = rs.getString("station");
+                    main.AttentionLara = rs.getInt("AttentionLara");
+                    main.AttentionAgata = rs.getInt("AttentionAgata");
+                    main.AttentionFamily = rs.getInt("AttentionFamily");
+                    main.Bank = rs.getInt("Bank");
+                    main.Username = username;
+                    return true;
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error checking user: " + e.getMessage());

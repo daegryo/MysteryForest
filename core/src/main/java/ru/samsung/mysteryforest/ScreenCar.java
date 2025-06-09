@@ -41,10 +41,12 @@ public class ScreenCar implements Screen {
 
     SpaceButton btnPhone;
     SpaceButton btnCard;
+    SpaceButton btnSettings;
+
     SpaceButton btnNextChapter;
     SpaceButton btnTakeIt1;
     SpaceButton btnTakeIt2;
-    SpaceButton btnSettings;
+
 
 
     Insert insertObjectEmily = new Insert(1050, 300, 450, 450);
@@ -89,6 +91,11 @@ public class ScreenCar implements Screen {
     Vector3 objectPositionCar = new Vector3(431, 135, 0);
     Vector3 objectSizeCar = new Vector3(723, 291, 0);
 
+    boolean isHoveringCar = false;
+
+    private float hoverAlpha = 0f;
+    private final float HOVER_SPEED = 4f;
+
     //touch.x >= 431 && touch.x <= 1154 && touch.y >= 135 && touch.y <= 426
 
 
@@ -121,13 +128,11 @@ public class ScreenCar implements Screen {
 
         btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
         btnCard = new SpaceButton(fontPodarok, 1400, 670, "card");
+        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
         btnNextChapter = new SpaceButton(font, 740, Main.SCR_HEIGHT/2, "Далее");
         btnTakeIt1 = new SpaceButton(fontPodarok, 802, 358, "Свернуть");
         btnTakeIt2 = new SpaceButton(fontPodarok, 802, 300, "Взять");
-        btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
-
-
 
         readFileLara = new ReadFile("assets/story/screenCar/Lara.txt", 1);
         readFileEmily = new ReadFile("assets/story/screenCar/Emily.txt", 1);
@@ -148,16 +153,13 @@ public class ScreenCar implements Screen {
         // mouse
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
-        if (mousePos.x >= objectPositionCar.x &&
+        boolean isCurrentlyHoveringCar = mousePos.x >= objectPositionCar.x &&
             mousePos.x <= objectPositionCar.x + objectSizeCar.x &&
             mousePos.y >= objectPositionCar.y &&
-            mousePos.y <= objectPositionCar.y + objectSizeCar.y && IMAGE == bg && counter < 1) {
-            IMAGE = car;
-        }
-        else {
-            if (IMAGE == car){
-                IMAGE = bg;
-            }
+            mousePos.y <= objectPositionCar.y + objectSizeCar.y && IMAGE == bg && counter < 1;
+
+        if (isCurrentlyHoveringCar != isHoveringCar) {
+            isHoveringCar = isCurrentlyHoveringCar;
         }
         // touches
         if (Gdx.input.justTouched()) {
@@ -283,17 +285,28 @@ public class ScreenCar implements Screen {
             showCard = false;
 
         }
+        if (isCurrentlyHoveringCar) {
+            hoverAlpha = Math.min(1f, hoverAlpha + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha = Math.max(0f, hoverAlpha - delta * HOVER_SPEED);
+        }
         main.Station = "screenCar";
 
         //paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
+        fontPodarok.draw(batch, "Банк " +  main.Bank, 1500, 850);
         if (IMAGE == bg) {
-            batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-        }
-        if (IMAGE == car){
-            batch.draw(imgCar, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (isHoveringCar){
+                if (hoverAlpha > 0.01f) {
+                    batch.setColor(1, 1, 1, hoverAlpha);
+                    batch.draw(imgCar, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                    batch.setColor(1, 1, 1, 1);
+                }
+            }
+            else {
+                batch.draw(imgBg, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         batch.draw(imgBackpack, 234, 15, 85, 85);

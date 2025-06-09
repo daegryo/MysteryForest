@@ -29,6 +29,7 @@ public class Main extends Game {
     public ScreenSettings screenSettings;
     public ScreenMia screenMia;
     public ScreenEnd screenEnd;
+    public ScreenStore screenStore;
 
     public static final float SCR_WIDTH = 1600;
     public static final float SCR_HEIGHT= 900;
@@ -79,9 +80,10 @@ public class Main extends Game {
         screenCard = new ScreenCard(this);
         screenSettings = new ScreenSettings(this);
         screenMia = new ScreenMia(this);
+        screenStore = new ScreenStore(this);
         screenEnd = new ScreenEnd(this);
 
-        setScreen(screenLogin);
+        setScreen(screenHomeSearch);
     }
 
 

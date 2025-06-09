@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import org.lwjgl.Sys;
+
 import java.util.Objects;
 
 public class ScreenHomeSearch implements Screen {
@@ -49,6 +51,24 @@ public class ScreenHomeSearch implements Screen {
     Texture imgBathroomBath;
     Texture imgHomeMail;
 
+    Texture imgBedroomCabinetBlack;
+    Texture imgKitchenClosetBlack;
+    Texture imgBedroomLightBlack;
+    Texture imgBedroomEmptyCabinetBlack;
+    Texture imgBedroomBedBlack;
+    Texture imgKitchenCLoset2Black;
+    Texture imgKitchenCase1Black;
+    Texture imgKitchenCase2Black;
+    Texture imgKitchenCase3Black;
+    Texture imgKitchenCase4Black;
+    Texture imgKitchenBox1Black;
+    Texture imgKitchenBox2Black;
+    Texture imgKitchenBox3Black;
+    Texture imgKitchenBox4Black;
+    Texture imgKitchenOvenBlack;
+    Texture imgBathroomBathBlack;
+    Texture imgHomeMailBlack;
+
     Texture imgBedroomBlack;
     Texture imgHallwayBlack;
     Texture imgKitchenBlack;
@@ -80,25 +100,7 @@ public class ScreenHomeSearch implements Screen {
     int kitchen;
     int home;
     int bathroom;
-    int bedroomCabinet;
-    int kitchenCloset;
-    int bedroomLight;
-    int bedroomTurnOfLight;
-    int bedroomEmptyCabinet;
-    int bedroomBed;
-    int kitchenCloset2;
 
-    int kitchenCase1;
-    int kitchenCase2;
-    int kitchenCase3;
-    int kitchenCase4;
-    int kitchenBox1;
-    int kitchenBox2;
-    int kitchenBox3;
-    int kitchenBox4;
-    int kitchenOven;
-    int bathroomBath;
-    int homeMail;
 
     Insert insertObject1 = new Insert(920, 300, 1f, 1f);
     Insert insertObject2 = new Insert(920, 300, 500, 500);
@@ -162,6 +164,44 @@ public class ScreenHomeSearch implements Screen {
     ShapeRenderer shapeRenderer;
     float alpha;
 
+    private boolean isHoveringBedroomCabinet = false;
+    private boolean isHoveringBedroomEmptyCabinet = false;
+    private boolean isHoveringBedroomBed = false;
+    private boolean isHoveringBedroomLight = false;
+    private boolean isHoveringKitchenCloset = false;
+    private boolean isHoveringKitchenCloset2 = false;
+    private boolean isHoveringKitchenCase1 = false;
+    private boolean isHoveringKitchenCase2 = false;
+    private boolean isHoveringKitchenCase3 = false;
+    private boolean isHoveringKitchenCase4 = false;
+    private boolean isHoveringKitchenBox1 = false;
+    private boolean isHoveringKitchenBox2 = false;
+    private boolean isHoveringKitchenBox3 = false;
+    private boolean isHoveringKitchenBox4 = false;
+    private boolean isHoveringKitchenOven = false;
+    private boolean isHoveringBathroomBath = false;
+    private boolean isHoveringHomeMail = false;
+
+
+    private float hoverAlpha = 0f;
+    private final float HOVER_SPEED = 4f;
+    private float hoverAlpha1 = 0f;
+    private float hoverAlpha2 = 0f;
+    private float hoverAlpha3 = 0f;
+    private float hoverAlpha4 = 0f;
+    private float hoverAlpha5 = 0f;
+    private float hoverAlpha6 = 0f;
+    private float hoverAlpha7 = 0f;
+    private float hoverAlpha8 = 0f;
+    private float hoverAlpha9 = 0f;
+    private float hoverAlpha10 = 0f;
+    private float hoverAlpha11 = 0f;
+    private float hoverAlpha12 = 0f;
+    private float hoverAlpha13 = 0f;
+    private float hoverAlpha14 = 0f;
+    private float hoverAlpha15 = 0f;
+    private float hoverAlpha16 = 0f;
+
     public ScreenHomeSearch(Main main) {
         this.main = main;
         main.Station = "screenHomeSearch";
@@ -199,6 +239,24 @@ public class ScreenHomeSearch implements Screen {
         imgBathroomBath = new Texture("bg/home/bathroom/bathroomBath.png");
         imgHomeMail = new Texture("bg/home/home/homeMail.png");
 
+        imgBedroomCabinetBlack = new Texture("bg/home/bedroom/black/bedroomCabinet.png");
+        imgKitchenClosetBlack = new Texture("bg/home/kitchen/black/kitchenCloset.png");
+        imgBedroomLightBlack = new Texture("bg/home/bedroom/black/bedroomLight.png");
+        imgBedroomEmptyCabinetBlack = new Texture("bg/home/bedroom/black/bedroomEmptyCabinet.png");
+        imgBedroomBedBlack = new Texture("bg/home/bedroom/black/bedroomBed.png");
+        imgKitchenCLoset2Black = new Texture("bg/home/kitchen/black/kitchenCloset2.png");
+        imgKitchenCase1Black = new Texture("bg/home/kitchen/black/kitchenCase1.png");
+        imgKitchenCase2Black = new Texture("bg/home/kitchen/black/kitchenCase2.png");
+        imgKitchenCase3Black = new Texture("bg/home/kitchen/black/kitchenCase3.png");
+        imgKitchenCase4Black = new Texture("bg/home/kitchen/black/kitchenCase4.png");
+        imgKitchenBox1Black = new Texture("bg/home/kitchen/black/kitchenBox1.png");
+        imgKitchenBox2Black = new Texture("bg/home/kitchen/black/kitchenBox2.png");
+        imgKitchenBox3Black = new Texture("bg/home/kitchen/black/kitchenBox3.png");
+        imgKitchenBox4Black = new Texture("bg/home/kitchen/black/kitchenBox4.png");
+        imgKitchenOvenBlack = new Texture("bg/home/kitchen/black/kitchenOven.png");
+        imgBathroomBathBlack = new Texture("bg/home/bathroom/black/bathroomBath.png");
+        imgHomeMailBlack = new Texture("bg/home/home/black/homeMail.png");
+
         imgBedroomBlack = new Texture("bg/home/bedroom/bedroomTurnOffLight.png");
         imgHallwayBlack = new Texture("bg/home/hallway/hallwayBlack.png");
         imgKitchenBlack = new Texture("bg/home/kitchen/kitchenBlack.png");
@@ -231,26 +289,11 @@ public class ScreenHomeSearch implements Screen {
         kitchen = 3;
         home = 4;
         bathroom = 5;
-        bedroomCabinet = 6;
-        kitchenCloset = 7;
-        bedroomLight = 8;
-        bedroomEmptyCabinet = 9;
-        bedroomBed = 10;
-        kitchenCloset2 = 11;
-        kitchenCase1 = 12;
-        kitchenCase2 = 13;
-        kitchenCase3 = 14;
-        kitchenCase4 = 15;
-        kitchenBox1 = 16;
-        kitchenBox2 = 17;
-        kitchenBox3 = 18;
-        kitchenBox4 = 19;
-        kitchenOven = 20;
-        bathroomBath = 21;
-        homeMail = 22;
 
         shapeRenderer = new ShapeRenderer();
         alpha = 0f;
+
+
     }
 
     @Override
@@ -263,218 +306,151 @@ public class ScreenHomeSearch implements Screen {
         // mouse
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
-        if (mousePos.x >= objectPositionBedroomCabinet.x &&
+        boolean isCurrentlyHoveringBedroomCabinet = mousePos.x >= objectPositionBedroomCabinet.x &&
             mousePos.x <= objectPositionBedroomCabinet.x + objectSizeBedroomCabinet.x &&
             mousePos.y >= objectPositionBedroomCabinet.y &&
-            mousePos.y <= objectPositionBedroomCabinet.y + objectSizeBedroomCabinet.y && IMAGE == bedroom && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = bedroomCabinet;
-        }
-        else {
-            if (IMAGE == bedroomCabinet){
-                IMAGE = bedroom;
-            }
-        }
-        if (mousePos.x >= objectPositionBedroomEmptyCabinet.x &&
+            mousePos.y <= objectPositionBedroomCabinet.y + objectSizeBedroomCabinet.y &&
+            IMAGE == bedroom && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringBedroomEmptyCabinet = mousePos.x >= objectPositionBedroomEmptyCabinet.x &&
             mousePos.x <= objectPositionBedroomEmptyCabinet.x + objectSizeBedroomEmptyCabinet.x &&
             mousePos.y >= objectPositionBedroomEmptyCabinet.y &&
-            mousePos.y <= objectPositionBedroomEmptyCabinet.y + objectSizeBedroomEmptyCabinet.y && IMAGE == bedroom && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = bedroomEmptyCabinet;
-        }
-        else {
-            if (IMAGE == bedroomEmptyCabinet){
-                IMAGE = bedroom;
-            }
-        }
-        if (mousePos.x >= objectPositionBedroomBed.x &&
+            mousePos.y <= objectPositionBedroomEmptyCabinet.y + objectSizeBedroomEmptyCabinet.y && IMAGE == bedroom && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringBedroomBed = mousePos.x >= objectPositionBedroomBed.x &&
             mousePos.x <= objectPositionBedroomBed.x + objectSizeBedroomBed.x &&
             mousePos.y >= objectPositionBedroomBed.y &&
-            mousePos.y <= objectPositionBedroomBed.y + objectSizeBedroomBed.y && IMAGE == bedroom && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = bedroomBed;
-        }
-        else {
-            if (IMAGE == bedroomBed){
-                IMAGE = bedroom;
-            }
-        }
-        if (mousePos.x >= objectPositionBedroomLight.x &&
+            mousePos.y <= objectPositionBedroomBed.y + objectSizeBedroomBed.y && IMAGE == bedroom && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringBedroomLight = mousePos.x >= objectPositionBedroomLight.x &&
             mousePos.x <= objectPositionBedroomLight.x + objectSizeBedroomLight.x &&
             mousePos.y >= objectPositionBedroomLight.y &&
-            mousePos.y <= objectPositionBedroomLight.y + objectSizeBedroomLight.y && IMAGE == bedroom && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
+            mousePos.y <= objectPositionBedroomLight.y + objectSizeBedroomLight.y && IMAGE == bedroom && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCloset = mousePos.x >= objectPositionKitchenCloset.x &&
+            mousePos.x <= objectPositionKitchenCloset.x + objectSizeKitchenCloset.x &&
+            mousePos.y >= objectPositionKitchenCloset.y &&
+            mousePos.y <= objectPositionKitchenCloset.y + objectSizeKitchenCloset.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCloset2 = mousePos.x >= objectPositionKitchenCloset2.x &&
+            mousePos.x <= objectPositionKitchenCloset2.x + objectSizeKitchenCloset2.x &&
+            mousePos.y >= objectPositionKitchenCloset2.y &&
+            mousePos.y <= objectPositionKitchenCloset2.y + objectSizeKitchenCloset2.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCase1 = mousePos.x >= objectPositionKitchenCase1.x &&
+            mousePos.x <= objectPositionKitchenCase1.x + objectSizeKitchenCase1.x &&
+            mousePos.y >= objectPositionKitchenCase1.y &&
+            mousePos.y <= objectPositionKitchenCase1.y + objectSizeKitchenCase1.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCase2 = mousePos.x >= objectPositionKitchenCase2.x &&
+            mousePos.x <= objectPositionKitchenCase2.x + objectSizeKitchenCase2.x &&
+            mousePos.y >= objectPositionKitchenCase2.y &&
+            mousePos.y <= objectPositionKitchenCase2.y + objectSizeKitchenCase2.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCase3 = mousePos.x >= objectPositionKitchenCase3.x &&
+            mousePos.x <= objectPositionKitchenCase3.x + objectSizeKitchenCase3.x &&
+            mousePos.y >= objectPositionKitchenCase3.y &&
+            mousePos.y <= objectPositionKitchenCase3.y + objectSizeKitchenCase3.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenCase4 = mousePos.x >= objectPositionKitchenCase4.x &&
+            mousePos.x <= objectPositionKitchenCase4.x + objectSizeKitchenCase4.x &&
+            mousePos.y >= objectPositionKitchenCase4.y &&
+            mousePos.y <= objectPositionKitchenCase4.y + objectSizeKitchenCase4.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenBox1 = mousePos.x >= objectPositionKitchenBox1.x &&
+            mousePos.x <= objectPositionKitchenBox1.x + objectSizeKitchenBox1.x &&
+            mousePos.y >= objectPositionKitchenBox1.y &&
+            mousePos.y <= objectPositionKitchenBox1.y + objectSizeKitchenBox1.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenBox2 = mousePos.x >= objectPositionKitchenBox2.x &&
+            mousePos.x <= objectPositionKitchenBox2.x + objectSizeKitchenBox2.x &&
+            mousePos.y >= objectPositionKitchenBox2.y &&
+            mousePos.y <= objectPositionKitchenBox2.y + objectSizeKitchenBox2.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenBox3 = mousePos.x >= objectPositionKitchenBox3.x &&
+            mousePos.x <= objectPositionKitchenBox3.x + objectSizeKitchenBox3.x &&
+            mousePos.y >= objectPositionKitchenBox3.y &&
+            mousePos.y <= objectPositionKitchenBox3.y + objectSizeKitchenBox3.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenBox4 = mousePos.x >= objectPositionKitchenBox4.x &&
+            mousePos.x <= objectPositionKitchenBox4.x + objectSizeKitchenBox4.x &&
+            mousePos.y >= objectPositionKitchenBox4.y &&
+            mousePos.y <= objectPositionKitchenBox4.y + objectSizeKitchenBox4.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringKitchenOven = mousePos.x >= objectPositionKitchenOven.x &&
+            mousePos.x <= objectPositionKitchenOven.x + objectSizeKitchenOven.x &&
+            mousePos.y >= objectPositionKitchenOven.y &&
+            mousePos.y <= objectPositionKitchenOven.y + objectSizeKitchenOven.y && IMAGE == kitchen && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringBathroomBath = mousePos.x >= objectPositionBathroomBath.x &&
+            mousePos.x <= objectPositionBathroomBath.x + objectSizeBathroomBath.x &&
+            mousePos.y >= objectPositionBathroomBath.y &&
+            mousePos.y <= objectPositionBathroomBath.y + objectSizeBathroomBath.y && IMAGE == bathroom && !(backPack.content.size() == 3);
+
+        boolean isCurrentlyHoveringHomeMail = mousePos.x >= objectPositionHomeMail.x &&
+            mousePos.x <= objectPositionHomeMail.x + objectSizeHomeMail.x &&
+            mousePos.y >= objectPositionHomeMail.y &&
+            mousePos.y <= objectPositionHomeMail.y + objectSizeHomeMail.y && IMAGE == home && !(backPack.content.size() == 3);
+
+        if (isCurrentlyHoveringBedroomCabinet != isHoveringBedroomCabinet) {
+            System.out.println(isHoveringBedroomCabinet);
+            isHoveringBedroomCabinet = isCurrentlyHoveringBedroomCabinet;
+        }
+        if (isCurrentlyHoveringBedroomEmptyCabinet != isHoveringBedroomEmptyCabinet) {
+            isHoveringBedroomEmptyCabinet = isCurrentlyHoveringBedroomEmptyCabinet;
+        }
+        if (isCurrentlyHoveringBedroomBed != isHoveringBedroomBed) {
+            isHoveringBedroomBed = isCurrentlyHoveringBedroomBed;
+        }
+        if (isCurrentlyHoveringBedroomLight != isHoveringBedroomLight) {
+            isHoveringBedroomLight = isCurrentlyHoveringBedroomLight;
             if (black){
                 btnTurnLight.setText("включить");
             }
             else {
                 btnTurnLight.setText("выключить");
             }
-            IMAGE = bedroomLight;
         }
-        else {
-            if (IMAGE == bedroomLight){
-                IMAGE = bedroom;
-            }
+        if (isCurrentlyHoveringKitchenCloset != isHoveringKitchenCloset) {
+            isHoveringKitchenCloset = isCurrentlyHoveringKitchenCloset;
         }
-        if (mousePos.x >= objectPositionKitchenCloset.x &&
-            mousePos.x <= objectPositionKitchenCloset.x + objectSizeKitchenCloset.x &&
-            mousePos.y >= objectPositionKitchenCloset.y &&
-            mousePos.y <= objectPositionKitchenCloset.y + objectSizeKitchenCloset.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCloset;
+        if (isCurrentlyHoveringKitchenCloset2 != isHoveringKitchenCloset2) {
+            isHoveringKitchenCloset2 = isCurrentlyHoveringKitchenCloset2;
         }
-        else {
-            if (IMAGE == kitchenCloset){
-                IMAGE = kitchen;
-            }
+        if (isCurrentlyHoveringKitchenCase1 != isHoveringKitchenCase1) {
+            isHoveringKitchenCase1 = isCurrentlyHoveringKitchenCase1;
         }
-        if (mousePos.x >= objectPositionKitchenCloset2.x &&
-            mousePos.x <= objectPositionKitchenCloset2.x + objectSizeKitchenCloset2.x &&
-            mousePos.y >= objectPositionKitchenCloset2.y &&
-            mousePos.y <= objectPositionKitchenCloset2.y + objectSizeKitchenCloset2.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCloset2;
+        if (isCurrentlyHoveringKitchenCase2 != isHoveringKitchenCase2) {
+            isHoveringKitchenCase2 = isCurrentlyHoveringKitchenCase2;
         }
-        else {
-            if (IMAGE == kitchenCloset2){
-                IMAGE = kitchen;
-            }
+        if (isCurrentlyHoveringKitchenCase3 != isHoveringKitchenCase3) {
+            isHoveringKitchenCase3 = isCurrentlyHoveringKitchenCase3;
         }
-        if (mousePos.x >= objectPositionKitchenCase1.x &&
-            mousePos.x <= objectPositionKitchenCase1.x + objectSizeKitchenCase1.x &&
-            mousePos.y >= objectPositionKitchenCase1.y &&
-            mousePos.y <= objectPositionKitchenCase1.y + objectSizeKitchenCase1.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCase1;
+        if (isCurrentlyHoveringKitchenCase4 != isHoveringKitchenCase4) {
+            isHoveringKitchenCase4 = isCurrentlyHoveringKitchenCase4;
         }
-        else {
-            if (IMAGE == kitchenCase1){
-                IMAGE = kitchen;
-            }
+        if (isCurrentlyHoveringKitchenBox1 != isHoveringKitchenBox1) {
+            isHoveringKitchenBox1 = isCurrentlyHoveringKitchenBox1;
+        }
+        if (isCurrentlyHoveringKitchenBox2 != isHoveringKitchenBox2) {
+            isHoveringKitchenBox2 = isCurrentlyHoveringKitchenBox2;
+        }
+        if (isCurrentlyHoveringKitchenBox3 != isHoveringKitchenBox3) {
+            isHoveringKitchenBox3 = isCurrentlyHoveringKitchenBox3;
+        }
+        if (isCurrentlyHoveringKitchenBox4 != isHoveringKitchenBox4) {
+            isHoveringKitchenBox4 = isCurrentlyHoveringKitchenBox4;
+        }
+        if (isCurrentlyHoveringKitchenOven != isHoveringKitchenOven) {
+            isHoveringKitchenOven = isCurrentlyHoveringKitchenOven;
+        }
+        if (isCurrentlyHoveringBathroomBath != isHoveringBathroomBath) {
+            isHoveringBathroomBath = isCurrentlyHoveringBathroomBath;
+        }
+        if (isCurrentlyHoveringHomeMail != isHoveringHomeMail) {
+            isHoveringHomeMail = isCurrentlyHoveringHomeMail;
         }
 
-        if (mousePos.x >= objectPositionKitchenCase2.x &&
-            mousePos.x <= objectPositionKitchenCase2.x + objectSizeKitchenCase2.x &&
-            mousePos.y >= objectPositionKitchenCase2.y &&
-            mousePos.y <= objectPositionKitchenCase2.y + objectSizeKitchenCase2.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCase2;
-        }
-        else {
-            if (IMAGE == kitchenCase2){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenCase3.x &&
-            mousePos.x <= objectPositionKitchenCase3.x + objectSizeKitchenCase3.x &&
-            mousePos.y >= objectPositionKitchenCase3.y &&
-            mousePos.y <= objectPositionKitchenCase3.y + objectSizeKitchenCase3.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCase3;
-        }
-        else {
-            if (IMAGE == kitchenCase3){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenCase4.x &&
-            mousePos.x <= objectPositionKitchenCase4.x + objectSizeKitchenCase4.x &&
-            mousePos.y >= objectPositionKitchenCase4.y &&
-            mousePos.y <= objectPositionKitchenCase4.y + objectSizeKitchenCase4.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenCase4;
-        }
-        else {
-            if (IMAGE == kitchenCase4){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenBox1.x &&
-            mousePos.x <= objectPositionKitchenBox1.x + objectSizeKitchenBox1.x &&
-            mousePos.y >= objectPositionKitchenBox1.y &&
-            mousePos.y <= objectPositionKitchenBox1.y + objectSizeKitchenBox1.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenBox1;
-        }
-        else {
-            if (IMAGE == kitchenBox1){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenBox2.x &&
-            mousePos.x <= objectPositionKitchenBox2.x + objectSizeKitchenBox2.x &&
-            mousePos.y >= objectPositionKitchenBox2.y &&
-            mousePos.y <= objectPositionKitchenBox2.y + objectSizeKitchenBox2.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenBox2;
-        }
-        else {
-            if (IMAGE == kitchenBox2){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenBox3.x &&
-            mousePos.x <= objectPositionKitchenBox3.x + objectSizeKitchenBox3.x &&
-            mousePos.y >= objectPositionKitchenBox3.y &&
-            mousePos.y <= objectPositionKitchenBox3.y + objectSizeKitchenBox3.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenBox3;
-        }
-        else {
-            if (IMAGE == kitchenBox3){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenBox4.x &&
-            mousePos.x <= objectPositionKitchenBox4.x + objectSizeKitchenBox4.x &&
-            mousePos.y >= objectPositionKitchenBox4.y &&
-            mousePos.y <= objectPositionKitchenBox4.y + objectSizeKitchenBox4.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenBox4;
-        }
-        else {
-            if (IMAGE == kitchenBox4){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionKitchenOven.x &&
-            mousePos.x <= objectPositionKitchenOven.x + objectSizeKitchenOven.x &&
-            mousePos.y >= objectPositionKitchenOven.y &&
-            mousePos.y <= objectPositionKitchenOven.y + objectSizeKitchenOven.y && IMAGE == kitchen && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = kitchenOven;
-        }
-        else {
-            if (IMAGE == kitchenOven){
-                IMAGE = kitchen;
-            }
-        }
-        if (mousePos.x >= objectPositionBathroomBath.x &&
-            mousePos.x <= objectPositionBathroomBath.x + objectSizeBathroomBath.x &&
-            mousePos.y >= objectPositionBathroomBath.y &&
-            mousePos.y <= objectPositionBathroomBath.y + objectSizeBathroomBath.y && IMAGE == bathroom && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = bathroomBath;
-        }
-        else {
-            if (IMAGE == bathroomBath){
-                IMAGE = bathroom;
-            }
-        }
-
-        if (mousePos.x >= objectPositionHomeMail.x &&
-            mousePos.x <= objectPositionHomeMail.x + objectSizeHomeMail.x &&
-            mousePos.y >= objectPositionHomeMail.y &&
-            mousePos.y <= objectPositionHomeMail.y + objectSizeHomeMail.y && IMAGE == home && !(backPack.content.size() == 3)) {
-            // Курсор мыши находится над объектом
-            IMAGE = homeMail;
-        }
-        else {
-            if (IMAGE == homeMail){
-                IMAGE = home;
-            }
-        }
 
         //touches
         if (Gdx.input.justTouched()) {
@@ -535,83 +511,105 @@ public class ScreenHomeSearch implements Screen {
 
 
 
-            if (touch.x >= 1224 && touch.x <= 1375 && touch.y >= 283 && touch.y <= 337 && IMAGE == bedroomCabinet){
+            if (touch.x >= 1224 && touch.x <= 1375 && touch.y >= 283 && touch.y <= 337 && isHoveringBedroomCabinet){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.bedroom;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 616 && touch.x <= 838 && touch.y >= 562 && touch.y <= 782 && IMAGE == kitchenCloset){
+            if (touch.x >= 616 && touch.x <= 838 && touch.y >= 562 && touch.y <= 782 && isHoveringKitchenCloset){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchen;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 254 && touch.x <= 592 && touch.y >= 586 && touch.y <= 827 && IMAGE == kitchenCloset2){
+            if (touch.x >= 254 && touch.x <= 592 && touch.y >= 586 && touch.y <= 827 && isHoveringKitchenCloset2){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchen2;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 1232 && touch.x <= 1372 && touch.y >= 130 && touch.y <= 270 && IMAGE == bedroomEmptyCabinet){
+            if (touch.x >= 1232 && touch.x <= 1372 && touch.y >= 130 && touch.y <= 270 && isHoveringBedroomEmptyCabinet){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.bedroomEmpty;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 1164 && touch.x <= 1265 && touch.y >= 111 && touch.y <= 432 && IMAGE == homeMail){
+            if (touch.x >= 1164 && touch.x <= 1265 && touch.y >= 111 && touch.y <= 432 && isHoveringHomeMail){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.mail;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 1164 && touch.x <= 1265 && touch.y >= 111 && touch.y <= 432 && IMAGE == homeMail){
-                if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
-                }
-                main.screenClues.IMAGE = main.screenClues.mail;
-                main.setScreen(main.screenClues);
-            }
-            if (touch.x >= 344 && touch.x <= 571 && touch.y >= 187 && touch.y <= 267 && IMAGE == kitchenBox1){
+            if (touch.x >= 344 && touch.x <= 571 && touch.y >= 187 && touch.y <= 267 && isHoveringKitchenBox1){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchenBox1;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 578 && touch.x <= 767 && touch.y >= 225 && touch.y <= 279 && IMAGE == kitchenBox2){
+            if (touch.x >= 578 && touch.x <= 767 && touch.y >= 225 && touch.y <= 279 && isHoveringKitchenBox2){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchenBox2;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 805 && touch.x <= 940 && touch.y >= 242 && touch.y <= 268 && IMAGE == kitchenBox3){
+            if (touch.x >= 805 && touch.x <= 940 && touch.y >= 242 && touch.y <= 268 && isHoveringKitchenBox3){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchenBox3;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 350 && touch.x <= 568 && touch.y >= 0 && touch.y <= 195 && IMAGE == kitchenCase1){
+            if (touch.x >= 1321 && touch.x <= 1554 && touch.y >= 177 && touch.y <= 212 && isHoveringKitchenBox4){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenBox4;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 350 && touch.x <= 568 && touch.y >= 0 && touch.y <= 195 && isHoveringKitchenCase1){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchenCase1;
                 main.setScreen(main.screenClues);
             }
-            if (touch.x >= 580 && touch.x <= 758 && touch.y >= 11 && touch.y <= 216 && IMAGE == kitchenCase2){
+            if (touch.x >= 580 && touch.x <= 758 && touch.y >= 11 && touch.y <= 216 && isHoveringKitchenCase2){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
                 main.screenClues.IMAGE = main.screenClues.kitchenCase2;
                 main.setScreen(main.screenClues);
             }
+            if (touch.x >= 812 && touch.x <= 940 && touch.y >= 50 && touch.y <= 205 && isHoveringKitchenCase3){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenCase3;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 1316 && touch.x <= 1551 && touch.y >= 0 && touch.y <= 131 && isHoveringKitchenCase4){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenCase4;
+                main.setScreen(main.screenClues);
+            }
+            if (touch.x >= 975 && touch.x <= 1251 && touch.y >= 21 && touch.y <= 201 && isHoveringKitchenOven){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenClues.IMAGE = main.screenClues.kitchenOven;
+                main.setScreen(main.screenClues);
+            }
+
 
 
             if (touch.x >= 254 && touch.x <= 339 && touch.y >= 15 && touch.y <= 100){
@@ -656,6 +654,94 @@ public class ScreenHomeSearch implements Screen {
         insertObject1.moveUp();
         main.Station = "screenHomeSearch";
 
+        if (isCurrentlyHoveringBedroomCabinet) {
+            hoverAlpha = Math.min(1f, hoverAlpha + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha = Math.max(0f, hoverAlpha - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringBedroomEmptyCabinet) {
+            hoverAlpha1 = Math.min(1f, hoverAlpha1 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha1 = Math.max(0f, hoverAlpha1 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringBedroomBed) {
+            hoverAlpha2 = Math.min(1f, hoverAlpha2 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha2 = Math.max(0f, hoverAlpha2 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringBedroomLight) {
+            hoverAlpha3 = Math.min(1f, hoverAlpha3 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha3 = Math.max(0f, hoverAlpha3 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCloset) {
+            hoverAlpha4 = Math.min(1f, hoverAlpha4 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha4 = Math.max(0f, hoverAlpha4 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCloset2) {
+            hoverAlpha5 = Math.min(1f, hoverAlpha5 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha5 = Math.max(0f, hoverAlpha5 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCase1) {
+            hoverAlpha6 = Math.min(1f, hoverAlpha6 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha6 = Math.max(0f, hoverAlpha6 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCase2) {
+            hoverAlpha7 = Math.min(1f, hoverAlpha7 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha7 = Math.max(0f, hoverAlpha7 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCase3) {
+            hoverAlpha8 = Math.min(1f, hoverAlpha8 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha8 = Math.max(0f, hoverAlpha8 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenCase4) {
+            hoverAlpha9 = Math.min(1f, hoverAlpha9 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha9 = Math.max(0f, hoverAlpha9 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenBox1) {
+            hoverAlpha10 = Math.min(1f, hoverAlpha10 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha10 = Math.max(0f, hoverAlpha10 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenBox2) {
+            hoverAlpha11 = Math.min(1f, hoverAlpha11 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha11 = Math.max(0f, hoverAlpha11 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenBox3) {
+            hoverAlpha12 = Math.min(1f, hoverAlpha12 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha12 = Math.max(0f, hoverAlpha12 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenBox4) {
+            hoverAlpha13 = Math.min(1f, hoverAlpha13 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha13 = Math.max(0f, hoverAlpha13 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringKitchenOven) {
+            hoverAlpha14 = Math.min(1f, hoverAlpha14 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha14 = Math.max(0f, hoverAlpha14 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringBathroomBath) {
+            hoverAlpha15 = Math.min(1f, hoverAlpha15 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha15 = Math.max(0f, hoverAlpha15 - delta * HOVER_SPEED);
+        }
+        if (isCurrentlyHoveringHomeMail) {
+            hoverAlpha16 = Math.min(1f, hoverAlpha16 + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha16 = Math.max(0f, hoverAlpha16 - delta * HOVER_SPEED);
+        }
+
+
+
 
 
 
@@ -677,145 +763,309 @@ public class ScreenHomeSearch implements Screen {
         }
         if (IMAGE == bedroom) {
             if (!black) {
-                batch.draw(imgBedroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isHoveringBedroomCabinet){
+                    if (hoverAlpha > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha);
+                        batch.draw(imgBedroomCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomEmptyCabinet) {
+                    if (hoverAlpha1 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha1);
+                        batch.draw(imgBedroomEmptyCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomBed) {
+                    if (hoverAlpha2 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha2);
+                        batch.draw(imgBedroomBed, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        btnHide.font.draw(batch, btnHide.text, btnHide.x, btnHide.y);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomLight){
+                    if (hoverAlpha3 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha3);
+                        batch.draw(imgBedroomLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        btnTurnLight.font.draw(batch, btnTurnLight.text, btnTurnLight.x, btnTurnLight.y);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else {
+                    batch.draw(imgBedroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgBedroomBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isHoveringBedroomCabinet){
+                    if (hoverAlpha > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha);
+                        batch.draw(imgBedroomCabinetBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomEmptyCabinet) {
+                    if (hoverAlpha1 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha1);
+                        batch.draw(imgBedroomEmptyCabinetBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomBed) {
+                    if (hoverAlpha2 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha2);
+                        batch.draw(imgBedroomBedBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        btnHide.font.draw(batch, btnHide.text, btnHide.x, btnHide.y);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringBedroomLight){
+                    if (hoverAlpha3 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha3);
+                        batch.draw(imgBedroomLightBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        btnTurnLight.font.draw(batch, btnTurnLight.text, btnTurnLight.x, btnTurnLight.y);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else {
+                    batch.draw(imgBedroomBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
 
-        }
-        if (IMAGE == bedroomCabinet){
-            batch.draw(imgBedroomCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-
-        }
-        if (IMAGE == bedroomLight){
-            batch.draw(imgBedroomLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-            btnTurnLight.font.draw(batch, btnTurnLight.text, btnTurnLight.x, btnTurnLight.y);
-        }
-        if (IMAGE == bedroomTurnOfLight){
-
-            batch.draw(imgBedroomBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == bedroomEmptyCabinet){
-            batch.draw(imgBedroomEmptyCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == bedroomBed){
-            batch.draw(imgBedroomBed, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-            btnHide.font.draw(batch, btnHide.text, btnHide.x, btnHide.y);
         }
         if (IMAGE == kitchen) {
             if (!black) {
-                batch.draw(imgKitchen, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isHoveringKitchenCloset){
+                    if (hoverAlpha4 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha4);
+                        batch.draw(imgKitchenCloset, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCloset2){
+                    if (hoverAlpha5 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha5);
+                        batch.draw(imgKitchenCLoset2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase1){
+                    if (hoverAlpha6 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha6);
+                        batch.draw(imgKitchenCase1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase2){
+                    if (hoverAlpha7 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha7);
+                        batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase3){
+                    if (hoverAlpha8 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha8);
+                        batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase4){
+                    if (hoverAlpha9 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha9);
+                        batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox1){
+                    if (hoverAlpha10 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha10);
+                        batch.draw(imgKitchenBox1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox2){
+                    if (hoverAlpha11 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha11);
+                        batch.draw(imgKitchenBox2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox3){
+                    if (hoverAlpha12 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha12);
+                        batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox4){
+                    if (hoverAlpha13 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha13);
+                        batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenOven){
+                    if (hoverAlpha14 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha14);
+                        batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else{
+                    batch.draw(imgKitchen, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgKitchenBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isHoveringKitchenCloset){
+                    if (hoverAlpha4 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha4);
+                        batch.draw(imgKitchenClosetBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCloset2){
+                    if (hoverAlpha5 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha5);
+                        batch.draw(imgKitchenCLoset2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase1){
+                    if (hoverAlpha6 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha6);
+                        batch.draw(imgKitchenCase1Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase2){
+                    if (hoverAlpha7 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha7);
+                        batch.draw(imgKitchenCase2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase3){
+                    if (hoverAlpha8 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha8);
+                        batch.draw(imgKitchenCase3Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenCase4){
+                    if (hoverAlpha9 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha9);
+                        batch.draw(imgKitchenCase4Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox1){
+                    if (hoverAlpha10 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha10);
+                        batch.draw(imgKitchenBox1Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox2){
+                    if (hoverAlpha11 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha11);
+                        batch.draw(imgKitchenBox2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox3){
+                    if (hoverAlpha12 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha12);
+                        batch.draw(imgKitchenBox3Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenBox4){
+                    if (hoverAlpha13 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha13);
+                        batch.draw(imgKitchenBox4Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else if (isHoveringKitchenOven){
+                    if (hoverAlpha14 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha14);
+                        batch.draw(imgKitchenOvenBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else {
+                    batch.draw(imgKitchenBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         }
-        if (IMAGE == kitchenCloset){
-            batch.draw(imgKitchenCloset, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenCloset2){
-            batch.draw(imgKitchenCLoset2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenCase1){
-            batch.draw(imgKitchenCase1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenCase2){
-            batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenCase3){
-            batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenCase4){
-            batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenBox1){
-            batch.draw(imgKitchenBox1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenBox2){
-            batch.draw(imgKitchenBox2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenBox3){
-            batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenBox4){
-            batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-        if (IMAGE == kitchenOven){
-            batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-        }
-
 
 
         if (IMAGE == home) {
             if (!black) {
-                batch.draw(imgHome, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if(isCurrentlyHoveringHomeMail){
+                    if (hoverAlpha16 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha16);
+                        batch.draw(imgHomeMail, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+
+                else{
+                    batch.draw(imgHome, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgHomeBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if(isCurrentlyHoveringHomeMail){
+                    if (hoverAlpha16 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha16);
+                        batch.draw(imgHomeMailBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+                }
+                else {
+                    batch.draw(imgHomeBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
 
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
-        }
-        if (IMAGE == homeMail){
-            batch.draw(imgHomeMail, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         }
         if (IMAGE == bathroom){
             if (!black) {
-                batch.draw(imgBathroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isCurrentlyHoveringBathroomBath){
+                    if (hoverAlpha15 > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha15);
+                        batch.draw(imgBathroomBath, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        btnHideInBath.font.draw(batch, btnHideInBath.text, btnHideInBath.x, btnHideInBath.y);
+                        batch.setColor(1, 1, 1, 1);
+
+                    }
+                }
+                else{
+                    batch.draw(imgBathroom, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
+                if (hoverAlpha15 > 0.01f) {
+                    batch.setColor(1, 1, 1, hoverAlpha15);
+                    batch.draw(imgBathroomBathBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                    btnHideInBath.font.draw(batch, btnHideInBath.text, btnHideInBath.x, btnHideInBath.y);
+                    batch.setColor(1, 1, 1, 1);
+                }
+                else{
                 batch.draw(imgBathroomBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
             btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
 
-        }
-        if (IMAGE == bathroomBath){
-            batch.draw(imgBathroomBath, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-            btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
-            fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
-            btnHideInBath.font.draw(batch, btnHideInBath.text, btnHideInBath.x, btnHideInBath.y);
         }
 
 
@@ -911,7 +1161,11 @@ public class ScreenHomeSearch implements Screen {
         imgKitchen.dispose();
         imgBedroom.dispose();
         imgHome.dispose();
+        imgBedroomCabinetBlack.dispose();
+        imgBedroomEmptyCabinet.dispose();
+        imgHome.dispose();
         font.dispose();
         fontPodarok.dispose();
+
     }
 }

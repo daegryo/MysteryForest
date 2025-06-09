@@ -120,8 +120,11 @@ public class ScreenCard implements Screen {
                 if (Objects.equals(back, "ScreenRiver")) {
                     main.setScreen(main.screenRiver);
                 }
-                if (Objects.equals(back, "ScreenCard")) {
-                    main.setScreen(main.screenCard);
+                if (Objects.equals(back, "ScreenMia")) {
+                    main.setScreen(main.screenMia);
+                }
+                if (Objects.equals(back, "ScreenStore")) {
+                    main.setScreen(main.screenStore);
                 }
 
 

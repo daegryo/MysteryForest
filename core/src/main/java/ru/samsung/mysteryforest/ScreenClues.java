@@ -42,6 +42,10 @@ public class ScreenClues implements Screen {
     Texture imgKitchenCase1;
     Texture imgKitchenCase2;
     Texture imgCar;
+    Texture imgKitchenBox4;
+    Texture imgKitchenCase3;
+    Texture imgKitchenCase4;
+    Texture imgKitchenOven;
 
     Texture imgKitchenLight;
 
@@ -74,9 +78,13 @@ public class ScreenClues implements Screen {
     int kitchenBox3 = 10;
     int kitchenLight = 11;
     int kitchenBox3Empty = 12;
-    int kitchenCase2;
+    int kitchenCase2 = 13;
+    int kitchenBox4 = 14;
+    int kitchenCase3 = 15;
+    int kitchenCase4 = 16;
+    int kitchenOven = 17;
 
-    int car = 13;
+    int car = 18;
 
     boolean cluesMove1 = false;
     boolean cluesMove2 = false;
@@ -107,6 +115,11 @@ public class ScreenClues implements Screen {
     Clues cluesObject4 = new Clues(867, 453, 0.01f, 0.01f, "text/lamp.png");
     Clues cluesObject5 = new Clues(1296, 560, 50, 50, "text/paper4.png");
 
+    private float hoverAlpha = 0f;
+    private final float HOVER_SPEED = 4f;
+
+    boolean isHoveringKitchenLight = false;
+
     String back = "";
 
     public ScreenClues(Main main) {
@@ -136,9 +149,14 @@ public class ScreenClues implements Screen {
         imgKitchenBox2 = new Texture("bg/clues/kitchen/kitchenBox2.png");
         imgKitchenBox3 = new Texture("bg/clues/kitchen/kitchenBox3.png");
         imgKitchenBox3Empty = new Texture("bg/clues/kitchen/kitchenBox3Empty.png");
+        imgKitchenBox4 = new Texture("bg/clues/kitchen/kitchenBox4.png");
         imgKitchenCase1 = new Texture("bg/clues/kitchen/kitchenCase1.png");
         imgKitchenCase2 = new Texture("bg/clues/kitchen/kitchenCase2.png");
+        imgKitchenCase3 = new Texture("bg/clues/kitchen/kitchenCase3.png");
+        imgKitchenCase4 = new Texture("bg/clues/kitchen/kitchenCase4.png");
+        imgKitchenOven = new Texture("bg/clues/kitchen/kitchenOven.png");
         imgCar = new Texture("bg/clues/car/car.png");
+
 
         imgKitchenLight = new Texture("bg/clues/kitchen/mouse/kitchenBox3.png");
 
@@ -169,16 +187,13 @@ public class ScreenClues implements Screen {
         //mouse
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
-        if (mousePos.x >= objectPositionKitchenLight.x &&
+
+        boolean isCurrentlyHoveringKitchenLight = mousePos.x >= objectPositionKitchenLight.x &&
             mousePos.x <= objectPositionKitchenLight.x + objectSizeKitchenLight.x &&
             mousePos.y >= objectPositionKitchenLight.y &&
-            mousePos.y <= objectPositionKitchenLight.y + objectSizeKitchenLight.y && IMAGE == kitchenBox3) {
-            IMAGE = kitchenLight;
-        }
-        else {
-            if (IMAGE == kitchenLight){
-                IMAGE = kitchenBox3;
-            }
+            mousePos.y <= objectPositionKitchenLight.y + objectSizeKitchenLight.y && IMAGE == kitchenBox3;
+        if (isCurrentlyHoveringKitchenLight != isHoveringKitchenLight) {
+            isHoveringKitchenLight = isCurrentlyHoveringKitchenLight;
         }
         // touches
         if (Gdx.input.justTouched()) {
@@ -214,7 +229,7 @@ public class ScreenClues implements Screen {
                 }
                 cluesMove3 = true;
             }
-            if (touch.x >= 707 && touch.x <= 947 && touch.y >= 277 && touch.y <= 473 && IMAGE == kitchenLight){
+            if (touch.x >= 707 && touch.x <= 947 && touch.y >= 277 && touch.y <= 473 && isHoveringKitchenLight){
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
@@ -349,7 +364,11 @@ public class ScreenClues implements Screen {
         }
 
         // events
-
+        if (isCurrentlyHoveringKitchenLight) {
+            hoverAlpha = Math.min(1f, hoverAlpha + delta * HOVER_SPEED);
+        } else {
+            hoverAlpha = Math.max(0f, hoverAlpha - delta * HOVER_SPEED);
+        }
         // paint
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -463,8 +482,19 @@ public class ScreenClues implements Screen {
         }
         if (IMAGE == kitchenBox3){
             if (!cluesObject4.takeIt) {
-                batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (isHoveringKitchenLight){
+                    if (hoverAlpha > 0.01f) {
+                        batch.setColor(1, 1, 1, hoverAlpha);
+                        batch.draw(imgKitchenLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        batch.setColor(1, 1, 1, 1);
+                    }
+
+                }
+                else {
+                    batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
+
             else{
                 batch.draw(imgKitchenBox3Empty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             }
@@ -490,9 +520,6 @@ public class ScreenClues implements Screen {
             batch.draw(imgLamp, cluesObject4.x, cluesObject4.y, cluesObject4.width, cluesObject4.height);
         }
 
-        if (IMAGE == kitchenLight){
-            batch.draw(imgKitchenLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
-        }
         if (IMAGE == car){
             batch.draw(imgCar, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
             if (cluesMove5 && IMAGE == car){
@@ -511,6 +538,19 @@ public class ScreenClues implements Screen {
         if (IMAGE == kitchenCase2){
             batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
         }
+        if (IMAGE == kitchenCase3){
+            batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
+        if (IMAGE == kitchenCase4){
+            batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
+        if (IMAGE == kitchenBox4){
+            batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
+        if (IMAGE == kitchenOven){
+            batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        }
+
 
         fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
