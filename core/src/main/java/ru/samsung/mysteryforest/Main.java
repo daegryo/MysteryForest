@@ -64,7 +64,6 @@ public class Main extends Game {
      //   dbHelper.addUser("test", "123");
     //    exists = dbHelper.userExists("test");
        // valid = dbHelper.checkUser("test", "123");
-        System.out.println(exists);
 
         screenStart = new ScreenStart(this);
         screenLogin = new ScreenRegistration(this);
@@ -83,7 +82,7 @@ public class Main extends Game {
         screenStore = new ScreenStore(this);
         screenEnd = new ScreenEnd(this);
 
-        setScreen(screenHomeSearch);
+        setScreen(screenRiver);
     }
 
 

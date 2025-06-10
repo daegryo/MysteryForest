@@ -316,7 +316,22 @@ public class ScreenChapter1 implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageChoice.dispose();
+        fontMessageBig.dispose();
+        fontChapter1.dispose();
+        imgBg.dispose();
+        imgBackpack.dispose();
+        imgPhone.dispose();
+        imgEmily.dispose();
+        imgLara.dispose();
+        imgInsert.dispose();
+        imgInsert1.dispose();
+        imgChoice.dispose();
     }
 
     public void updateFont(float deltaTime) {

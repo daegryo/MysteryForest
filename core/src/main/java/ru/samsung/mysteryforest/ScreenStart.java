@@ -25,11 +25,13 @@ public class ScreenStart implements Screen {
    float alpha;
    boolean next = false;
    Music backgroundMusic;
+   Music backgroundMusicChapter2;
    Sound soundClick;
-   // SpaceButton btnSettings;
-   // SpaceButton btnLeaderBoard;
-    //SpaceButton btnAbout;
-    //SpaceButton btnExit;
+   Sound soundBuy;
+   Sound soundClose;
+   Sound soundDoor;
+   Sound soundLight;
+
    public float volume = 0.5f;
 
 
@@ -51,7 +53,12 @@ public class ScreenStart implements Screen {
         alpha = 0f;
 
         backgroundMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/background.mp3"));
+        backgroundMusicChapter2 = Gdx.audio.newMusic(Gdx.files.internal("sounds/chapter2.mp3"));
         soundClick = Gdx.audio.newSound(Gdx.files.internal("sounds/click.mp3"));
+        soundBuy = Gdx.audio.newSound(Gdx.files.internal("sounds/buy.mp3"));
+        soundClose = Gdx.audio.newSound(Gdx.files.internal("sounds/close.mp3"));
+        soundDoor = Gdx.audio.newSound(Gdx.files.internal("sounds/door.mp3"));
+        soundLight = Gdx.audio.newSound(Gdx.files.internal("sounds/light.mp3"));
 /*
 
         btnSettings = new SpaceButton(font, 900, 250, "Settings");
@@ -108,6 +115,8 @@ public class ScreenStart implements Screen {
             backgroundMusic.play();
             backgroundMusic.setLooping(true);
             backgroundMusic.setVolume(volume);
+
+            backgroundMusicChapter2.setLooping(true);
         }
 
         // отрисовка
@@ -127,7 +136,6 @@ public class ScreenStart implements Screen {
             alpha += delta * 0.6f;
 
             if (alpha >= 1) {
-                System.out.println("SCREENSTART");
                 main.setScreen(main.screenLogin);
             }
         }
@@ -165,7 +173,14 @@ public class ScreenStart implements Screen {
         font.dispose();
         shapeRenderer.dispose();
         backgroundMusic.dispose();
+        backgroundMusicChapter2.dispose();
+        soundLight.dispose();
+        soundDoor.dispose();
+        soundClose.dispose();
         soundClick.dispose();
+        batch.dispose();
+        fontChapter1.dispose();
+
 
     }
 }

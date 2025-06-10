@@ -26,10 +26,6 @@ public class ScreenRiver implements Screen {
     public BitmapFont fontChapter1;
 
     Texture imgBg;
-    Texture imgEmily;
-    Texture imgLara;
-    Texture imgAgata;
-
     Texture imgInsert;
 
     Insert insertObject = new Insert(800, 400, 450, 450);
@@ -70,10 +66,6 @@ public class ScreenRiver implements Screen {
         fontChapter1 = new BitmapFont(Gdx.files.internal("fonts/blood.fnt"));
 
         imgBg = new Texture("bg/river.png");
-        imgEmily = new Texture("heros/Emily/EmilyFullLength.png");
-        imgLara = new Texture("heros/Lara/LaraFullLength.png");
-        imgAgata = new Texture("heros/Agata/FullLength1.png");
-
         imgInsert = new Texture("text/insert1.png");
 
         btnPhone = new SpaceButton(fontPodarok, 1400, 700, "phone");
@@ -149,6 +141,11 @@ public class ScreenRiver implements Screen {
         }
         // events
         main.Station = "screenRiver";
+        if (main.screenSettings.On) {
+            main.screenStart.backgroundMusic.stop();
+            main.screenStart.backgroundMusicChapter2.play();
+            main.screenStart.backgroundMusicChapter2.setVolume(main.screenStart.volume);
+        }
         // paint
         batch.begin();
         batch.setProjectionMatrix(camera.combined);
@@ -186,7 +183,6 @@ public class ScreenRiver implements Screen {
 
                 if (alpha >= 1) {
                     main.dbHelper.updateInformation(main.Id);
-                    System.out.println("SCREENSTART");
                     main.setScreen(main.screenMia);
                 }
             }
@@ -217,8 +213,14 @@ public class ScreenRiver implements Screen {
 
     @Override
     public void dispose() {
-        imgBg.dispose()
-        ;
+        imgBg.dispose();
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageBig.dispose();
+        fontChapter1.dispose();
     }
 
     public void updateFont(float deltaTime) {

@@ -12,7 +12,6 @@ public class DatabaseHelper {
 
     public DatabaseHelper(Main main) {
         this.main = main;
-        System.out.println("Database path: " + new File(DB_NAME).getAbsolutePath());
         connect();
         createTables();
     }

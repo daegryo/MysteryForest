@@ -46,8 +46,35 @@ public class ScreenClues implements Screen {
     Texture imgKitchenCase3;
     Texture imgKitchenCase4;
     Texture imgKitchenOven;
-
     Texture imgKitchenLight;
+
+    Texture imgBedroomCabinetBlack;
+    Texture imgBedroomCabinetWithoutBlack;
+
+    Texture imgKitchenClosetBlack;
+    Texture imgKitchenClosetWithoutBlack;
+
+    Texture imgKitchenCloset2Black;
+
+    Texture imgHomeMailBlack;
+    Texture imgHomeMailWithoutBlack;
+
+    Texture imgUnderBedBlack;
+    Texture imgInBathBlack;
+    Texture imgBedroomEmptyBlack;
+    Texture imgKitchenBox1Black;
+    Texture imgKitchenBox2Black;
+    Texture imgKitchenBox3Black;
+    Texture imgKitchenBox3EmptyBlack;
+    Texture imgKitchenCase1Black;
+    Texture imgKitchenCase2Black;
+    Texture imgKitchenBox4Black;
+    Texture imgKitchenCase3Black;
+    Texture imgKitchenCase4Black;
+    Texture imgKitchenOvenBlack;
+    Texture imgKitchenLightBlack;
+
+
 
     Texture imgPaper1;
     Texture imgPaper2;
@@ -76,7 +103,6 @@ public class ScreenClues implements Screen {
     int inBath = 8;
     int kitchenCase1 = 9;
     int kitchenBox3 = 10;
-    int kitchenLight = 11;
     int kitchenBox3Empty = 12;
     int kitchenCase2 = 13;
     int kitchenBox4 = 14;
@@ -156,9 +182,33 @@ public class ScreenClues implements Screen {
         imgKitchenCase4 = new Texture("bg/clues/kitchen/kitchenCase4.png");
         imgKitchenOven = new Texture("bg/clues/kitchen/kitchenOven.png");
         imgCar = new Texture("bg/clues/car/car.png");
-
-
         imgKitchenLight = new Texture("bg/clues/kitchen/mouse/kitchenBox3.png");
+
+
+        imgBedroomCabinetBlack = new Texture("bg/clues/bedroom/black/bedroomCabinet.png");
+        imgBedroomCabinetWithoutBlack = new Texture("bg/clues/bedroom/black/bedroomCabinetWithout.png");
+
+        imgKitchenClosetBlack = new Texture("bg/clues/kitchen/black/kitchenCloset.png");
+        imgKitchenClosetWithoutBlack = new Texture("bg/clues/kitchen/black/kitchenClosetWithout.png");
+
+        imgHomeMailBlack = new Texture("bg/clues/home/homeMail.png");
+        imgHomeMailWithoutBlack = new Texture("bg/clues/home/black/homeMailWithout.png");
+
+        imgKitchenCloset2Black = new Texture("bg/clues/kitchen/black/empty.png");
+        imgUnderBedBlack = new Texture("bg/home/bedroom/black/underBed.png");
+        imgInBathBlack = new Texture("bg/home/bathroom/black/inBath.png");
+        imgBedroomEmptyBlack = new Texture("bg/clues/bedroom/black/empty.png");
+        imgKitchenBox1Black = new Texture("bg/clues/kitchen/black/kitchenBox1.png");
+        imgKitchenBox2Black = new Texture("bg/clues/kitchen/black/kitchenBox2.png");
+        imgKitchenBox3Black = new Texture("bg/clues/kitchen/black/kitchenBox3.png");
+        imgKitchenBox3EmptyBlack = new Texture("bg/clues/kitchen/black/kitchenBox3Empty.png");
+        imgKitchenBox4Black = new Texture("bg/clues/kitchen/black/kitchenBox4.png");
+        imgKitchenCase1Black = new Texture("bg/clues/kitchen/black/kitchenCase1.png");
+        imgKitchenCase2Black = new Texture("bg/clues/kitchen/black/kitchenCase2.png");
+        imgKitchenCase3Black = new Texture("bg/clues/kitchen/black/kitchenCase3.png");
+        imgKitchenCase4Black = new Texture("bg/clues/kitchen/black/kitchenCase4.png");
+        imgKitchenOvenBlack = new Texture("bg/clues/kitchen/black/kitchenOven.png");
+        imgKitchenLightBlack = new Texture("bg/clues/kitchen/mouse/black/kitchenBox3.png");
 
         imgPaper1 = new Texture("text/paper1.png");
         imgPaper2 = new Texture("text/paper2.png");
@@ -202,7 +252,7 @@ public class ScreenClues implements Screen {
             System.out.println(touch.x + " " + touch.y);
             if (btnBack.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundClose.play();
                 }
                 if (Objects.equals(back, "ScreenHomeSearch")) {
                     main.setScreen(main.screenHomeSearch);
@@ -373,11 +423,19 @@ public class ScreenClues implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         if (IMAGE == bedroom) {
-            if (!cluesObject2.takeIt) {
-                batch.draw(imgBedroomCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                if (!cluesObject2.takeIt) {
+                    batch.draw(imgBedroomCabinet, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgBedroomCabinetWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgBedroomCabinetWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (!cluesObject2.takeIt) {
+                    batch.draw(imgBedroomCabinetBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgBedroomCabinetWithoutBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             if (cluesMove2 && IMAGE == bedroom){
                 cluesObject2.move();
@@ -389,11 +447,19 @@ public class ScreenClues implements Screen {
             batch.draw(imgPaper2, cluesObject2.x, cluesObject2.y, cluesObject2.width, cluesObject2.height);
         }
         if (IMAGE == kitchen){
-            if (!cluesObject1.takeIt) {
-                batch.draw(imgKitchenCloset, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                if (!cluesObject1.takeIt) {
+                    batch.draw(imgKitchenCloset, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgKitchenClosetWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgKitchenClosetWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (!cluesObject1.takeIt) {
+                    batch.draw(imgKitchenClosetBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgKitchenClosetWithoutBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             if (cluesMove1 && IMAGE == kitchen){
                 cluesObject1.move();
@@ -404,14 +470,21 @@ public class ScreenClues implements Screen {
             batch.draw(imgPaper1, cluesObject1.x, cluesObject1.y, cluesObject1.width, cluesObject1.height);
         }
         if (IMAGE == mail){
-            if (!cluesObject3.takeIt) {
-                batch.draw(imgHomeMail, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                if (!cluesObject3.takeIt) {
+                    batch.draw(imgHomeMail, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgHomeMailWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             else{
-                batch.draw(imgHomeMailWithout, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (!cluesObject3.takeIt) {
+                    batch.draw(imgHomeMailBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                } else {
+                    batch.draw(imgHomeMailWithoutBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             if (cluesMove3 && IMAGE == mail){
-                System.out.println(cluesObject3.width);
                 cluesObject3.move();
                 if (cluesObject3.width >= 400){
                     btnTakeIt3.font.draw(batch,  btnTakeIt3.text,  btnTakeIt3.x,  btnTakeIt3.y);
@@ -420,17 +493,37 @@ public class ScreenClues implements Screen {
             batch.draw(imgPaper3, cluesObject3.x, cluesObject3.y, cluesObject3.width, cluesObject3.height);
         }
         if (IMAGE == underBed){
-            batch.draw(imgUnderBed, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgUnderBed, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgUnderBedBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == inBath){
-            batch.draw(imgInBath, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgInBath, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgInBathBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
 
         if (IMAGE == bedroomEmpty){
-            batch.draw(imgBedroomEmpty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgBedroomEmpty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgBedroomEmptyBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchen2){
-            batch.draw(imgKitchenCloset2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenCloset2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else {
+                batch.draw(imgKitchenCloset2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
             if (drawCoin4) {
                 batch.draw(imgCoin, 463, 531, 100, 100);
             }
@@ -464,7 +557,12 @@ public class ScreenClues implements Screen {
 
         }
         if (IMAGE == kitchenBox1){
-            batch.draw(imgKitchenBox1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenBox1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenBox1Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
             if (drawCoin1) {
                 batch.draw(imgCoin, 722, 414, 100, 100);
             }
@@ -478,28 +576,47 @@ public class ScreenClues implements Screen {
 
         }
         if (IMAGE == kitchenBox2){
+            if (!main.screenHomeSearch.black) {
             batch.draw(imgKitchenBox2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenBox2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchenBox3){
             if (!cluesObject4.takeIt) {
                 if (isHoveringKitchenLight){
                     if (hoverAlpha > 0.01f) {
                         batch.setColor(1, 1, 1, hoverAlpha);
-                        batch.draw(imgKitchenLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        if (!main.screenHomeSearch.black) {
+                            batch.draw(imgKitchenLight, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        }
+                        else{
+                            batch.draw(imgKitchenLightBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                        }
                         batch.setColor(1, 1, 1, 1);
                     }
 
                 }
                 else {
-                    batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                    if (!main.screenHomeSearch.black) {
+                        batch.draw(imgKitchenBox3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                    }
+                    else{
+                        batch.draw(imgKitchenBox3Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                    }
                 }
             }
 
             else{
-                batch.draw(imgKitchenBox3Empty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                if (!main.screenHomeSearch.black) {
+                    batch.draw(imgKitchenBox3Empty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
+                else{
+                    batch.draw(imgKitchenBox3EmptyBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+                }
             }
             if (cluesMove4 && IMAGE == kitchenBox3){
-                System.out.println(cluesObject3.width);
                 cluesObject4.move();
                 if (cluesObject4.width >= 400){
                     btnTakeIt4.font.draw(batch,  btnTakeIt3.text,  btnTakeIt3.x,  btnTakeIt3.y);
@@ -508,10 +625,14 @@ public class ScreenClues implements Screen {
             batch.draw(imgLamp, cluesObject4.x, cluesObject4.y, cluesObject4.width, cluesObject4.height);
         }
         if (IMAGE == kitchenBox3Empty){
-            batch.draw(imgKitchenBox3Empty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenBox3Empty, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenBox3EmptyBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
 
             if (cluesMove4 && IMAGE == kitchenBox3Empty){
-                System.out.println(cluesObject3.width);
                 cluesObject4.move();
                 if (cluesObject4.width >= 400){
                     btnTakeIt4.font.draw(batch,  btnTakeIt3.text,  btnTakeIt3.x,  btnTakeIt3.y);
@@ -533,22 +654,52 @@ public class ScreenClues implements Screen {
         }
 
         if (IMAGE == kitchenCase1){
-            batch.draw(imgKitchenCase1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenCase1, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenCase1Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchenCase2){
-            batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenCase2, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenCase2Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchenCase3){
-            batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenCase3, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenCase3Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
-        if (IMAGE == kitchenCase4){
-            batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+        if (IMAGE == kitchenCase4) {
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenCase4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenCase4Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchenBox4){
-            batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenBox4, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenBox4Black, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
         if (IMAGE == kitchenOven){
-            batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            if (!main.screenHomeSearch.black) {
+                batch.draw(imgKitchenOven, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
+            else{
+                batch.draw(imgKitchenOvenBlack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+            }
         }
 
 
@@ -580,6 +731,61 @@ public class ScreenClues implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessageBig.dispose();
+        imgBedroomCabinet.dispose();
+        imgBedroomCabinetWithout.dispose();
+        imgKitchenCloset.dispose();
+        imgKitchenClosetWithout.dispose();
+        imgKitchenCloset2.dispose();
+        imgHomeMail.dispose();
+        imgHomeMailWithout.dispose();
+        imgUnderBed.dispose();
+        imgInBath.dispose();
+        imgBedroomEmpty.dispose();
+        imgKitchenBox1.dispose();
+        imgKitchenBox2.dispose();
+        imgKitchenBox3.dispose();
+        imgKitchenBox3Empty.dispose();
+        imgKitchenCase1.dispose();
+        imgKitchenCase2.dispose();
+        imgCar.dispose();
+        imgKitchenBox4.dispose();
+        imgKitchenCase3.dispose();
+        imgKitchenCase4.dispose();
+        imgKitchenOven.dispose();
+        imgKitchenLight.dispose();
+        imgBedroomCabinetBlack.dispose();
+        imgBedroomCabinetWithoutBlack.dispose();
+        imgKitchenClosetBlack.dispose();
+        imgKitchenClosetWithoutBlack.dispose();
+        imgKitchenCloset2Black.dispose();
+        imgHomeMailBlack.dispose();
+        imgHomeMailWithoutBlack.dispose();
+        imgUnderBedBlack.dispose();
+        imgInBathBlack.dispose();
+        imgBedroomEmptyBlack.dispose();
+        imgKitchenBox1Black.dispose();
+        imgKitchenBox2Black.dispose();
+        imgKitchenBox3Black.dispose();
+        imgKitchenBox3EmptyBlack.dispose();
+        imgKitchenCase1Black.dispose();
+        imgKitchenCase2Black.dispose();
+        imgKitchenBox4Black.dispose();
+        imgKitchenCase3Black.dispose();
+        imgKitchenCase4Black.dispose();
+        imgKitchenOvenBlack.dispose();
+        imgKitchenLightBlack.dispose();
+        imgPaper1.dispose();
+        imgPaper2.dispose();
+        imgPaper3.dispose();
+        imgPaper4.dispose();
+        imgLamp.dispose();
+        imgCoin.dispose();
+
 
     }
 }

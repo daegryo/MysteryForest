@@ -215,14 +215,12 @@ public class ScreenCar implements Screen {
                 talkLara = false;
                 talkEmily = true;
                 if (cursor == 0) {
-                    System.out.println(partsLara[0]);
                     show = true;
                     showPaper = true;
                 }
                 if (cursor == 4){
                     show = true;
                     showCard = true;
-                    System.out.println("CARD");
                 }
                 if (messageEmily.size() - 1 > cursor) {
                     cursor++;
@@ -332,7 +330,6 @@ public class ScreenCar implements Screen {
                     if (!choice1 && !choice2) {
                         batch.draw(imgChoice, 850, 51, 400, 50);
                         batch.draw(imgChoice, 850, 0, 400, 50);
-                      //  System.out.println(cursor);
                         String[] par = partsEmily[1].split(":");
                         String str = "";
                         for (int i = 0; i < par.length; i++) {
@@ -449,5 +446,25 @@ public class ScreenCar implements Screen {
     @Override
     public void dispose() {
         imgPaper1.dispose();
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageChoice.dispose();
+        fontMessageBig.dispose();
+        fontChapter1.dispose();
+        imgBg.dispose();
+        imgCar.dispose();
+        imgBackpack.dispose();
+        imgEmily.dispose();
+        imgLara.dispose();
+        imgAgata.dispose();
+        imgInsertEmily.dispose();
+        imgInsertAgata.dispose();
+        imgInsertLara.dispose();
+        imgChoice.dispose();
+        imgPaper1.dispose();
+        imgCard.dispose();
     }
 }

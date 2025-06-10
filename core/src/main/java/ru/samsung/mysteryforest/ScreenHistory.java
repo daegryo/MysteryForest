@@ -239,6 +239,12 @@ public class ScreenHistory implements Screen {
         for (int i = 0; i < scroll.length; i++) {
             scroll[i].dispose();
         }
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessageBig.dispose();
+
 
     }
     private void changePhase(){
@@ -248,6 +254,10 @@ public class ScreenHistory implements Screen {
                 if (++phase == 10) phase = 0;
                 timeLastPhase = TimeUtils.millis();
             }
+            imgBg.dispose();
+            imgEmily.dispose();
+            imgInsert.dispose();
+
         }
     }
 }

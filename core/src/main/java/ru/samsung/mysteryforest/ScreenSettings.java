@@ -158,7 +158,7 @@ public class ScreenSettings implements Screen {
             }
             if (btnExit.hit(touch.x, touch.y)){
                 main.dbHelper.updateInformation(main.Id);
-                Gdx.app.exit();          
+                Gdx.app.exit();
             }
         }
         //events
@@ -205,6 +205,11 @@ public class ScreenSettings implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        imgBg.dispose();
     }
 }

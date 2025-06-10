@@ -100,6 +100,14 @@ public class ScreenEnd implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageBig.dispose();
+        fontChapter1.dispose();
+        imgBg.dispose();
 
     }
     public void updateFont(float deltaTime) {

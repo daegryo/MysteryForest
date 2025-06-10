@@ -28,7 +28,6 @@ public class ReadFile {
                 }
                 if (n == num) {
                     array.add(str);
-                    System.out.println(str);
                     n = 0;
                     str = "";
                 }
@@ -37,7 +36,6 @@ public class ReadFile {
         } catch (IOException e) {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
         }
-        System.out.println(array.size());
         return array;
     }
 }

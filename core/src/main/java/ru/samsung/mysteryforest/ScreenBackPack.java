@@ -57,13 +57,13 @@ public class ScreenBackPack implements Screen {
         backPack = main.screenHomeSearch.backPack;
 
         for (int i = 0; i < cluesObjects.size(); i++) {
-            cluesObjects.get(i).x = 550 + (i * 300);
+            cluesObjects.get(i).x = 1000 + (i * 300);
             cluesObjects.get(i).y = 526;
             cluesObjects.get(i).width = 200;
             cluesObjects.get(i).height = 200;
         }
         for (int i = 0; i < helpersObjects.size(); i++) {
-            cluesObjects.get(i).x = 550 + (i * 300);
+            cluesObjects.get(i).x = 100 + (i * 300);
             cluesObjects.get(i).y = 450;
             cluesObjects.get(i).width = 200;
             cluesObjects.get(i).height = 200;
@@ -88,7 +88,6 @@ public class ScreenBackPack implements Screen {
         }
         for (int i = 0; i < backPack.helpers.size(); i++) {
             if (!paths.contains(backPack.helpers.get(i).path)){
-                System.out.println("KKDXMDJFYJMFUMKJ");
                 Texture a = new Texture(backPack.helpers.get(i).path);
                 helpers.add(a);
                 paths.add(backPack.helpers.get(i).path);
@@ -126,34 +125,20 @@ public class ScreenBackPack implements Screen {
                 }
 
             }
-            for (int i = 0; i < clues.size(); i++) {
-                if (touch.x >= 550 + (i * 300) && touch.x <= 550 + (i * 300) + 200 && touch.y >= 526 && touch.y <= 726){
-                    System.out.println("HHHHHHHHHHHHHHH");
-                    cluesObjects.get(i).move = true;
-                }
-
-            }
-            for (int i = 0; i < helpers.size(); i++) {
-                if (touch.x >= 550 + (i * 300) && touch.x <= 550 + (i * 300) + 200 && touch.y >= 450 && touch.y <= 650){
-                    System.out.println("HHHHHHHHHHHHHHH");
-                    helpersObjects.get(i).move = true;
-                }
-
-            }
         }
 
         // events
 
 
         for (int i = 0; i < cluesObjects.size(); i++) {
-            cluesObjects.get(i).x = 550 + (i * 300);
+            cluesObjects.get(i).x = 100+ (i * 300);
             cluesObjects.get(i).y = 526;
             cluesObjects.get(i).width = 200;
             cluesObjects.get(i).height = 200;
 
         }
         for (int i = 0; i < helpersObjects.size(); i++) {
-            helpersObjects.get(i).x = 600 + (i * 300);
+            helpersObjects.get(i).x = 150 + (i * 200);
             helpersObjects.get(i).y = 390;
             helpersObjects.get(i).width = 150;
             helpersObjects .get(i).height = 100;
@@ -166,14 +151,18 @@ public class ScreenBackPack implements Screen {
         batch.draw(imgBackpack, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
         fontPodarok.draw(batch, "Банк " + main.Bank, 1500, 850);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
-        fontPodarok.draw(batch, "Улики", 454, 593);
-        fontPodarok.draw(batch, "Устройства", 454, 450);
+        fontPodarok.draw(batch, "Улики", 10, 593);
+        fontPodarok.draw(batch, "Устройства", 10, 450);
 
         for (int i = 0; i < clues.size(); i++) {
+
             batch.draw(clues.get(i), cluesObjects.get(i).x , cluesObjects.get(i).y, cluesObjects.get(i).width, cluesObjects.get(i).height);
+
         }
         for (int i = 0; i < helpers.size(); i++) {
+
             batch.draw(helpers.get(i), helpersObjects.get(i).x , helpersObjects.get(i).y, helpersObjects.get(i).width, helpersObjects.get(i).height);
+
         }
 
 
@@ -203,6 +192,10 @@ public class ScreenBackPack implements Screen {
 
     @Override
     public void dispose() {
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        imgBackpack.dispose();
 
     }
 }

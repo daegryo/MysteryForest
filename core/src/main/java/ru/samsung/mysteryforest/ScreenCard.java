@@ -211,6 +211,16 @@ public class ScreenCard implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageBig.dispose();
+        fontChapter1.dispose();
+        imgBg.dispose();
+        imgIconMap.dispose();
+        imgPlace.dispose();
 
     }
 }

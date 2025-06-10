@@ -372,7 +372,6 @@ public class ScreenMia implements Screen {
             fadeAlpha += fadeSpeed * Gdx.graphics.getDeltaTime();
 
             if (fadeAlpha >= 1f) {
-                System.out.println("FGFGGFGG");
                 fadeAlpha = 1f;
                 isFadingOut = false;
                 isFadingIn = true;
@@ -383,7 +382,6 @@ public class ScreenMia implements Screen {
 
                 }
                 if (talkAgata && cursor == 1){
-                    System.out.println("JJJJJJJJJ");
                     talkAgata = false;
                     talkMia = true;
                     showMia = true;
@@ -395,7 +393,6 @@ public class ScreenMia implements Screen {
                 }
 
             }
-            System.out.println(talkMia);
         }
 
         if (isFadingIn) {
@@ -457,7 +454,6 @@ public class ScreenMia implements Screen {
                 fontMessageBig.draw(batch, par[0] + "\n" + par[1] + "\n" + par[2], 1200, 710);
             }
             if (talkMia){
-                System.out.println("NOCHOICe");
                 medium = messageMiaNoChoice.get(cursor-1);
                 batch.draw(imgInsertMia, insertObjectMia.x, insertObjectMia.y, insertObjectMia.width, insertObjectMia.height);
                 String[] par = medium.split(":");
@@ -476,7 +472,6 @@ public class ScreenMia implements Screen {
                     if (!choice1 && !choice2) {
                         batch.draw(imgChoice, 850, 51, 400, 50);
                         batch.draw(imgChoice, 850, 0, 400, 50);
-                        //  System.out.println(cursor);
                         String[] par = partsEmily[1].split(":");
                         String str = "";
                         for (int i = 0; i < par.length; i++) {
@@ -547,7 +542,6 @@ public class ScreenMia implements Screen {
                 }
             }
             if (talkMia) {
-                System.out.println("CHOICe");
                 batch.draw(imgInsertMia, insertObjectMia.x, insertObjectMia.y, insertObjectMia.width, insertObjectMia.height);
                 if (cursorChoice > 1) {
                     partsMia = messageMia.get(cursorChoice).split("/");
@@ -591,7 +585,6 @@ public class ScreenMia implements Screen {
 
             alpha += delta * 0.6f;
             if (alpha >= 1) {
-                System.out.println("SCREEEEEN");
                 main.setScreen(main.screenStore);
             }
         }
@@ -617,5 +610,27 @@ public class ScreenMia implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessageChoice.dispose();
+        fontMessageBig.dispose();
+        imgBg.dispose();
+        imgBgBlur.dispose();
+        imgPixel.dispose();
+        imgEmily.dispose();
+        imgLara.dispose();
+        imgAgata.dispose();
+        imgMia.dispose();
+        imgAuthor.dispose();
+        imgBackpack.dispose();
+        imgPaper.dispose();
+        imgRibbon.dispose();
+        imgInsertEmily.dispose();
+        imgInsertAgata.dispose();
+        imgInsertLara.dispose();
+        imgInsertMia.dispose();
+        imgChoice.dispose();
     }
 }

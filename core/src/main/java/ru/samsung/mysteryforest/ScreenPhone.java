@@ -267,23 +267,29 @@ public class ScreenPhone implements Screen {
         batch.begin();
         if (IMAGE == def) {
             batch.draw(imgPhone, 0, 0, Main.SCR_WIDTH, Main.SCR_HEIGHT);
+
+            // Последнее сообщение от Лары
             fontMessage.draw(batch, messageLara.get(0) + "...", 735, 660);
-            try {
 
-                String[] parts = orderAgata1.get("choiceAgata" + (cursorAgata-2)).split(":");
-                System.out.println(parts[0] + parts[1]);
-                fontMessage.draw(batch, parts[0] + parts[1], 735, 540);
-            }
-            catch (Exception ignored){
-
-            }
+            // Последнее сообщение от Агаты (если есть)
             try {
-                String[] parts = orderFamily1.get("choiceFamily" + (cursorFamily-1)).split(":");
-                System.out.println(parts[0] + parts[1]);
-                fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
-            }
-            catch (Exception ignored){
-            }
+                String lastAgataKey = "choiceAgata" + (cursorAgata-1);
+                if (orderAgata1.containsKey(lastAgataKey)) {
+                    String[] parts = orderAgata1.get(lastAgataKey).split(":");
+                    fontMessage.draw(batch, parts[0] + parts[1], 735, 590);
+                }
+            } catch (Exception ignored) {}
+
+            // Последнее сообщение от Семьи (если есть)
+
+            try {
+                String lastFamilyKey = "choiceFamily" + (cursorFamily-1);
+                if (orderFamily1.containsKey(lastFamilyKey)) {
+                    String[] parts = orderFamily1.get(lastFamilyKey).split(":");
+                    fontMessage.draw(batch, parts[0] + parts[1], 735, 520);
+                }
+            } catch (Exception ignored) {}
+
 
         }
         if (IMAGE == Lara) {
@@ -378,7 +384,6 @@ public class ScreenPhone implements Screen {
                         }
                         String str2 = "choiceEmily" + cursorAgata;
                         String str3 = "choiceAgata" + cursorAgata;
-                        System.out.println(str2 + "                " + str3);
                         orderAgata1.put(str2, MessageEmilyToAgata[cursorAgata][1]);
                         orderAgata1.put(str3, MessageAgata[cursorAgata][1]);
 
@@ -394,7 +399,6 @@ public class ScreenPhone implements Screen {
                 }
 
                 if (orderAgata1 != null && !orderAgata1.isEmpty()) {
-                    System.out.println("UUUUUUUUUUUUUUUUUU");
                     String stroka = " ";
                     String stroka1 = " ";
                     for (int i = 0; i < cursorAgata; i++) {
@@ -412,8 +416,8 @@ public class ScreenPhone implements Screen {
                         for (int j = 0; j < par1.length; j++) {
                             stroka1 += par1[j] + "\n";
                         }
-                        fontMessage.draw(batch, stroka1, 840, 670 + i * -70);
-                        fontMessage.draw(batch, stroka, 670, 650 + i * -90);
+                        fontMessage.draw(batch, stroka1, 840, 670 + i * -90);
+                        fontMessage.draw(batch, stroka, 670, 650 + i * -90 );
                         stroka = " ";
                         stroka1 = " ";
                     }
@@ -479,7 +483,6 @@ public class ScreenPhone implements Screen {
 
                         String str2 = "choiceEmily" + cursorFamily;
                         String str3 = "choiceFamily" + cursorFamily;
-                        System.out.println(str2 + "                " + str3);
                         orderFamily1.put(str2, MessageEmilyToFamily[cursorFamily][1]);
                         orderFamily1.put(str3, MessageFamily[cursorFamily][1]);
 
@@ -550,6 +553,17 @@ public class ScreenPhone implements Screen {
     @Override
     public void dispose() {
         imgPhone.dispose();
+        batch.dispose();
+        font.dispose();
+        fontScroll.dispose();
+        fontPodarok.dispose();
+        fontMessage.dispose();
+        fontMessageChoice.dispose();
+        imgPhoneLara.dispose();
+        imgPhoneAgata.dispose();
+        imgPhoneFamily.dispose();
+        imgChoice.dispose();
+
 
     }
 }

@@ -140,7 +140,6 @@ public class ScreenRegistration implements Screen {
 
             alpha += delta * 0.6f;
             if (alpha >= 1) {
-                System.out.println("SCREENSTART");
                 main.dbHelper.updateInformation(main.Id);
                 if (Objects.equals(main.Station, "screenHistory")) {
                     main.setScreen(main.screenHistory);
@@ -239,5 +238,11 @@ public class ScreenRegistration implements Screen {
         imgBg1.dispose();
         font.dispose();
         stage.dispose();
+        batch.dispose();
+        font.dispose();
+        fontPodarok.dispose();
+        fontMessageBig.dispose();
+        imgTap.dispose();
+
     }
 }

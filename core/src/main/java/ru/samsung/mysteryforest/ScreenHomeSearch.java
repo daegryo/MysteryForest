@@ -204,7 +204,6 @@ public class ScreenHomeSearch implements Screen {
 
     public ScreenHomeSearch(Main main) {
         this.main = main;
-        main.Station = "screenHomeSearch";
 
         batch = main.batch;
         camera = main.camera;
@@ -393,7 +392,6 @@ public class ScreenHomeSearch implements Screen {
             mousePos.y <= objectPositionHomeMail.y + objectSizeHomeMail.y && IMAGE == home && !(backPack.content.size() == 3);
 
         if (isCurrentlyHoveringBedroomCabinet != isHoveringBedroomCabinet) {
-            System.out.println(isHoveringBedroomCabinet);
             isHoveringBedroomCabinet = isCurrentlyHoveringBedroomCabinet;
         }
         if (isCurrentlyHoveringBedroomEmptyCabinet != isHoveringBedroomEmptyCabinet) {
@@ -467,26 +465,26 @@ public class ScreenHomeSearch implements Screen {
             }
             if (btnHallway.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundDoor.play();
                 }
                 IMAGE = hallway;
             }
             if (btnKitchen.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundDoor.play();
                 }
                 IMAGE = kitchen;
 
             }
             if (btnBedroom.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundDoor.play();
                 }
                 IMAGE = bedroom;
             }
             if (btnTurnLight.hit(touch.x, touch.y)){
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundLight.play();
                 }
                 if (Objects.equals(btnTurnLight.text, "выключить")) {
                     black = true;
@@ -498,13 +496,13 @@ public class ScreenHomeSearch implements Screen {
             }
             if (btnHome.hit(touch.x, touch.y)) {
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundDoor.play();
                 }
                 IMAGE = home;
             }
             if (btnBathroom.hit(touch.x, touch.y)){
                 if (main.screenSettings.On) {
-                    main.screenStart.soundClick.play();
+                    main.screenStart.soundDoor.play();
                 }
                 IMAGE = bathroom;
             }
@@ -1117,13 +1115,9 @@ public class ScreenHomeSearch implements Screen {
             alpha += delta * 0.6f;
 
             if (alpha >= 1) {
-
-                System.out.println("SCREENSTART");
                 main.setScreen(main.screenChapter1);
                 main.dbHelper.updateInformation(main.Id);
-                System.out.println(main.Station);
-                System.out.println(main.AttentionLara);
-                System.out.println(main.Id);
+
             }
 
         }
@@ -1163,9 +1157,56 @@ public class ScreenHomeSearch implements Screen {
         imgHome.dispose();
         imgBedroomCabinetBlack.dispose();
         imgBedroomEmptyCabinet.dispose();
-        imgHome.dispose();
+        imgBathroom.dispose();
+        imgEmily.dispose();
+        imgBedroomCabinet.dispose();
+        imgKitchenCloset.dispose();
+        imgBedroomLight.dispose();
+        imgBedroomEmptyCabinet.dispose();
+        imgBedroomBed.dispose();
+        imgKitchenCLoset2.dispose();
+        imgKitchenCase1.dispose();
+        imgKitchenCase2.dispose();
+        imgKitchenCase3.dispose();
+        imgKitchenCase4.dispose();
+        imgKitchenBox1.dispose();
+        imgKitchenBox2.dispose();
+        imgKitchenBox3.dispose();
+        imgKitchenBox4.dispose();
+        imgKitchenOven.dispose();
+        imgBathroomBath.dispose();
+        imgHomeMail.dispose();
+        imgBedroomCabinetBlack.dispose();
+        imgKitchenClosetBlack.dispose();
+        imgBedroomLightBlack.dispose();
+        imgBedroomEmptyCabinetBlack.dispose();
+        imgBedroomBedBlack.dispose();
+        imgKitchenCLoset2Black.dispose();
+        imgKitchenCase1Black.dispose();
+        imgKitchenCase2Black.dispose();
+        imgKitchenCase3Black.dispose();
+        imgKitchenCase4Black.dispose();
+        imgKitchenBox1Black.dispose();
+        imgKitchenBox2Black.dispose();
+        imgKitchenBox3Black.dispose();
+        imgKitchenBox4Black.dispose();
+        imgKitchenOvenBlack.dispose();
+        imgBathroomBathBlack.dispose();
+        imgHomeMailBlack.dispose();
+        imgBedroomBlack.dispose();
+        imgHallwayBlack.dispose();
+        imgKitchenBlack.dispose();
+        imgBathroomBlack.dispose();
+        imgHomeBlack.dispose();
+        imgInsert.dispose();
+        imgBackpack.dispose();
+        imgPhone.dispose();
+        batch.dispose();
         font.dispose();
+        fontScroll.dispose();
         fontPodarok.dispose();
+        fontMessageBig.dispose();
+
 
     }
 }
