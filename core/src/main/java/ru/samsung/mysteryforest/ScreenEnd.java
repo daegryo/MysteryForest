@@ -31,7 +31,7 @@ public class ScreenEnd implements Screen {
     public ScreenEnd(Main main) {
         this.main = main;
 
-        main.dbHelper.updateInformation(main.Id);
+
         batch = main.batch;
         camera = main.camera;
         touch = main.touch;
@@ -58,6 +58,7 @@ public class ScreenEnd implements Screen {
             camera.unproject(touch);
             System.out.println(touch.x + " " + touch.y);
             if (touch.x >= 0 && touch.x <= Main.SCR_WIDTH && touch.y >= 0 && touch.y <= Main.SCR_HEIGHT){
+                main.dbHelper.updateInformation(main.Id);
                 Gdx.app.exit();
             }
         }

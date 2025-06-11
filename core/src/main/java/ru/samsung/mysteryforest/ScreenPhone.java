@@ -161,8 +161,7 @@ public class ScreenPhone implements Screen {
             }
         }
 
-        String str = messageEmilyChoice.get(0);
-        parts = str.split("/");
+
 
     }
 
@@ -173,6 +172,8 @@ public class ScreenPhone implements Screen {
 
     @Override
     public void render(float delta) {
+        String str7 = messageEmilyChoice.get(0);
+        parts = str7.split("/");
         //touches
         if (Gdx.input.justTouched()) {
             touch.set(Gdx.input.getX(), Gdx.input.getY(), 0);

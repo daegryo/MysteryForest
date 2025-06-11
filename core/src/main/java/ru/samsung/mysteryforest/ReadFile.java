@@ -1,17 +1,17 @@
 package ru.samsung.mysteryforest;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ReadFile {
-    public String filePath;
-    public int num;
-    List<String> array = new ArrayList<>();
-    int n = 0;
-    String str = "";
+    private String filePath;
+    private int num;
+    private List<String> array = new ArrayList<>();
 
     public ReadFile(String filePath, int num) {
         this.filePath = filePath;
@@ -19,22 +19,30 @@ public class ReadFile {
     }
 
     public List<String> reader() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
+        FileHandle file = Gdx.files.internal(filePath);  // Используем FileHandle
+        if (!file.exists()) {
+            Gdx.app.error("ReadFile", "Файл не найден: " + filePath);
+            return array;
+        }
+
+        try (BufferedReader reader = new BufferedReader(file.reader())) {
             String line;
+            StringBuilder str = new StringBuilder();
+            int n = 0;
+
             while ((line = reader.readLine()) != null) {
-                if (n <= num){
-                    str = str + "\n " + line;
+                if (n <= num) {
+                    str.append("\n").append(line);
                     n++;
                 }
                 if (n == num) {
-                    array.add(str);
+                    array.add(str.toString());
                     n = 0;
-                    str = "";
+                    str = new StringBuilder();
                 }
-
             }
         } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+            Gdx.app.error("ReadFile", "Ошибка при чтении файла: " + filePath, e);
         }
         return array;
     }

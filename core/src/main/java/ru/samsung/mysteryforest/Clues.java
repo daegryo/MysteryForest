@@ -3,12 +3,12 @@ package ru.samsung.mysteryforest;
 import java.util.Objects;
 
 public class Clues {
-    public float x, y, width, height;
-    boolean takeIt = false;
-    String path;
-    boolean stopShow = false;
-    boolean move = false;
+    public float x, y, width, height; // параметры улики
+    boolean takeIt = false; // взята ли улика
+    String path; // путь до изображения улики
+    boolean stopShow = false; // прекратить показывать улику
 
+    // конструктор улики
     public Clues(float x, float y, float width, float height, String path) {
         this.x = x;
         this.y = y;
@@ -17,7 +17,7 @@ public class Clues {
         this.path = path;
 
     }
-
+    // перемещение улики
     public void move() {
         if (!takeIt) {
             {

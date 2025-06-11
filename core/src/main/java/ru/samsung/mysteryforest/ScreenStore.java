@@ -590,7 +590,6 @@ public class ScreenStore implements Screen {
         imgBgBlur.dispose();
         imgBgBlack.dispose();
         imgStoreIn.dispose();
-
         imgStoreInStairs.dispose();
         imgStoreInAmulet.dispose();
         imgStoreInChips.dispose();

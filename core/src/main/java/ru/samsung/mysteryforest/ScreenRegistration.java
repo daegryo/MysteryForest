@@ -13,7 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class ScreenRegistration implements Screen {
@@ -41,6 +44,7 @@ public class ScreenRegistration implements Screen {
     ShapeRenderer shapeRenderer;
     float alpha = 0f;
     boolean next = false;
+    float centerX = Main.SCR_WIDTH / 2 - 150;
 
     public ScreenRegistration(Main main) {
         this.main = main;
@@ -50,17 +54,21 @@ public class ScreenRegistration implements Screen {
         font = main.font;
         fontPodarok = new BitmapFont(Gdx.files.internal("fonts/Podarok.fnt"));
         fontMessageBig = new BitmapFont(Gdx.files.internal("fonts/bundle.fnt"));
+        camera.setToOrtho(false, Main.SCR_WIDTH, Main.SCR_HEIGHT);
 
         imgBg1 = new Texture("bg/screenGame1.png");
         imgTap = new Texture("text/choice.png");
 
-        btnLogin = new SpaceButton(fontPodarok, 600, 350, "Войти");
-        btnRegister = new SpaceButton(fontPodarok, 600, 300, "Зарегистрироваться"); // Инициализация кнопки регистрации
+
+
+        btnLogin = new SpaceButton(fontPodarok, centerX, 350, "Войти");
+        btnRegister = new SpaceButton(fontPodarok, centerX, 300, "Зарегистрироваться");
         btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
         shapeRenderer = new ShapeRenderer();
 
         // Инициализация полей ввода
-        stage = new Stage();
+
+        stage = new Stage(new FitViewport(Main.SCR_WIDTH, Main.SCR_HEIGHT));
         Gdx.input.setInputProcessor(stage);
 
         TextField.TextFieldStyle style = new TextField.TextFieldStyle();
@@ -69,13 +77,22 @@ public class ScreenRegistration implements Screen {
 
         txtUsername = new TextField("", style);
         txtUsername.setMessageText("Логин");
-        txtUsername.setBounds(600, 450, 300, 40);
+        txtUsername.setPosition(centerX, 450);
+        txtUsername.setSize(300, 40);
+
+
 
         txtPassword = new TextField("", style);
         txtPassword.setMessageText("Пароль");
         txtPassword.setPasswordMode(true);
         txtPassword.setPasswordCharacter('*');
-        txtPassword.setBounds(600, 400, 300, 40);
+        txtPassword.setPosition(centerX, 400);
+        txtPassword.setSize(300, 40);
+
+
+
+
+
 
         stage.addActor(txtUsername);
         stage.addActor(txtPassword);
@@ -105,7 +122,11 @@ public class ScreenRegistration implements Screen {
                     main.screenStart.soundClick.play();
                 }
                 // Регистрация пользователя
-                registerUser();
+                try {
+                    registerUser();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             if (btnSettings.hit(touch.x, touch.y)){
@@ -129,8 +150,10 @@ public class ScreenRegistration implements Screen {
         btnRegister.font.draw(batch, btnRegister.text, btnRegister.x, btnRegister.y);
         btnSettings.font.draw(batch, btnSettings.text, btnSettings.x, btnSettings.y);
         // Отрисовка полей ввода
+        batch.end();
         stage.act(delta);
         stage.draw();
+        batch.begin();
 
         if (next){
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -196,7 +219,7 @@ public class ScreenRegistration implements Screen {
         }
     }
 
-    private void registerUser() {
+    private void registerUser() throws SQLException {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
@@ -225,7 +248,15 @@ public class ScreenRegistration implements Screen {
     @Override
     public void show() {}
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
+        stage.getViewport().update(width, height, true);
+        // возможно, нужно обновить размеры текстовых полей
+        txtUsername.setSize(300, 40);
+        txtPassword.setSize(300, 40);
+    }
     @Override
     public void pause() {}
     @Override

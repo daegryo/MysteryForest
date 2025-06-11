@@ -40,9 +40,9 @@ public class ScreenCarGame implements Screen {
     Music tormozMusic;
     Music backgroundMusic;
 
-    Platformг carObject;
-    Platformг[] platformsObjects;
-    Platformг[][] coinObjects;
+    Platformr carObject;
+    Platformr[] platformsObjects;
+    Platformr[][] coinObjects;
 
     Rectangle rectangleCar;
     Rectangle[] rectanglesPlatform;
@@ -98,8 +98,8 @@ public class ScreenCarGame implements Screen {
         btnNext = new SpaceButton(fontPodarok, 780, 270, "Далее");
         btnSettings = new SpaceButton(fontPodarok, 1500, 50, "settings");
 
-        platformsObjects = new Platformг[30];
-        coinObjects = new Platformг[platformsObjects.length][5];
+        platformsObjects = new Platformr[30];
+        coinObjects = new Platformr[platformsObjects.length][5];
 
         rectanglesPlatform = new Rectangle[platformsObjects.length];
         rectanglesCoin = new Rectangle[coinObjects.length][5];
@@ -110,20 +110,20 @@ public class ScreenCarGame implements Screen {
 
 
         for (int i = 0; i < platformsObjects.length; i++) {
-            platformsObjects[i] = new Platformг(500 + i * i * 500, MathUtils.random(300f, 500f), 400, 100, -0.2f, 0);
+            platformsObjects[i] = new Platformr(500 + i * i * 500, MathUtils.random(300f, 500f), 400, 100, -0.2f, 0);
             rectanglesPlatform[i] = new Rectangle(platformsObjects[i].x, platformsObjects[i].y, platformsObjects[i].width, platformsObjects[i].height);
             for (int j = 0; j < coinObjects[i].length; j++) {
                 int a = MathUtils.random(0, 1);
                 if (a == 0) {
-                    coinObjects[i][j] = new Platformг(platformsObjects[i].x + j * 80, platformsObjects[i].y + 125, 50, 50, platformsObjects[i].stepX, 0);
+                    coinObjects[i][j] = new Platformr(platformsObjects[i].x + j * 80, platformsObjects[i].y + 125, 50, 50, platformsObjects[i].stepX, 0);
                 } else {
-                    coinObjects[i][j] = new Platformг(platformsObjects[i].x + j * 80, platformsObjects[i].y - 70, 50, 50, platformsObjects[i].stepX, 0);
+                    coinObjects[i][j] = new Platformr(platformsObjects[i].x + j * 80, platformsObjects[i].y - 70, 50, 50, platformsObjects[i].stepX, 0);
                 }
                 rectanglesCoin[i][j] = new Rectangle(coinObjects[i][j].x, coinObjects[i][j].y, coinObjects[i][j].width, coinObjects[i][j].height);
             }
         }
 
-        carObject = new Platformг(30, 200, 250, 100, 0, 5);
+        carObject = new Platformr(30, 200, 250, 100, 0, 5);
         rectangleCar = new Rectangle(carObject.x, carObject.y, carObject.width, carObject.height);
 
 
