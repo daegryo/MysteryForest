@@ -207,7 +207,6 @@ public class ScreenCarGame implements Screen {
                 main.setScreen(main.screenSettings);
             }
             if (btnNext.hit(touch.x, touch.y) && countTry == -1) {
-                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenRiver);
                 backgroundMusic.stop();
                 if (main.screenSettings.On) {

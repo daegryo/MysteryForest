@@ -153,11 +153,11 @@ public class ScreenSettings implements Screen {
                 main.AttentionFamily = 70;
                 main.Bank = 50;
                 main.Station = "screenHistory";
-                main.dbHelper.updateInformation(main.Id);
+
                 back = "ScreenRegistration";
             }
             if (btnExit.hit(touch.x, touch.y)){
-                main.dbHelper.updateInformation(main.Id);
+
                 Gdx.app.exit();
             }
         }
@@ -174,7 +174,6 @@ public class ScreenSettings implements Screen {
         fontPodarok.draw(batch, main.Username, 154, 792);
 
         btnOn.font.draw(batch, btnOn.text, btnOn.x, btnOn.y);
-        btnReStart.font.draw(batch, btnReStart.text, btnReStart.x, btnReStart.y);
         btnExit.font.draw(batch, btnExit.text, btnExit.x, btnExit.y);
         btnBack.font.draw(batch, btnBack.text, btnBack.x, btnBack.y);
         btnChangeVolumeMore.font.draw(batch, btnChangeVolumeMore.text, btnChangeVolumeMore.x, btnChangeVolumeMore.y);

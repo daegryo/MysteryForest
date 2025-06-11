@@ -46,6 +46,44 @@ public class ScreenRegistration implements Screen {
     boolean next = false;
     float centerX = Main.SCR_WIDTH / 2 - 150;
 
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+}
+    /*
+
+
     public ScreenRegistration(Main main) {
         this.main = main;
         batch = main.batch;
@@ -155,51 +193,6 @@ public class ScreenRegistration implements Screen {
         stage.draw();
         batch.begin();
 
-        if (next){
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(0, 0, 0, alpha);
-            shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            shapeRenderer.end();
-
-            alpha += delta * 0.6f;
-            if (alpha >= 1) {
-                main.dbHelper.updateInformation(main.Id);
-                if (Objects.equals(main.Station, "screenHistory")) {
-                    main.setScreen(main.screenHistory);
-                }
-                if (Objects.equals(main.Station, "screenHomeSearch")) {
-                    main.setScreen(main.screenHomeSearch);
-                }
-                if (Objects.equals(main.Station, "screenChapter1")) {
-                    main.setScreen(main.screenChapter1);
-                }
-                if (Objects.equals(main.Station, "screenCar")) {
-                    main.setScreen(main.screenCar);
-                }
-                if (Objects.equals(main.Station, "screenCarGame")) {
-                    main.setScreen(main.screenCarGame);
-                }
-                if (Objects.equals(main.Station, "screenRiver")) {
-                    main.setScreen(main.screenRiver);
-                }
-                if (Objects.equals(main.Station, "screenMia")) {
-                    main.setScreen(main.screenMia);
-                }
-                if (Objects.equals(main.Station, "screenStore")) {
-                    main.setScreen(main.screenMia);
-                }
-                if (Objects.equals(main.Station, "screenEnd")) {
-                    main.setScreen(main.screenEnd);
-                }
-
-
-                //else {
-            //        main.setScreen(main.screenHistory);
-
-            //    }
-
-            }
-        }
 
         batch.end();
 
@@ -211,12 +204,6 @@ public class ScreenRegistration implements Screen {
         String password = txtPassword.getText();
 
         // Проверка в базе данных
-        if(main.dbHelper.checkUser(username, password)) {
-            return true;
-        } else {
-            // Показать сообщение об ошибке
-            return false;
-        }
     }
 
     private void registerUser() throws SQLException {
@@ -277,3 +264,5 @@ public class ScreenRegistration implements Screen {
 
     }
 }
+
+     */

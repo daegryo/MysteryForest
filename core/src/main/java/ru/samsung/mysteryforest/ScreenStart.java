@@ -136,7 +136,7 @@ public class ScreenStart implements Screen {
             alpha += delta * 0.6f;
 
             if (alpha >= 1) {
-                main.setScreen(main.screenLogin);
+                main.setScreen(main.screenHistory);
             }
         }
 

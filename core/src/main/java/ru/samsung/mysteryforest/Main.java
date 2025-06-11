@@ -42,9 +42,9 @@ public class Main extends Game {
     public int Bank = 50;
     public int Id = 0;
     public String Station = "screenHistory";
-    public String Username = "k";
+    public String Username = "";
 
-    public DatabaseHelper dbHelper;
+
 
     @Override
     public void create() {
@@ -57,10 +57,8 @@ public class Main extends Game {
         touch = new Vector3();
         font = new BitmapFont(Gdx.files.internal("fonts/main1.fnt"));
 
-        dbHelper = new DatabaseHelper(this);
 
         screenStart = new ScreenStart(this);
-        screenLogin = new ScreenRegistration(this);
         screenHistory = new ScreenHistory(this);
         screenHomeSearch = new ScreenHomeSearch(this);
         screenClues = new ScreenClues(this);

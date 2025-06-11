@@ -187,7 +187,6 @@ public class ScreenChapter1 implements Screen {
                 }
             }
             if(btnNextChapter.hit(touch.x, touch.y) && main.screenPhone.nextChapter){
-                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenCar);
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();

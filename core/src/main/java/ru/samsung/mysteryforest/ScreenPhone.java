@@ -255,6 +255,9 @@ public class ScreenPhone implements Screen {
                 if (Objects.equals(clas, "ScreenMia")) {
                     main.setScreen(main.screenMia);
                 }
+                if (Objects.equals(clas, "ScreenStore")) {
+                    main.setScreen(main.screenStore);
+                }
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }

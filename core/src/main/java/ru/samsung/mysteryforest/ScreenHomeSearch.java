@@ -1116,14 +1116,10 @@ public class ScreenHomeSearch implements Screen {
 
             if (alpha >= 1) {
                 main.setScreen(main.screenChapter1);
-                main.dbHelper.updateInformation(main.Id);
 
             }
 
         }
-
-
-
         batch.end();
 
 

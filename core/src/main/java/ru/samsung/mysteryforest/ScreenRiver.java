@@ -182,7 +182,6 @@ public class ScreenRiver implements Screen {
                 alpha += delta * 0.4f; // Скорость перехода
 
                 if (alpha >= 1) {
-                    main.dbHelper.updateInformation(main.Id);
                     main.setScreen(main.screenMia);
                 }
             }

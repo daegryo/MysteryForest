@@ -268,7 +268,6 @@ public class ScreenStore implements Screen {
             if (touch.x >= 749 && touch.x <= 880 && touch.y >= 0 && touch.y <= 880 && talkJohn && !talking){
                 talkJohn = false;
                 if (closeStore){
-                    main.dbHelper.updateInformation(main.Id);
                     main.setScreen(main.screenEnd);
 
                 }
@@ -300,6 +299,13 @@ public class ScreenStore implements Screen {
                 }
                 main.screenSettings.back = "ScreenStore";
                 main.setScreen(main.screenSettings);
+            }
+            if (btnCard.hit(touch.x, touch.y)){
+                if (main.screenSettings.On) {
+                    main.screenStart.soundClick.play();
+                }
+                main.screenCard.back = "ScreenStore";
+                main.setScreen(main.screenCard);
             }
             if (btnBuyStairs.hit(touch.x, touch.y)){
                 if (buyStairs) {

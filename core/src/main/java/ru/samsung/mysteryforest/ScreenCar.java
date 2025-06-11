@@ -191,7 +191,6 @@ public class ScreenCar implements Screen {
                 if (main.screenSettings.On) {
                 main.screenStart.soundClick.play();
             }
-                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenCarGame);
             }
             if (touch.x >= 1347 && touch.x <= 1508 && touch.y >= 0 && touch.y <= 478 && talkEmily && (choice1 || choice2)) {

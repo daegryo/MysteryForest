@@ -145,7 +145,6 @@ public class ScreenHistory implements Screen {
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
-                main.dbHelper.updateInformation(main.Id);
                 main.setScreen(main.screenHomeSearch);
             }
 

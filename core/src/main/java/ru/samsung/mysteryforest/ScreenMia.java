@@ -230,7 +230,6 @@ public class ScreenMia implements Screen {
                 if (main.screenSettings.On) {
                     main.screenStart.soundClick.play();
                 }
-                main.dbHelper.updateInformation(main.Id);
                 next = true;
                 main.screenHomeSearch.backPack.add(cluesObject6);
 
